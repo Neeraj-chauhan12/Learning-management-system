@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import { useRegisterMutation } from "../features/api/authApi";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -8,7 +9,17 @@ const Signup = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const [
+    register,
+    {
+      data: registerData,
+      error: registerError,
+      isLoading: registerLoading,
+      isSuccess: registerSuccess,
+    },
+  ] = useRegisterMutation();
+
+  const handleSubmit = async(e) => {
     e.preventDefault();
 
     const userData = {
@@ -16,7 +27,13 @@ const Signup = () => {
       email: email,
       password: password,
     };
-    console.log("userdata", userData);
+
+    const inputData=userData
+    const action=register;
+    await action(inputData)
+    console.log("action",action)
+    console.log("input data", inputData)
+    //console.log("userdata", userData);
   };
 
   return (
