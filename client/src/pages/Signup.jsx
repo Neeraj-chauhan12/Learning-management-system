@@ -34,6 +34,7 @@ const Signup = () => {
     const action=register;
     await action(inputData)
     console.log("input",userData)
+    
 
    
   };
