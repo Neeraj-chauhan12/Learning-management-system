@@ -1,12 +1,14 @@
-import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
 
-const USER_API="http://localhost:3000/api/users"
+import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
+import { Userlogin } from '../AuthSlice';
+
+const USER_API="http://localhost:3000/api/users/"
 
 export const authApi=createApi({
     reducerPath: 'authApi',
     baseQuery:fetchBaseQuery ({
         baseUrl: USER_API,
-        credentials:'include',
+       // credentials:'include',
     }),
     endpoints: (builder) => ({
         login: builder.mutation({
@@ -26,7 +28,7 @@ export const authApi=createApi({
             async onQueryStarted(arg,{dispatch, queryFulfilled, }) {
                 try {
                 const result=await queryFulfilled;
-                    dispatch({user:result.data.user})
+                    dispatch(Userlogin({user:result.data.user}))
                     
                 } catch (error) {
                     console.log(error.message)

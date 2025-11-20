@@ -9,15 +9,17 @@ const Signup = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+
   const [
     register,
     {
-      data: registerData,
-      error: registerError,
-      isLoading: registerLoading,
-      isSuccess: registerSuccess,
-    },
-  ] = useRegisterMutation();
+     data,
+     error,
+     isLoading,
+     isSuccess
+    }
+
+  ]=useRegisterMutation();
 
   const handleSubmit = async(e) => {
     e.preventDefault();
@@ -28,12 +30,12 @@ const Signup = () => {
       password: password,
     };
 
-    const inputData=userData
+    const inputData=userData;
     const action=register;
     await action(inputData)
-    console.log("action",action)
-    console.log("input data", inputData)
-    //console.log("userdata", userData);
+    console.log("input",userData)
+
+   
   };
 
   return (
