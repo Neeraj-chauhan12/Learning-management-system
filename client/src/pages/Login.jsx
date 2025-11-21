@@ -1,26 +1,56 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import { useLoginMutation } from "../features/api/authApi";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = (e) => {
+    const [
+      register,
+      {
+       data,
+       error,
+       isLoading,
+       isSuccess
+      }
+  
+    ]=useLoginMutation();
+
+  const handleSubmit = async(e) => {
     e.preventDefault();
 
     const userData = {
       email: email,
       password: password,
     };
-    console.log("userdata", userData);
+    try {
+          const inputData=userData;
+    const action=register;
+    await action(inputData)
+    toast.success(userData.message || "Login successfully")
+    console.log("input",userData)
+    setEmail(" ")
+    setPassword(" ")
+
+      
+    } catch (error) {
+
+      toast.error(userData.message || "login failed")
+      
+    }
+
+    
+    
   };
 
   return (
     <>
       <Navbar />
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-green-100 to-blue-200">
+      <div className="flex items-center px-5 justify-center min-h-screen bg-gradient-to-br from-green-100 to-blue-200">
         <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
           <h2 className="text-2xl font-bold mb-6 text-center text-blue-700">
             Login

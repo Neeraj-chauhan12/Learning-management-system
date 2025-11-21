@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { useRegisterMutation } from "../features/api/authApi";
+import toast from "react-hot-toast";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -23,17 +24,31 @@ const Signup = () => {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-
-    const userData = {
+         const userData = {
       username: username,
       email: email,
       password: password,
     };
 
+    try {
+   
+      
     const inputData=userData;
     const action=register;
     await action(inputData)
+    toast.success(inputData.message || "Signup succesfully ")
     console.log("input",userData)
+    setEmail(" ")
+    setPassword(" ")
+    setUsername(" ")
+    } catch (error) {
+
+      toast.error(userData.message || "error in signup")
+      
+    }
+
+  
+    
     
 
    
@@ -42,7 +57,7 @@ const Signup = () => {
   return (
     <>
       <Navbar />
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-100 to-purple-200">
+      <div className="flex items-center px-5 justify-center min-h-screen bg-gradient-to-br from-blue-100 to-purple-200">
         <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
           <h2 className="text-2xl font-bold mb-6 text-center text-purple-700">
             Sign Up
