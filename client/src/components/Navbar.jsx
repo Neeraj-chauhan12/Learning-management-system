@@ -18,7 +18,7 @@ const Navbar = () => {
     setShowSidebar(false);
   };
   return (
-    <nav className="w-full bg-gray-900 fixed top-0 left-0 right-0 py-4 px-8 flex items-center justify-between shadow-md">
+    <nav className="w-full bg-gray-900 fixed top-0 left-0 right-0 py-4 px-8 flex items-center z-10 justify-between shadow-md">
       <div className="text-2xl font-bold text-white flex gap-3 tracking-wide">
         <img
           className="md:h-16 md:w-16 h-7 w-7 rounded-full object-contain "
@@ -64,9 +64,9 @@ const Navbar = () => {
                 tabIndex="-1"
                 className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
               >
-                <Link to={"#"}>Profile</Link>
-                <Link to={"#"}>My Account</Link>
-                <Link to={"#"}>My learning</Link>
+               
+                <Link to={"/profile"}>My Account</Link>
+                <Link to={"/my-learning"}>My learning</Link>
                 <Link to={"#"}>Log out</Link>
                 <Link to={"#"}>Dashboard</Link>
               </div>
@@ -130,25 +130,26 @@ const Navbar = () => {
               ) : (
                 <>
                   <Link
-                    to="#"
+                    to="/profile"
                     className="block px-4 py-3 text-white hover:bg-gray-800 rounded transition duration-200"
                     onClick={closeSidebar}
                   >
-                    Profile
+                   My Account
+                  </Link>
+                  <Link
+                    to="/my-learning"
+                    className="block px-4 py-3 text-white hover:bg-gray-800 rounded transition duration-200"
+                    onClick={closeSidebar}
+                  >
+                   My learning
+                   
                   </Link>
                   <Link
                     to="#"
                     className="block px-4 py-3 text-white hover:bg-gray-800 rounded transition duration-200"
                     onClick={closeSidebar}
                   >
-                    My Account
-                  </Link>
-                  <Link
-                    to="#"
-                    className="block px-4 py-3 text-white hover:bg-gray-800 rounded transition duration-200"
-                    onClick={closeSidebar}
-                  >
-                    My Learning
+                    Log out
                   </Link>
                   <Link
                     to="#"
@@ -157,13 +158,7 @@ const Navbar = () => {
                   >
                     Dashboard
                   </Link>
-                  <Link
-                    to="#"
-                    className="block px-4 py-3 text-white hover:bg-gray-800 rounded transition duration-200"
-                    onClick={closeSidebar}
-                  >
-                    Log Out
-                  </Link>
+                 
                   <button className="w-full mt-4 text-2xl text-black bg-gray-300 rounded-full p-3 hover:bg-gray-400 transition">
                     <CiDark />
                   </button>

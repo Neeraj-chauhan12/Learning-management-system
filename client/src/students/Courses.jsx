@@ -1,11 +1,14 @@
 import React from "react";
 import Course from "./Course";
+import Navbar from "../components/Navbar";
 
 const Courses = () => {
   const isLoading = false;
   const courses=[5,6,4,5,6,5,4,6]
   return (
-    <div className="max-w-7xl bg-gray-50 mx-auto p-6">
+    <>
+  <Navbar />
+    <div className="max-w-7xl  bg-gray-50 mx-auto pt-20 p-6">
        <div className="flex justify-center items-center">
     <h1 className="text-3xl font-bold my-5" >Our Courses</h1>
        </div>
@@ -46,6 +49,7 @@ const Courses = () => {
      
         
     </div>
+    </>
   );
 };
 
