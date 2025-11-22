@@ -2,18 +2,18 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Course from "./Course";
 import Loading from "./Loading";
-import { useLoadUserQuery } from "../features/api/authApi";
+import { useLoadUserQuery, useUpdateUserMutation } from "../features/api/authApi";
+import toast from "react-hot-toast";
 
 const Profile = () => {
   const [model, setModel] = useState(false);
-  const [name, setName] = useState("Neeraj chauhan");
-  const [photoUrl, setPhotoUrl] = useState(
-    "https://img.daisyui.com/images/profile/demo/batperson@192.webp"
-  );
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [preview, setPreview] = useState(null);
+  const [username, setUserName] = useState("");
+  const [profilePhoto,setProfilePhoto]=useState("")
+ 
+  
 
   const {data,isLoading}=useLoadUserQuery();
+  const [updateUser,{data:updateUserData,isError:updateUserIsError,isLoading:updateUserIsLoading}]=useUpdateUserMutation();
   console.log("hello",data)
 
   const handlemodel = () => {
@@ -22,30 +22,33 @@ const Profile = () => {
 
   const closeModel = () => {
     setModel(false);
-    setSelectedFile(null);
-    setPreview(null);
+    
   };
 
   const handleFileChange = (e) => {
     const file = e.target.files && e.target.files[0];
     if (!file) return;
-    setSelectedFile(file);
-    const objectUrl = URL.createObjectURL(file);
-    setPreview(objectUrl);
+    setProfilePhoto(file);
+ 
   };
 
   useEffect(() => {
-    return () => {
-      if (preview) URL.revokeObjectURL(preview);
-    };
-  }, [preview]);
 
-  const handleSave = (e) => {
-    e.preventDefault();
-    if (selectedFile && preview) {
-      setPhotoUrl(preview);
-    }
-    setName((n) => (n.trim() === "" ? n : n));
+    // if(isSuccess){
+    //   toast.success(data.message || "profile updated")
+    // }
+     
+    // if(isError){
+    //   toast.error(data.message || "profile data not changed")
+    // }
+  }, [data,isLoading]);
+ 
+
+  const handleSave =async () => {
+   const formData=new formData();
+   formData.append("username", username);
+   formData.append("profilePhoto",profilePhoto)
+   await updateUser(formData)
     closeModel();
   };
 
@@ -64,7 +67,7 @@ const Profile = () => {
             
           <div className="avatar">
             <div className="w-36 rounded-full overflow-hidden">
-              <img src={photoUrl} alt="profile" />
+              <img src={data?.user?.photoUrl || "https://img.daisyui.com/images/profile/demo/batperson@192.webp"} alt="profile" />
             </div>
           </div>
 
@@ -113,8 +116,8 @@ const Profile = () => {
               </label>
               <input
                 type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={username}
+                onChange={(e) => setUserName(e.target.value)}
                 className="w-full px-3 py-2 border rounded mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-400"
               />
 
@@ -124,7 +127,7 @@ const Profile = () => {
               <div className="flex items-center gap-4 mb-4">
                 <div className="w-20 h-20 rounded-full overflow-hidden bg-gray-100 flex items-center justify-center">
                   <img
-                    src={preview || photoUrl}
+                    src={data?.user?.photoUrl || profilePhoto}
                     alt="preview"
                     className="w-full h-full object-cover"
                   />

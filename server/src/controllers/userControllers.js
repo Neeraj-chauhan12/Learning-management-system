@@ -89,27 +89,34 @@ exports.getProfile=async(req,res)=>{
 
 
 exports.updateProfile=async(req,res)=>{
-    const userId=req.user;
+    const userId=req.user.id;
+    const {username}=req.body;
+    const profilePhoto=req.file
     try {
 
-        if(userId.photoURL){
+        const user=await User.findById(userId);
+
+        if(!user){
+            return res.status(404).json({message:"user not found"})
+        }
+
+        if(user.photoURL){
             const publicId=user.photoURL.split("/").pop().split(".")[0]
             deleteMediaFromCloudinary(publicId);
         }
 
         //upload new photo
         const cloudResponse=await uploadMedia(profilePhoto.path)
-        const photoUrl=cloudResponse.secure_url;
-
-        const updateData={name,photoUrl};
-        const updatedUser=await User.findByIdAndUpdate(user,updateData,{new: true})
+        const photoURL=cloudResponse.secure_url;
+        const updateData={username,photoURL};
+        const updatedUser=await User.findByIdAndUpdate(userId,updateData,{new: true})
 
         return res.status(201).json({message:"profile updated succesully"})
 
         
     } catch (error) {
 
-          console.log("error in logout server",error)
+          console.log("error in profile update server",error)
         return res.status(500).json({message:"error in profile server",error})
         
         
