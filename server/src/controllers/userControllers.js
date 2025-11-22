@@ -100,18 +100,27 @@ exports.updateProfile=async(req,res)=>{
             return res.status(404).json({message:"user not found"})
         }
 
-        if(user.photoURL){
-            const publicId=user.photoURL.split("/").pop().split(".")[0]
-            deleteMediaFromCloudinary(publicId);
+        let updateData = { username };
+
+        // If a new profile photo was uploaded, delete old one and upload the new
+        if (profilePhoto) {
+            if (user.photoURL) {
+                const publicId = user.photoURL.split("/").pop().split(".")[0];
+                try {
+                    await deleteMediaFromCloudinary(publicId);
+                } catch (err) {
+                    console.warn('failed to delete previous image from cloudinary', err);
+                }
+            }
+
+            const cloudResponse = await uploadMedia(profilePhoto.path);
+            const photoURL = cloudResponse.secure_url;
+            updateData.photoURL = photoURL;
         }
 
-        //upload new photo
-        const cloudResponse=await uploadMedia(profilePhoto.path)
-        const photoURL=cloudResponse.secure_url;
-        const updateData={username,photoURL};
-        const updatedUser=await User.findByIdAndUpdate(userId,updateData,{new: true})
+        const updatedUser = await User.findByIdAndUpdate(userId, updateData, { new: true }).select("-password");
 
-        return res.status(201).json({message:"profile updated succesully"})
+        return res.status(200).json({ message: "profile updated successfully", user: updatedUser });
 
         
     } catch (error) {

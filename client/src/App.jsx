@@ -2,11 +2,13 @@ import React from 'react'
 import { BrowserRouter, Route, Router, Routes } from 'react-router-dom'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
-import  { ToastsContainer}      from 'react-hot-toast'
+
 import HeroSection from './students/HeroSection'
 import Courses from './students/Courses'
 import Profile from './students/Profile'
 import MyLearning from './students/MyLearning'
+
+import { ToastsContainer } from 'react-hot-toast'
 
 const App = () => {
   return (
@@ -18,7 +20,9 @@ const App = () => {
       <Route path='/my-learning' element={<MyLearning />} />
       <Route path='/login' element={<Login />} />
       <Route path='/signup' element={<Signup />} />
+      
     </Routes>
+   
     <ToastsContainer />
     </BrowserRouter>
     

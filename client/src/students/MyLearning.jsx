@@ -9,7 +9,7 @@ const MyLearning = () => {
   return (
     <>
     <Navbar />
-    <div className='max-w-screen bg-gray-50 pl-32'>
+    <div className='max-w-screen bg-gray-50 md:pl-32 p-3'>
         <h1 className='text-black text-3xl font-semibold mb-5 pt-24'>My Learning</h1>
 
       <div className=' flex flex-wrap gap-5'>
