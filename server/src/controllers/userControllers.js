@@ -1,6 +1,7 @@
 const User=require('../models/UserModel')
 const Bcrypt=require('bcrypt')
 const jwt=require('jsonwebtoken');
+const { deleteMediaFromCloudinary, uploadMedia } = require('../../utils/cloudinary');
 exports.Register=async(req,res)=>{
 
     const {username,email,password}=req.body;
@@ -80,6 +81,35 @@ exports.getProfile=async(req,res)=>{
         
     } catch (error) {
          console.log("error in logout server",error)
+        return res.status(500).json({message:"error in profile server",error})
+        
+        
+    }
+}
+
+
+exports.updateProfile=async(req,res)=>{
+    const userId=req.user;
+    try {
+
+        if(userId.photoURL){
+            const publicId=user.photoURL.split("/").pop().split(".")[0]
+            deleteMediaFromCloudinary(publicId);
+        }
+
+        //upload new photo
+        const cloudResponse=await uploadMedia(profilePhoto.path)
+        const photoUrl=cloudResponse.secure_url;
+
+        const updateData={name,photoUrl};
+        const updatedUser=await User.findByIdAndUpdate(user,updateData,{new: true})
+
+        return res.status(201).json({message:"profile updated succesully"})
+
+        
+    } catch (error) {
+
+          console.log("error in logout server",error)
         return res.status(500).json({message:"error in profile server",error})
         
         
