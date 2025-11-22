@@ -8,7 +8,7 @@ export const authApi=createApi({
     reducerPath: 'authApi',
     baseQuery:fetchBaseQuery ({
         baseUrl: USER_API,
-       // credentials:'include',
+        credentials:'include',
     }),
     endpoints: (builder) => ({
         login: builder.mutation({
@@ -36,10 +36,17 @@ export const authApi=createApi({
                 }
             }
         }),
+
+        loadUser:builder.query({
+            query:()=>({
+                url:"profile",
+                method:"GET"
+            })
+        })
         
     })
  
  
 })
 
-export const {useLoginMutation, useRegisterMutation} = authApi;
+export const {useLoginMutation, useLoadUserQuery, useRegisterMutation} = authApi;

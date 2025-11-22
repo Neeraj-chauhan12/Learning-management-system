@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { useLoginMutation } from "../features/api/authApi";
 import toast from "react-hot-toast";
@@ -20,6 +20,8 @@ const Login = () => {
   
     ]=useLoginMutation();
 
+    const navigate=useNavigate();
+
   const handleSubmit = async(e) => {
     e.preventDefault();
 
@@ -31,10 +33,10 @@ const Login = () => {
           const inputData=userData;
     const action=register;
     await action(inputData)
-    toast.success(userData.message || "Login successfully")
-    console.log("input",userData)
-    setEmail(" ")
-    setPassword(" ")
+    toast.success(userData?.message || "Login successfully")
+    navigate("/")
+    setEmail("")
+    setPassword("")
 
       
     } catch (error) {

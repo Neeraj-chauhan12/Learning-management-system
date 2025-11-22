@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { useRegisterMutation } from "../features/api/authApi";
 import toast from "react-hot-toast";
@@ -22,6 +22,8 @@ const Signup = () => {
 
   ]=useRegisterMutation();
 
+  const navigate=useNavigate();
+
   const handleSubmit = async(e) => {
     e.preventDefault();
          const userData = {
@@ -36,14 +38,14 @@ const Signup = () => {
     const inputData=userData;
     const action=register;
     await action(inputData)
-    toast.success(inputData.message || "Signup succesfully ")
-    console.log("input",userData)
-    setEmail(" ")
-    setPassword(" ")
-    setUsername(" ")
+    toast.success(inputData?.message || "Signup succesfully ")
+    navigate("/")
+    setEmail("")
+    setPassword("")
+    setUsername("")
     } catch (error) {
-
-      toast.error(userData.message || "error in signup")
+      
+      toast.error(userData?.message || "error in signup")
       
     }
 
@@ -120,7 +122,7 @@ const Signup = () => {
           </form>
           <div className="mt-4 text-center">
             <span className="text-gray-600">Already have an account? </span>
-            <Link to="/" className="text-purple-600 hover:underline">
+            <Link to="/login" className="text-purple-600 hover:underline">
               Login
             </Link>
           </div>

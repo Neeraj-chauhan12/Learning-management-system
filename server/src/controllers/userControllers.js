@@ -26,7 +26,7 @@ exports.Register=async(req,res)=>{
 
     } catch (error) {
         console.log("error in registration server",error)
-        return res.status(500).json({error:"error in registration server"})
+        return res.status(500).json({message:"error in registration server"})
         
     }
 
@@ -54,7 +54,7 @@ exports.Login=async(req,res)=>{
 
     } catch (error) {
         console.log("error in registration server",error)
-        return res.status(500).json({error:"error in registration server"})
+        return res.status(500).json({message:"error in registration server"})
         
         
     }
@@ -67,7 +67,21 @@ exports.logout=async(req,res)=>{
         
     } catch (error) {
         console.log("error in logout server",error)
-        return res.status(500).json({error:"error in logout server"})
+        return res.status(500).json({message:"error in logout server"})
+        
+    }
+}
+
+exports.getProfile=async(req,res)=>{
+    const userId=req.user.id;
+    try {
+        const user=await User.findById(userId).select("-password")
+        res.status(201).json({message:"user profile",user})
+        
+    } catch (error) {
+         console.log("error in logout server",error)
+        return res.status(500).json({message:"error in profile server",error})
+        
         
     }
 }

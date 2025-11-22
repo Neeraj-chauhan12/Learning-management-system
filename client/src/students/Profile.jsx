@@ -2,16 +2,19 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Course from "./Course";
 import Loading from "./Loading";
+import { useLoadUserQuery } from "../features/api/authApi";
 
 const Profile = () => {
   const [model, setModel] = useState(false);
   const [name, setName] = useState("Neeraj chauhan");
-  const [email] = useState("nc16763@gmail.com");
   const [photoUrl, setPhotoUrl] = useState(
     "https://img.daisyui.com/images/profile/demo/batperson@192.webp"
   );
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(null);
+
+  const {data,isLoading}=useLoadUserQuery();
+  console.log("hello",data)
 
   const handlemodel = () => {
     setModel(true);
@@ -47,14 +50,14 @@ const Profile = () => {
   };
 
   const courses = [1,2,3,5,5];
-  const isLoading=true
+ // const isLoading=true
 
   return (
     <>
       <Navbar />
-      <div className="w-screen pl-48 bg-gray-100">
-       <h1 className="text-4xl pt-28 ml-7 mb-3 font-bold text-black">Profile</h1>
-        <div className=" text-black flex gap-6 items-center">
+      <div className="w-screen md:pl-48 bg-gray-100">
+       <h1 className="text-4xl pt-28 ml-7 mb-3 font-bold text-center text-black">Profile</h1>
+        <div className=" text-black flex md:flex-row flex-col gap-6 items-center">
 
            
            
@@ -66,12 +69,12 @@ const Profile = () => {
           </div>
 
           <div>
-            <h1 className="text-black text-2xl">Name: {name}</h1>
-            <h1 className="text-black text-2xl">Email: {email}</h1>
-            <h1 className="text-black text-2xl">Role: INSTRUCTOR</h1>
+            <h1 className="text-black text-2xl">Name: {data?.user?.username}</h1>
+            <h1 className="text-black text-2xl">Email: {data?.user?.email}</h1>
+            <h1 className="text-black text-2xl">Role: {data?.user?.role}</h1>
             <button
               onClick={handlemodel}
-              className="bg-green-500 mt-2 px-3 py-2 rounded-2xl text-white"
+              className="bg-black border-2 border-gray-800 mt-2 px-3 py-2 rounded-2xl text-white"
             >
               Edit profile
             </button>
@@ -82,10 +85,9 @@ const Profile = () => {
           <h1 className="text-3xl my-5">Your courses</h1>
           <div className="flex flex-wrap gap-5">
             {
-                isLoading?(<Loading />):
-               courses.length === 0
-              ? "you have not enroll yet"
-              : courses.map((_, id) => <Course key={id} />)}
+               data?.user?.enrollCourse.length===0
+              ? <p className="text-black  text-2xl">you have not enroll yet</p>
+              : data?.user?.enrollCourse?.map((course) => <Course course={course} key={data?.user?._id} />)}
           </div>
         </div>
 

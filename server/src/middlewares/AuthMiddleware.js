@@ -1,6 +1,6 @@
 const jwt=require('jsonwebtoken');
 exports.AuthMiddleware=async(req,res,next)=>{
-   const token=req.Cookies.token;
+   const token=req.cookies.token;
    if(!token){
        return res.status(401).json({message:"unauthorized access"})
    }
