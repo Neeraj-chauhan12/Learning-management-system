@@ -17,7 +17,7 @@ const Profile = () => {
   console.log("hello",data)
 
   const handlemodel = () => {
-    setModel(true);
+    setModel(true)
   };
 
   const closeModel = () => {
