@@ -23,7 +23,7 @@ const App = () => {
       
     </Routes>
    
-    <ToastsContainer />
+    <ToastsContainer position='bottom-right'  />
     </BrowserRouter>
     
   )

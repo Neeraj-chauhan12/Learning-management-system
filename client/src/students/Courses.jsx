@@ -1,10 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Course from "./Course";
 import Navbar from "../components/Navbar";
+import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 
 const Courses = () => {
   const isLoading = false;
   const courses=[5,6,4,5,6,5,4,6]
+
+  const location=useLocation();
+  //const {user,isAuthenticated}=useSelector(state=>state.auth)
+   useEffect(()=>{
+     if(location.pathname==="/"){
+      console.log("home page")
+     }
+   },[location.pathname])
+ 
+  
   return (
     <>
   <Navbar />

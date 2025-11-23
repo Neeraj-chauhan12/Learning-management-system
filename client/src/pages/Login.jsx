@@ -9,20 +9,11 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-    const [
-      register,
-      {
-       data,
-       error,
-       isLoading,
-       isSuccess
-      }
-  
-    ]=useLoginMutation();
+  const [register, { data, error, isLoading, isSuccess }] = useLoginMutation();
 
-    const navigate=useNavigate();
+  const navigate = useNavigate();
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const userData = {
@@ -30,23 +21,17 @@ const Login = () => {
       password: password,
     };
     try {
-          const inputData=userData;
-    const action=register;
-    await action(inputData)
-    toast.success(userData?.message || "Login successfully")
-    navigate("/")
-    setEmail("")
-    setPassword("")
-
+      const inputData = userData;
+      const action = register;
+      await action(inputData);
+      toast.success(userData?.message || "Login successfully");
       
+      navigate("/");
+      setEmail("");
+      setPassword("");
     } catch (error) {
-
-      toast.error(userData.message || "login failed")
-      
+      toast.error(userData.message || "login failed");
     }
-
-    
-    
   };
 
   return (

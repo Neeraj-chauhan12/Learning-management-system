@@ -7,7 +7,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-const UpdateProfile = ({ setModel }) => {
+const UpdateProfile = ({ setModel,refetch }) => {
   const [username, setUserName] = useState("");
   const [profilePhoto, setProfilePhoto] = useState("");
   //const [model, setModel] = useState(false);
@@ -41,6 +41,7 @@ const UpdateProfile = ({ setModel }) => {
     }
     
     closeModel();
+    refetch();
   };
 
   return (

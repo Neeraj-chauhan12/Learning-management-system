@@ -11,7 +11,7 @@ const Profile = () => {
   const [model, setModel] = useState(false);
   const [username, setUserName] = useState("");
 
-  const { data, isLoading } = useLoadUserQuery();
+  const { data, isLoading,refetch } = useLoadUserQuery();
 
   const handlemodel = () => {
     setModel(true);
@@ -69,7 +69,7 @@ const Profile = () => {
         </div>
 
         {/* Modal */}
-        {model && <UpdateProfile setModel={setModel} />}
+        {model && <UpdateProfile setModel={setModel} refetch={refetch} />}
       </div>
     </>
   );
