@@ -4,6 +4,7 @@ const dotenv=require("dotenv");
 const connectDB = require('./src/mdconnection/mongoConnection');
 const cors = require('cors');
 const userRoute=require('./src/routes/userRoutes');
+const courseRoute=require('./src/routes/courseRouter')
 const cookieParser=require('cookie-parser');
 dotenv.config()
 
@@ -26,6 +27,7 @@ const PORT=process.env.PORT || 5000
 
 // routes
 app.use('/api/users', userRoute);
+app.use('/api/create',courseRoute)
 
 // connect to mongodb   
 connectDB();

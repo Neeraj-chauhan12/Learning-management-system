@@ -20,7 +20,7 @@ const Courses = () => {
   return (
     <>
   <Navbar />
-    <div className="max-w-7xl  bg-gray-50 mx-auto pt-20 p-6">
+    <div className="max-w-7xl  bg-gray-50 mx-auto pt-14 p-6">
        <div className="flex justify-center items-center">
     <h1 className="text-3xl font-bold my-5" >Our Courses</h1>
        </div>

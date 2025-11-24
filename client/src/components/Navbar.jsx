@@ -76,11 +76,11 @@ const Navbar = () => {
                 tabIndex="-1"
                 className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
               >
-                <Link to={"/profile"}>My Account</Link>
-                <Link to={"/my-learning"}>My learning</Link>
-                <Link onClick={handleLogout}>Log out</Link>
-                {user?.role === "intructor" ? (
-                  <Link to={"#"}>Dashboard</Link>
+                <Link className="text-sm border-b border-gray-400 pb-1 font-extralight " to={"/profile"}>My Account</Link>
+                <Link className="text-sm border-b border-gray-400 pb-1 font-extralight " to={"/my-learning"}>My learning</Link>
+                <Link className="text-sm border-b border-gray-400 pb-1 font-extralight " onClick={handleLogout}>Log out</Link>
+                {user?.role === "instructor" ? (
+                  <Link className="text-sm border-b flex justify-center items-center rounded-2xl mt-2 border-gray-400 px-5 py-2 font-bold bg-gradient-to-r from-blue-600 to bg-indigo-500" to={"#"}>Dashboard</Link>
                 ) : (
                   ""
                 )}
