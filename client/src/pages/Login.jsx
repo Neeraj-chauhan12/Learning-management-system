@@ -8,10 +8,9 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
-  const [register, { data, error, isLoading, isSuccess }] = useLoginMutation();
-
   const navigate = useNavigate();
+
+  const [login] = useLoginMutation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,17 +19,19 @@ const Login = () => {
       email: email,
       password: password,
     };
+
     try {
-      const inputData = userData;
-      const action = register;
-      await action(inputData);
-      toast.success(userData?.message || "Login successfully");
       
+      const result = await login(userData).unwrap();
+      // server returns { message, user, token }
+      toast.success(result?.message || "Login successful");
       navigate("/");
       setEmail("");
       setPassword("");
-    } catch (error) {
-      toast.error(userData.message || "login failed");
+    } catch (err) {
+      // RTK Query errors can be in err.data.message or err.error
+      const msg = err?.data?.message || err?.error || "Login failed";
+      toast.error(msg);
     }
   };
 

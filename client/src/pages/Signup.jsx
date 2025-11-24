@@ -10,50 +10,32 @@ const Signup = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const [register, { data, error, isLoading, isSuccess }] =
+    useRegisterMutation();
 
-  const [
-    register,
-    {
-     data,
-     error,
-     isLoading,
-     isSuccess
-    }
+  const navigate = useNavigate();
 
-  ]=useRegisterMutation();
-
-  const navigate=useNavigate();
-
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-         const userData = {
+    const userData = {
       username: username,
       email: email,
       password: password,
     };
 
     try {
-   
-      
-    const inputData=userData;
-    const action=register;
-    await action(inputData)
-    toast.success(inputData?.message || "Signup succesfully ")
-    navigate("/")
-    setEmail("")
-    setPassword("")
-    setUsername("")
-    } catch (error) {
-      
-      toast.error(userData?.message || "error in signup")
-      
+      const result = await register(userData).unwrap();
+      // server returns { message, user, token }
+      toast.success(result?.message || "Signup successful");
+      navigate("/");
+      setEmail("");
+      setUsername("");
+      setPassword("");
+    } catch (err) {
+      // RTK Query errors can be in err.data.message or err.error
+      const msg = err?.data?.message || err?.error || "Signup failed";
+      toast.error(msg);
     }
-
-  
-    
-    
-
-   
   };
 
   return (

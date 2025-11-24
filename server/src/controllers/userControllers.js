@@ -13,7 +13,7 @@ exports.Register=async(req,res)=>{
 
         const existUser=await User.findOne({email});
         if(existUser){
-            return res.status(400).json({message:"user already axists"});
+            return res.status(400).json({message:"user already axists please login not signup go login page "});
         }
 
       const hashPassword=await Bcrypt.hash(password,10);

@@ -76,11 +76,11 @@ const Navbar = () => {
                 tabIndex="-1"
                 className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
               >
-                <Link className="text-sm border-b border-gray-400 pb-1 font-extralight " to={"/profile"}>My Account</Link>
-                <Link className="text-sm border-b border-gray-400 pb-1 font-extralight " to={"/my-learning"}>My learning</Link>
-                <Link className="text-sm border-b border-gray-400 pb-1 font-extralight " onClick={handleLogout}>Log out</Link>
+                <Link className="text-sm   font-extralight " to={"/profile"}><button className="btn w-full rounded-2xl btn-outline btn-success">My Account</button></Link>
+                <Link className="text-sm mt-2 font-extralight " to={"/my-learning"}><button className="btn w-full rounded-2xl btn-outline btn-success">My Learning</button></Link>
+                <Link className="text-sm mt-2  font-extralight " onClick={handleLogout}><button className="btn w-full btn-outline rounded-2xl btn-error">Logout</button></Link>
                 {user?.role === "instructor" ? (
-                  <Link className="text-sm border-b flex justify-center items-center rounded-2xl mt-2 border-gray-400 px-5 py-2 font-bold bg-gradient-to-r from-blue-600 to bg-indigo-500" to={"#"}>Dashboard</Link>
+                  <Link to={'/dashboard'} className="text-sm mt-2 font-extralight"><button className="btn btn-outline w-full rounded-2xl btn-primary">Dashboard</button></Link>
                 ) : (
                   ""
                 )}

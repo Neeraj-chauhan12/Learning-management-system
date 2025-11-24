@@ -7,6 +7,7 @@ import Profile from './students/Profile'
 import MyLearning from './students/MyLearning'
 
 import { ToastsContainer } from 'react-hot-toast'
+import Dashboard from './admin/Dashboard'
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
       <Route path='/my-learning' element={<MyLearning />} />
       <Route path='/login' element={<Login />} />
       <Route path='/signup' element={<Signup />} />
+      <Route path='/dashboard' element={<Dashboard />} />
     </Routes>
    
     <ToastsContainer position='bottom-right'  />

@@ -16,6 +16,14 @@ export const authApi = createApi({
         method: "POST",
         body: inputData,
       }),
+        async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        try {
+          const result = await queryFulfilled;
+          dispatch(Userlogin({ user: result.data.user }));
+        } catch (error) {
+          console.log(error.message);
+        }
+      },
     }),
 
     register: builder.mutation({
@@ -24,14 +32,7 @@ export const authApi = createApi({
         method: "POST",
         body: inputData,
       }),
-      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
-        try {
-          const result = await queryFulfilled;
-          dispatch(Userlogin({ user: result.data.user }));
-        } catch (error) {
-          console.log(error.message);
-        }
-      },
+     
     }),
 
     loadUser: builder.query({
