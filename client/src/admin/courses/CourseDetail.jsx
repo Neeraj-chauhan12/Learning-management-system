@@ -43,7 +43,7 @@ const CourseDetail = () => {
     <div className='w-[80vw] h-screen bg-gray-200 pt-24 px-16'>
 
         <div>
-            <Link><button className="btn px-7 py-2 flex gap-2 items-center rounded-2xl btn-neutral"><IoMdAdd />Course Create</button></Link>
+            <Link to={"/create"}><button className="btn px-7 py-2 flex gap-2 items-center rounded-2xl btn-neutral"><IoMdAdd />Course Create</button></Link>
         </div>
          
          <div className='flex mt-3 justify-between items-center'>
