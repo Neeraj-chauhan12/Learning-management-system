@@ -24,3 +24,21 @@ exports.Create=async(req,res)=>{
         return res.status(500).json({message:"Failed to create course"})        
     }
 }
+
+exports.getCourseByAdmin=async(req,res)=>{
+    try {
+        const userId=req.user.id;
+
+        const courses=await CourseModel.find({creator:userId})
+        if(!courses){
+            return res.status(400).json({message:"Course is not found"})
+        }
+
+        res.status(201).json({message:"Course found successfully!",courses})
+        
+    } catch (error) {
+        console.log("error",error)
+        return res.status(500).json({message:"Failed to create course"})    
+        
+    }
+}

@@ -27,7 +27,7 @@ const PORT=process.env.PORT || 5000
 
 // routes
 app.use('/api/users', userRoute);
-app.use('/api/create',courseRoute)
+app.use('/api/course',courseRoute)
 
 // connect to mongodb   
 connectDB();
