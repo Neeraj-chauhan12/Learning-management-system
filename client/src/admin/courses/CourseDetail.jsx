@@ -44,10 +44,10 @@ const CourseDetail = () => {
               </h1>
               <h1 className="w-[20vw]">
                 {!data.Action ? (
-                  <button className="flex items-center gap-2">
+                  <Link to={`/edit/${data._id}`} className="flex items-center gap-2">
                     <FaRegEdit />
                     Edit
-                  </button>
+                  </Link>
                 ) : (
                   ""
                 )}
