@@ -5,6 +5,7 @@ const COURSE_API="http://localhost:3000/api/course/"
 
 export const courseApi=createApi({
     reducerPath:"courseApi",
+    tagTypes:["Refetch-course"],
     baseQuery:fetchBaseQuery({
         baseUrl:COURSE_API,
         credentials:'include'
@@ -16,13 +17,15 @@ export const courseApi=createApi({
                 url:"",
                 method:"POST",
                 body:inputData
-            })
+            }),
+            invalidatesTags:["Refetch-course"],
         }),
          courseGet:builder.query({
             query:()=>({
                 url:"get",
                 method:"GET",   
-            })
+            }),
+            providesTags:["Refetch-course"]
         }),
 
     })

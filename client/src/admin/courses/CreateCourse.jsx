@@ -15,7 +15,7 @@ const CreateCourse = () => {
     description: "",
     coursePrice: "",
     category: "development",
-    courseLevel: "beginner",
+    courseLevel: "Beginner",
   });
 
   const [courseCreate] = useCourseCreateMutation();
@@ -48,16 +48,7 @@ const CreateCourse = () => {
     setLoading(true);
 
     try {
-      // Create FormData for file upload
-      const fd = new FormData();
-      fd.append("courseTitle", formData.courseTitle);
-      fd.append("description", formData.description);
-      fd.append("coursePrice", formData.coursePrice);
-      fd.append("category", formData.category);
-      fd.append("courseLevel", formData.courseLevel);
-
-      console.log("Form Data:", formData);
-
+      // Send JSON payload (server expects JSON). courseController will normalize and cast types.
       const result = await courseCreate(formData).unwrap();
       toast.success(result?.message || "Course created successfully!");
       navigate("/dashboard");
@@ -160,10 +151,15 @@ const CreateCourse = () => {
                     className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition bg-white"
                   >
                     <option value="development">Development</option>
-                    <option value="design">Design</option>
-                    <option value="business">Business</option>
-                    <option value="marketing">Marketing</option>
-                    <option value="data-science">Data Science</option>
+                    <option value="Dsa">Dsa</option>
+                    <option value="Javascript">Javascript</option>
+                    <option value="Mongodb">Mongodb</option>
+                    <option value="full-stack">Full-stack</option>
+                    <option value="Java">Java</option>
+                    
+                    <option value="React js">React js</option>
+                    <option value="C & C++">C & C++</option>
+                    <option value="Next js">Next js</option>
                   </select>
                 </div>
 
