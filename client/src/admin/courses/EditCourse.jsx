@@ -3,12 +3,13 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import { AiOutlineClose } from "react-icons/ai";
 import { MdCloudUpload } from "react-icons/md";
-import { useCourseGetQuery } from "../../features/api/courseApi";
+import { useCourseGetQuery, useEditCoursesMutation } from "../../features/api/courseApi";
 
 const EditCourse = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { data } = useCourseGetQuery();
+  const [EditCourses]=useEditCoursesMutation();
 
   const existing = useMemo(() => {
     const list = data?.courses || [];
@@ -27,6 +28,7 @@ const EditCourse = () => {
   const [preview, setPreview] = useState(null);
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
+  console.log("course id:",id)
 
   useEffect(() => {
     if (existing && Object.keys(existing).length > 0) {
@@ -88,7 +90,10 @@ const EditCourse = () => {
       fd.append("category", formData.category);
       fd.append("courseLevel", formData.courseLevel);
       if (file) fd.append("thumbnail", file);
-      console.log("updated course:", formData);
+      
+      await EditCourses({courseId:id,formData}).unwrap();
+      
+      
 
       // Example: await updateCourse({id, body: fd}).unwrap()
       toast.success("Course updated successfully");
@@ -100,6 +105,8 @@ const EditCourse = () => {
       setLoading(false);
     }
   };
+
+  const isPublish=true;
 
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
@@ -130,7 +137,10 @@ const EditCourse = () => {
 
               <div className="flex gap-2">
                 <button className="btn text-sm btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl">
-                  Publish
+                  {
+                    !isPublish?<p>Publish</p>:<p>Pending</p>
+                  }
+                  
                 </button>
                 <button className="btn  text-sm btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl">
                   Remove Course
