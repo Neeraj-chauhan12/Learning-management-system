@@ -23,35 +23,51 @@ const CourseDetail = () => {
         </div>
 
         <div className="flex mt-3  ">
-          <h1 className="text-2xl w-[20vw] font-bold">Title</h1>
-          <h1 className="text-2xl w-[20vw] font-bold">Price</h1>
-          <h1 className="text-2xl w-[20vw] font-bold">Status</h1>
-          <h1 className="text-2xl w-[20vw] font-bold">Action</h1>
+          <h1 className="text-2xl w-[15vw] font-bold">Title</h1>
+          <h1 className="text-2xl w-[15vw] font-bold">Price</h1>
+          <h1 className="text-2xl w-[15vw] font-bold">Status</h1>
+          <h1 className="text-2xl w-[15vw] font-bold">Action</h1>
+          <h1 className="text-2xl w-[15vw] font-bold">Lectures</h1>
+
         </div>
         <div className=" ">
           {data?.courses?.map((data) => (
             <div className="flex my-2 " key={data._id}>
-              <h1 className="w-[20vw] ">{data.courseTitle}</h1>
-              <h1 className="w-[20vw]">
+              <h1 className="w-[15vw] ">{data.courseTitle}</h1>
+              <h1 className="w-[15vw]">
                 {data.coursePrice ? data?.coursePrice : <p>NA</p>}
               </h1>
-              <h1 className="w-[20vw]">
+              <h1 className="w-[15vw] ">
                 {data.Status ? (
                   <button className="btn btn-success">Success</button>
                 ) : (
                   <button className="btn btn-soft bg-gray-600 text-white">Default</button>
                 )}
               </h1>
-              <h1 className="w-[20vw]">
-                {!data.Action ? (
-                  <Link to={`/edit/${data._id}`} className="flex items-center gap-2">
-                    <FaRegEdit />
-                    Edit
-                  </Link>
-                ) : (
-                  ""
-                )}
+              <h1 className="w-[15vw] ">
+                <div className="flex items-center gap-3">
+                  {!data.Action ? (
+                    <Link to={`/edit/${data._id}`} className="flex items-center gap-2">
+                      <FaRegEdit />
+                      Edit
+                    </Link>
+                  ) : (
+                    ""
+                  )}
+
+                
+                
+
+                  
+                  
+                </div>
               </h1>
+
+                <div className="w-[15vw] ">
+                      <Link to={`/create-lecture/${data._id}`} className="btn btn-sm  btn-outline">
+                    Go To Lecture
+                  </Link>
+                  </div>
             </div>
           ))}
         </div>

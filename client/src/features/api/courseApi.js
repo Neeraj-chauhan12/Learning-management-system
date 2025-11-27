@@ -34,10 +34,26 @@ export const courseApi=createApi({
                 body:formData
             }),
             invalidatesTags:["Refetch-course"],
+        }),
+
+        CreateLecture:builder.mutation({
+          query:({lectureTitle,courseId})=>({
+            url:`${courseId}/lecture`,
+            method:"POST",
+            body:{lectureTitle}
+          })
+        }),
+
+        getLecture:builder.query({
+          query:(courseId)=>({
+            url:`${courseId}/lecture`,
+            method:"GET",
+            
+          })
         })
 
     })
 })
 
 
-export const {useCourseCreateMutation,useEditCoursesMutation,useCourseGetQuery}=courseApi;
+export const {useCourseCreateMutation,useGetLectureQuery,useCreateLectureMutation,useEditCoursesMutation,useCourseGetQuery}=courseApi;

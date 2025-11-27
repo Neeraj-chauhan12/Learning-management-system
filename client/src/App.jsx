@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Route, Router, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Home from './pages/Home'
@@ -10,6 +10,7 @@ import { ToastsContainer } from 'react-hot-toast'
 import Dashboard from './admin/Dashboard'
 import CreateCourse from './admin/courses/CreateCourse'
 import EditCourse from './admin/courses/EditCourse'
+import CreateLectures from './admin/lectures/CreateLectures'
 
 const App = () => {
   return (
@@ -23,6 +24,9 @@ const App = () => {
       <Route path='/dashboard' element={<Dashboard />} />
       <Route path='/create' element={<CreateCourse />}/>
       <Route path='/edit/:id' element={<EditCourse />}/>
+      {/* <Route path='/edit/:id/lecture' element={<CreateLecture />}/> */}
+      <Route path='/create-lecture/:courseId' element={<CreateLectures />}/>
+
     </Routes>
    
     <ToastsContainer position='bottom-right'  />

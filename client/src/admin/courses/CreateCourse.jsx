@@ -198,6 +198,7 @@ const CreateCourse = () => {
 
               <button
                 type="button"
+                onClick={()=>{navigate('/dashboard')}}
                 className="flex-1 py-3 px-6 rounded-lg font-semibold text-gray-700 border-2 border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition"
               >
                 Cancel

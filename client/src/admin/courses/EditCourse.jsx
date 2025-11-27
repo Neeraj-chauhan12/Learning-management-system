@@ -122,7 +122,7 @@ const EditCourse = () => {
               <h1 className="text-2xl font-bold">
                 Add detail information regarding course
               </h1>
-              <Link className="btn text-sm btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl">
+              <Link to={`/create-lecture/${id}`} className="btn text-sm btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl">
                 Go to lecture page
               </Link>
             </div>

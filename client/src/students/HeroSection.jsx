@@ -17,7 +17,7 @@ const HeroSection = () => {
             </form>
 
             <div>
-            <button className='px-8 py-3 border-none  font-bold mt-5 bg-white text-gray-500 rounded-2xl'><Link>Explore Courses</Link></button>
+            <button className='px-8 py-3 border-none  font-bold mt-5 bg-white text-gray-500 rounded-2xl'><Link to={'/'}>Explore Courses</Link></button>
             </div>
 
         </div>

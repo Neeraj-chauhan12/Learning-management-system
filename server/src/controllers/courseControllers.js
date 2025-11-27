@@ -96,3 +96,8 @@ exports.updateCourse=async(req,res)=>{
     
 
 }
+
+exports.deleteCourse=async(req,res)=>{
+    
+}
+
