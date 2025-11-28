@@ -12,7 +12,7 @@ const CreateLectures = () => {
   const navigate = useNavigate();
 
   const [CreateLecture] = useCreateLectureMutation();
-  const { data,isLoading,isError } = useGetLectureQuery(courseId);
+  const { data,isLoading,isError ,refetch} = useGetLectureQuery(courseId);
   console.log("get lecutres", data);
 
   const [loading, setLoading] = useState(false);
@@ -26,6 +26,7 @@ const CreateLectures = () => {
       console.log("lectureTitle,", lectureTitle);
       await CreateLecture({ lectureTitle, courseId }).unwrap();
       toast.success("Lecture created (mock)");
+      refetch()
       setTitle("");
     } catch (err) {
       console.error(err);
@@ -81,7 +82,7 @@ const CreateLectures = () => {
 
       {/* lecture data */}
 
-     <div className="mt-10">
+     <div className="mt-10 px-44">
       {
         isLoading?(
         <p>Loading lectures</p>):
