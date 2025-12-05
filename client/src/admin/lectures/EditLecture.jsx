@@ -4,11 +4,13 @@ import toast from 'react-hot-toast'
 import { MdCloudUpload } from 'react-icons/md'
 import { AiOutlineClose } from 'react-icons/ai'
 import axios from 'axios'
+import { useEditLectureMutation, useRemoveLectureQuery } from '../../features/api/courseApi'
 
 const EditLecture = () => {
   const { lectureId } = useParams()
+  const {courseId}=useParams()
   const navigate = useNavigate()
-  const [title,setTitle]=useState("");
+  const [lectureTitle,setTitle]=useState("");
   const [uploadVideo,setUploadVideo]=useState(null);
   const [isFree,setIsFree]=useState(false);
   const [mediaProgress,setMediaProgess]=useState(false);
@@ -35,6 +37,12 @@ const EditLecture = () => {
 //       videoUrl: '',
 //     }
 //   }, [lectureId])
+
+const [editLecture]=useEditLectureMutation();
+
+const handleUpdateLecture=async()=>{
+  await editLecture({lectureTitle,videoInfo:uploadVideo,isPreviewFree:isFree,courseId,lectureId})
+}
 
  
 
@@ -84,11 +92,11 @@ const EditLecture = () => {
 
 
 
-  const handleRemoveCourse = () => {
-    if (window.confirm('Remove this lecture from the course?')) {
-      toast.success('Lecture removed from course')
-      // TODO: call backend API to remove lecture from course
-    }
+  const {removeLecture}=useRemoveLectureQuery()
+  const handleRemoveCourse = async() => {
+    await removeLecture(lectureId)
+    toast.success('Lecture removed from course')
+   
   }
 
 //   const handleSubmit = async (e) => {
@@ -134,7 +142,7 @@ const EditLecture = () => {
               <input
                 type="text"
                 name="title"
-                value={title}
+                value={lectureTitle}
                 onChange={(e)=>{setTitle(e.target.value)}}
                 placeholder="Enter lecture title"
                 className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition"
@@ -198,6 +206,7 @@ const EditLecture = () => {
             <div className="flex gap-3 pt-6">
               <button
                 type="submit"
+                onClick={handleUpdateLecture}
                 disabled={loading}
                 className={`flex-1 py-3 px-6 rounded-lg font-semibold text-white transition ${
                   loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600'
