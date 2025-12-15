@@ -2,6 +2,11 @@ const { uploadMedia } = require("../../utils/cloudinary")
 
 exports.UploadVedio=async(req,res)=>{
     try {
+        console.log("file",req.file)
+
+        if(!req.file || !req.file.mimetype.startsWith("video/")){
+            return  res.status(400).json({message:"please upload a valid video file"})
+        }
 
         const result=await uploadMedia(req.file.path);
         res.status(200).json({success:true,message:"File uploaded successfully",data:result})

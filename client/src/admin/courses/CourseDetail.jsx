@@ -64,7 +64,7 @@ const CourseDetail = () => {
               </h1>
 
                 <div className="w-[15vw] ">
-                      <Link to={`/create-lecture/${data._id}`} className="btn btn-sm  btn-outline">
+                      <Link to={`/course/${data._id}/lecture/create`} className="btn btn-sm  btn-outline">
                     Go To Lecture
                   </Link>
                   </div>

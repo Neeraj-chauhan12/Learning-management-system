@@ -91,7 +91,7 @@ const CreateLectures = () => {
         
         (
           data.lectures.map((lecture,index)=>(
-            <Lecture key={lecture._id} lecture={lecture} index={index} />
+            <Lecture key={lecture._id} lecture={lecture} courseId={courseId} index={index} />
 
           ))
         

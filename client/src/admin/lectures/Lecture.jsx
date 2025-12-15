@@ -10,7 +10,7 @@ const Lecture = ({lecture,courseId,index}) => {
         <h1 className='text-2xl font-bold'>Lecture: {index+1} {lecture?.lectureTitle}</h1>
         </div>
        
-       <Link to={`/edit-lecture/${lecture?._id}`} className='text-2xl text-blue-600 hover:text-blue-800 cursor-pointer'>
+       <Link to={`/course/${courseId}/lecture/${lecture?._id}/edit`} className='text-2xl text-blue-600 hover:text-blue-800 cursor-pointer'>
         <FaEdit />
        </Link>
        

@@ -4,13 +4,11 @@ import toast from 'react-hot-toast'
 import { MdCloudUpload } from 'react-icons/md'
 import { AiOutlineClose } from 'react-icons/ai'
 import axios from 'axios'
-import { useEditLectureMutation, useRemoveLectureQuery } from '../../features/api/courseApi'
 
 const EditLecture = () => {
-  const { lectureId } = useParams()
-  const {courseId}=useParams()
+  const { lectureId, courseId } = useParams()
   const navigate = useNavigate()
-  const [lectureTitle,setTitle]=useState("");
+  const [title,setTitle]=useState("");
   const [uploadVideo,setUploadVideo]=useState(null);
   const [isFree,setIsFree]=useState(false);
   const [mediaProgress,setMediaProgess]=useState(false);
@@ -20,34 +18,8 @@ const EditLecture = () => {
  
 
   const MEDIA_API="http://localhost:3000/api/video-upload"
-
-
-
-
  
   const [videoPreview, setVideoPreview] = useState(null)
-
-  // Mock: fetch lecture by lectureId (replace with API call)
-//   const mockLecture = useMemo(() => {
-//     if (!lectureId) return null
-//     return {
-//       _id: lectureId,
-//       title: 'Sample Lecture Title',
-//       isFree: false,
-//       videoUrl: '',
-//     }
-//   }, [lectureId])
-
-const [editLecture]=useEditLectureMutation();
-
-const handleUpdateLecture=async()=>{
-  await editLecture({lectureTitle,videoInfo:uploadVideo,isPreviewFree:isFree,courseId,lectureId})
-}
-
- 
-
- 
-
   const handleVideoFile =async (e) => {
     const file = e.target.files?.[0]
     if (!file) return
@@ -92,44 +64,21 @@ const handleUpdateLecture=async()=>{
 
 
 
-  const {removeLecture}=useRemoveLectureQuery()
-  const handleRemoveCourse = async() => {
-    await removeLecture(lectureId)
-    toast.success('Lecture removed from course')
-   
+  const handleRemoveCourse = () => {
+    if (window.confirm('Remove this lecture from the course?')) {
+      toast.success('Lecture removed from course')
+      // TODO: call backend API to remove lecture from course
+    }
   }
 
-//   const handleSubmit = async (e) => {
-//     e.preventDefault()
-//     if (!form.title.trim()) return toast.error('Title required')
-   
-//     setLoading(true)
-//     try {
-//       // TODO: call backend API to update lecture
-//       // const fd = new FormData()
-//       // fd.append('title', form.title)
-//       // fd.append('description', form.description)
-//       // fd.append('duration', form.duration)
-//       // fd.append('isFree', form.isFree)
-//       // if (videoFile) fd.append('video', videoFile)
-//       // await updateLecture({ lectureId, body: fd }).unwrap()
 
-//       toast.success('Lecture updated successfully')
-//       navigate(-1)
-//     } catch (err) {
-//       console.error(err)
-//       toast.error('Failed to update lecture')
-//     } finally {
-//       setLoading(false)
-//     }
-//   }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-white">Edit Lecture</h1>
-          <p className="text-gray-300 text-sm">Lecture ID: {lectureId}</p>
+          <p className="text-gray-300 text-sm">Course ID: {courseId} | Lecture ID: {lectureId}</p>
         </div>
 
         <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
@@ -142,7 +91,7 @@ const handleUpdateLecture=async()=>{
               <input
                 type="text"
                 name="title"
-                value={lectureTitle}
+                value={title}
                 onChange={(e)=>{setTitle(e.target.value)}}
                 placeholder="Enter lecture title"
                 className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition"
@@ -206,7 +155,6 @@ const handleUpdateLecture=async()=>{
             <div className="flex gap-3 pt-6">
               <button
                 type="submit"
-                onClick={handleUpdateLecture}
                 disabled={loading}
                 className={`flex-1 py-3 px-6 rounded-lg font-semibold text-white transition ${
                   loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600'
