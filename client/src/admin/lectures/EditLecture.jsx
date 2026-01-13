@@ -4,6 +4,7 @@ import toast from 'react-hot-toast'
 import { MdCloudUpload } from 'react-icons/md'
 import { AiOutlineClose } from 'react-icons/ai'
 import axios from 'axios'
+import { useEditLectureMutation, useUpdateLectureMutation } from '../../features/api/courseApi'
 
 const EditLecture = () => {
   const { lectureId, courseId } = useParams()
@@ -18,6 +19,28 @@ const EditLecture = () => {
  
 
   const MEDIA_API="http://localhost:3000/api/video-upload"
+
+  const [updateLecture] = useEditLectureMutation();
+
+  const handleUpdateLectureData=async(e)=>{
+    e.preventDefault()
+    // if(!title.trim()) return toast.error("Title required")
+    // if(!uploadVideo) return toast.error("Video file required")
+      try {
+    await updateLecture({
+      lectureTitle:title,
+      videoInfo:uploadVideo,
+      isPreviewFree:isFree,
+      lectureId
+    }).unwrap( );
+      toast.success("Lecture updated successfully")
+      } catch (error) {
+        console.error(error)
+        toast.error("Failed to update lecture")
+        
+      }
+    }
+
  
   const [videoPreview, setVideoPreview] = useState(null)
   const handleVideoFile =async (e) => {
@@ -32,7 +55,6 @@ const EditLecture = () => {
       return
     }
     
-
     if(file){
         const formData=new FormData();
         formData.append("file",file)
@@ -154,7 +176,7 @@ const EditLecture = () => {
             {/* Action Buttons */}
             <div className="flex gap-3 pt-6">
               <button
-                type="submit"
+               onClick={(e)=>handleUpdateLectureData(e)}
                 disabled={loading}
                 className={`flex-1 py-3 px-6 rounded-lg font-semibold text-white transition ${
                   loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600'

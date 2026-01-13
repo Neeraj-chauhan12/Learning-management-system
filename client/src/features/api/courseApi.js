@@ -59,7 +59,7 @@ export const courseApi = createApi({
         lectureId,
       }) => ({
         url: `${courseId}/lecture/${lectureId}`,
-        method: "POST",
+        method: "PUT",
         body: { lectureTitle, videoInfo, isPreviewFree },
       }),
     }),
@@ -70,9 +70,15 @@ export const courseApi = createApi({
             url:`lecture/${lectureId}`,
             method:"DELETE"
         })
-    })
+    }),
+
+   
+
   }),
 });
+
+   
+   
 
 export const {
   useCourseCreateMutation,
@@ -81,5 +87,6 @@ export const {
   useCreateLectureMutation,
   useEditCoursesMutation,
   useCourseGetQuery,
-  useRemoveLectureQuery
+  useRemoveLectureQuery,
+  useUpdateLectureMutation
 } = courseApi;
