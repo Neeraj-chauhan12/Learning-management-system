@@ -9,13 +9,19 @@ exports.UploadVedio=async(req,res)=>{
         }
 
         const result=await uploadMedia(req.file.path);
-        res.status(200).json({success:true,message:"File uploaded successfully",data:result})
+        console.log("result",result)
+
+        return res.status(200).json({
+            success: true, 
+            message:"File uploaded successfully", 
+            data: {
+                url: result.secure_url,
+                public_id: result.public_id
+            }
+        })
         
     } catch (error) {
-         console.log("error",error)
-        return res.status(500).json({message:"Failed to upload vedio"})    
-        
-        
-        
+        console.log("error",error)
+        return res.status(500).json({ message:"Failed to upload video"})    
     }
 }

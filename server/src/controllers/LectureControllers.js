@@ -55,9 +55,8 @@ exports.editLecture=async(req,res)=>{
     try {
 
         const {lectureTitle,videoInfo,isPreviewFree}=req.body;
+        console.log("body",req.body)
         const {courseId,lectureId}=req.params;
-        console.log("courseid,lectureId",courseId,lectureId)
-
         const lecture=await LectureModel.findById(lectureId)
 
         if(!lecture){
@@ -65,8 +64,14 @@ exports.editLecture=async(req,res)=>{
         }
 
         if(lectureTitle) lecture.lectureTitle=lectureTitle
-        if(videoInfo.videoUrl) lecture.videoUrl=videoInfo.videoUrl;
-        if(videoInfo.publicId) lecture.publicId=videoInfo.publicId;
+        if(!videoInfo){
+            return res.status(400).json({message:"video info is required"})
+        }
+        if(!videoInfo.videoUrl && !videoInfo.publicId){
+            return res.status(400).json({message:"video info is required"})
+        }
+        if(videoInfo && videoInfo.videoUrl) lecture.videoUrl=videoInfo.videoUrl;
+        if(videoInfo && videoInfo.publicId) lecture.publicId=videoInfo.publicId;
         if(isPreviewFree) lecture.isPreviewFree=isPreviewFree
 
         await lecture.save();
@@ -129,9 +134,7 @@ exports.getLectureById=async(req,res)=>{
 
     try {
         const {lectureId}=req.params;
-
         const lecture=await LectureModel.findById(lectureId)
-
         if(!lecture){
             return res.status(400).json({message:"lecture not found"})
         }
@@ -140,7 +143,7 @@ exports.getLectureById=async(req,res)=>{
         
     } catch (error) {
          console.log("error",error)
-        return res.status(500).json({message:"Failed to delete lecture"})    
+        return res.status(500).json({message:"Failed to find lecture"})    
         
         
         

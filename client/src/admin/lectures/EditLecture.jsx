@@ -4,7 +4,7 @@ import toast from 'react-hot-toast'
 import { MdCloudUpload } from 'react-icons/md'
 import { AiOutlineClose } from 'react-icons/ai'
 import axios from 'axios'
-import { useEditLectureMutation, useRemoveLectureQuery, } from '../../features/api/courseApi'
+import { useEditLectureMutation, useGetLectureByIdQuery, useRemoveLectureMutation, } from '../../features/api/courseApi'
 
 const EditLecture = () => {
   const { lectureId, courseId } = useParams()
@@ -15,31 +15,50 @@ const EditLecture = () => {
   const [mediaProgress,setMediaProgess]=useState(false);
   const [uploadProgress,setUploadProgess]=useState(0);
   const [btnDisable,setBtnDisable]=useState(true)
-  const loading=false;
+  const [updateLoading,setUpdateLoading]=useState(false);
+  const [removeLoading,setRemoveLoading]=useState(false);
  
 
   const MEDIA_API="http://localhost:3000/api/video-upload"
 
-  const [updateLecture] = useEditLectureMutation();
+  const [editLecture] = useEditLectureMutation();
+  const [removeLecture] = useRemoveLectureMutation();
 
-  const handleUpdateLectureData=async(e)=>{
+  const {data:lectureData}=useGetLectureByIdQuery(lectureId);
+  console.log("lectureData",lectureData)
+  const lecture=lectureData?.lecture;
+
+  useEffect(() => {
+    if(lecture){
+      setTitle(lecture.lectureTitle);
+      setIsFree(lecture.isPreviewFree);
+      setUploadVideo(lecture.videoInfo);
+      setBtnDisable(false)
+    }
+  
+  }, [lecture]);
+
+  const handleEditLectureData=async(e)=>{
     console.log("courseId",courseId)
     e.preventDefault()
-      try {
-    await updateLecture({
-      lectureTitle:title,
-      videoInfo:uploadVideo,
-      isPreviewFree:isFree,
-      lectureId,
-      courseId
-    }).unwrap( );
+    setUpdateLoading(true);
+    try {
+      await editLecture({
+        lectureTitle:title,
+        videoInfo:uploadVideo,
+        isPreviewFree:isFree,
+        lectureId,
+        courseId
+      }).unwrap();
       toast.success("Lecture updated successfully")
-      } catch (error) {
-        console.error(error)
-        toast.error("Failed to update lecture")
-        
-      }
+      navigate(-1);
+    } catch (error) {
+      console.error(error)
+      toast.error("Failed to update lecture")
+    } finally {
+      setUpdateLoading(false);
     }
+  }
 
  
   const [videoPreview, setVideoPreview] = useState(null)
@@ -67,10 +86,11 @@ const EditLecture = () => {
                     setUploadProgess(Math.round((loaded*100)/total))
                 }
             })
-
+            console.log("res",res)
             if(res.data.success){
                 console.log(res)
-                setUploadVideo({videUrl:res.data.data.url,publicId:res.data.data.public_id})
+                setUploadVideo({videoUrl:res.data.data.url,publicId:res.data.data.public_id})
+                setVideoPreview(res.data.data.url)
                 toast.success(res?.data?.message || "video uploaded successfully")
                 setBtnDisable(false)
             }
@@ -87,22 +107,20 @@ const EditLecture = () => {
 
 
 
-  const handleRemoveCourse = () => {
-
-    try {
-      const [data]=useRemoveLectureQuery({courseId,lectureId}).unwrap();
-      console.log(data)
-      
-    } catch (error) {
-      toast
-      
+  const handleRemoveCourse = async () => {
+      setRemoveLoading(true);
+      try {
+        await removeLecture(lectureId).unwrap();
+        toast.success('Lecture removed successfully')
+        navigate(`/course/${courseId}/lecture/create`)
+      } catch (error) {
+        console.error(error)
+        toast.error("Failed to remove lecture")
+      } finally {
+        setRemoveLoading(false);
+      }
     }
-
-    if (window.confirm('Remove this lecture from the course?')) {
-      toast.success('Lecture removed from course')
-      // TODO: call backend API to remove lecture from course
-    }
-  }
+  
 
 
 
@@ -152,7 +170,11 @@ const EditLecture = () => {
                     </video>
                     <button
                       type="button"
-                     
+                      onClick={() => {
+                        setVideoPreview(null);
+                        setUploadVideo(null);
+                        setBtnDisable(true);
+                      }}
                       className="absolute top-2 right-2 bg-red-600 text-white rounded-full p-2 hover:bg-red-700"
                     >
                       <AiOutlineClose />
@@ -169,7 +191,7 @@ const EditLecture = () => {
                     type="checkbox"
                     name="isFree"
                     checked={isFree}
-                    onChange={(e)=>{setIsFree(e.target.value)}}
+                    onChange={(e)=>{setIsFree(e.target.checked)}}
                     className="w-5 h-5 rounded"
                   />
                   <span className="text-sm text-gray-600">{isFree ? 'Yes, Free' : 'No, Paid'}</span>
@@ -184,24 +206,26 @@ const EditLecture = () => {
               </div>
           
 
-            {/* Action Buttons */}
             <div className="flex gap-3 pt-6">
               <button
-               onClick={(e)=>handleUpdateLectureData(e)}
-                disabled={loading}
+               onClick={(e)=>handleEditLectureData(e)}
+                disabled={updateLoading}
                 className={`flex-1 py-3 px-6 rounded-lg font-semibold text-white transition ${
-                  loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600'
+                  updateLoading ? 'bg-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600'
                 }`}
               >
-                {loading ? 'Updating...' : 'Update Lecture'}
+                {updateLoading ? 'Updating...' : 'Update Lecture'}
               </button>
 
               <button
                 type="button"
                 onClick={handleRemoveCourse}
-                className="py-3 px-6 rounded-lg font-semibold text-white bg-red-600 hover:bg-red-700 transition"
+                disabled={removeLoading}
+                className={`py-3 px-6 rounded-lg font-semibold text-white transition ${
+                  removeLoading ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-600 hover:bg-red-700'
+                }`}
               >
-                Remove Course
+                {removeLoading ? 'Removing...' : 'Remove Lecture'}
               </button>
 
               <button

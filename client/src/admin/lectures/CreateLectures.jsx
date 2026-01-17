@@ -12,7 +12,7 @@ const CreateLectures = () => {
   const navigate = useNavigate();
 
   const [CreateLecture] = useCreateLectureMutation();
-  const { data,isLoading,isError ,refetch} = useGetLectureQuery(courseId);
+  const { data, isLoading, isError, refetch } = useGetLectureQuery(courseId);
   console.log("get lecutres", data);
 
   const [loading, setLoading] = useState(false);
@@ -23,10 +23,9 @@ const CreateLectures = () => {
     if (!lectureTitle.trim()) return toast.error("Title required");
     setLoading(true);
     try {
-      console.log("lectureTitle,", lectureTitle);
       await CreateLecture({ lectureTitle, courseId }).unwrap();
       toast.success("Lecture created (mock)");
-      refetch()
+      refetch();
       setTitle("");
     } catch (err) {
       console.error(err);
@@ -82,26 +81,24 @@ const CreateLectures = () => {
 
       {/* lecture data */}
 
-     <div className="mt-10 px-44">
-      {
-        isLoading?(
-        <p>Loading lectures</p>):
-        isError?(<p className="text-red-500">Failed to load lectures..</p>):
-        data.lectures.length==0?(<p>No lecture available</p>):
-        
-        (
-          data.lectures.map((lecture,index)=>(
-            <Lecture key={lecture._id} lecture={lecture} courseId={courseId} index={index} />
-
+      <div className="mt-10 px-44">
+        {isLoading ? (
+          <p>Loading lectures</p>
+        ) : isError ? (
+          <p className="text-red-500">Failed to load lectures..</p>
+        ) : data.lectures.length == 0 ? (
+          <p>No lecture available</p>
+        ) : (
+          data.lectures.map((lecture, index) => (
+            <Lecture
+              key={lecture._id}
+              lecture={lecture}
+              courseId={courseId}
+              index={index}
+            />
           ))
-        
-        
-        )
-      
-      }
-
-     </div>
-
+        )}
+      </div>
     </div>
   );
 };

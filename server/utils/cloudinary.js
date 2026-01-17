@@ -11,35 +11,34 @@ cloudinary.config({
 
 exports.uploadMedia=async(file)=>{
     try {
-    const uploadResponse=await cloudinary.uploader.upload(file,{
-        resource_type:"auto"
-    })
-    return uploadResponse
-        
+        const uploadResponse=await cloudinary.uploader.upload(file,{
+            resource_type:"auto"
+        })
+        return uploadResponse
     } catch (error) {
-        console.log(error)
-        
+        console.log("Cloudinary upload error:",error)
+        throw error
     }
 }
 
 exports.deleteMediaFromCloudinary=async(publicId)=>{
     try {
-        await cloudinary.uploader.destroy(publicId)
-        
+        const result = await cloudinary.uploader.destroy(publicId)
+        return result
     } catch (error) {
-        console.log(error)
-        
+        console.log("Cloudinary delete error:",error)
+        throw error
     }
 }
 
 exports.deleteVedioFromCloudinary=async(publicId)=>{
     try {
-        await cloudinary.uploader.destroy(publicId,{
+        const result = await cloudinary.uploader.destroy(publicId,{
             resource_type:"video"
         })
-        
+        return result
     } catch (error) {
-        console.log(error)
-        
+        console.log("Cloudinary video delete error:",error)
+        throw error
     }
 }
