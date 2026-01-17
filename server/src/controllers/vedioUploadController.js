@@ -14,10 +14,7 @@ exports.UploadVedio=async(req,res)=>{
         return res.status(200).json({
             success: true, 
             message:"File uploaded successfully", 
-            data: {
-                url: result.secure_url,
-                public_id: result.public_id
-            }
+            data: result
         })
         
     } catch (error) {
