@@ -4,7 +4,7 @@ import toast from 'react-hot-toast'
 import { MdCloudUpload } from 'react-icons/md'
 import { AiOutlineClose } from 'react-icons/ai'
 import axios from 'axios'
-import { useEditLectureMutation, useUpdateLectureMutation } from '../../features/api/courseApi'
+import { useEditLectureMutation, useRemoveLectureQuery, } from '../../features/api/courseApi'
 
 const EditLecture = () => {
   const { lectureId, courseId } = useParams()
@@ -23,15 +23,15 @@ const EditLecture = () => {
   const [updateLecture] = useEditLectureMutation();
 
   const handleUpdateLectureData=async(e)=>{
+    console.log("courseId",courseId)
     e.preventDefault()
-    // if(!title.trim()) return toast.error("Title required")
-    // if(!uploadVideo) return toast.error("Video file required")
       try {
     await updateLecture({
       lectureTitle:title,
       videoInfo:uploadVideo,
       isPreviewFree:isFree,
-      lectureId
+      lectureId,
+      courseId
     }).unwrap( );
       toast.success("Lecture updated successfully")
       } catch (error) {
@@ -43,6 +43,7 @@ const EditLecture = () => {
 
  
   const [videoPreview, setVideoPreview] = useState(null)
+
   const handleVideoFile =async (e) => {
     const file = e.target.files?.[0]
     if (!file) return
@@ -87,6 +88,16 @@ const EditLecture = () => {
 
 
   const handleRemoveCourse = () => {
+
+    try {
+      const [data]=useRemoveLectureQuery({courseId,lectureId}).unwrap();
+      console.log(data)
+      
+    } catch (error) {
+      toast
+      
+    }
+
     if (window.confirm('Remove this lecture from the course?')) {
       toast.success('Lecture removed from course')
       // TODO: call backend API to remove lecture from course

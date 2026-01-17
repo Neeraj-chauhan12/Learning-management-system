@@ -11,7 +11,7 @@ router.get('/get',AuthMiddleware,getCourseByAdmin)
 router.put('/:courseId',AuthMiddleware,upload.single("courseThumbnail"),updateCourse)
 router.post('/:courseId/lecture',AuthMiddleware,CreateLecture)
 router.get('/:courseId/lecture',AuthMiddleware,getCourseLecture)
-router.post('/:courseId/lecture/:lectureId',AuthMiddleware,editLecture)
+router.put('/:courseId/lecture/:lectureId',AuthMiddleware,editLecture)
 router.delete('/lecture/:lectureId',AuthMiddleware,removeLecture)
 router.get('/lecture/:lectureId',AuthMiddleware,getLectureById)
 
