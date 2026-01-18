@@ -39,7 +39,6 @@ const EditLecture = () => {
   }, [lecture]);
 
   const handleEditLectureData=async(e)=>{
-    console.log("courseId",courseId)
     e.preventDefault()
     setUpdateLoading(true);
     try {
@@ -64,24 +63,24 @@ const EditLecture = () => {
   const [videoPreview, setVideoPreview] = useState(null)
 
   const handleVideoFile =async (e) => {
-    const file = e.target.files?.[0]
-    if (!file) return
-    if (!file.type.startsWith('video/')) {
-      toast.error('Please select a video file')
-      return
-    }
-    if (file.size > 500 * 1024 * 1024) {
-      toast.error('Max file size 500MB')
-      return
-    }
+    const file = e.target.files[0];
+    // if (!file) return
+    // if (!file.type.startsWith('video/')) {
+    //   toast.error('Please select a video file')
+    //   return
+    // }
+    // if (file.size > 500 * 1024 * 1024) {
+    //   toast.error('Max file size 500MB')
+    //   return
+    // }
     
     if(file){
         const formData=new FormData();
-        formData.append("file",file)
+        formData.append("file", file)
         setMediaProgess(true);
 
         try {
-            const res=await axios.post(`${MEDIA_API}/`,formData,{
+            const res=await axios.post(`${MEDIA_API}`,formData,{
                 onUploadProgress:({loaded,total})=>{
                     setUploadProgess(Math.round((loaded*100)/total))
                 }
@@ -160,7 +159,7 @@ const EditLecture = () => {
                   <label className="flex items-center justify-center px-4 py-8 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-purple-400 transition">
                     <MdCloudUpload className="text-purple-500 mr-3 text-2xl" />
                     <span className="text-sm text-gray-600">Click to upload or drag and drop</span>
-                    <input type="file" accept="video/*" onChange={handleVideoFile} className="sr-only" />
+                    <input type="file" accept="video/*" onChange={(e) => handleVideoFile(e)} className="sr-only" />
                   </label>
                 ) : (
                   <div className="relative">

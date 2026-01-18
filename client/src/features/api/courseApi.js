@@ -59,7 +59,7 @@ export const courseApi = createApi({
         lectureId,
       }) => ({
         url: `${courseId}/lecture/${lectureId}`,
-        method: "PUT",
+        method:"PUT",
         body: { lectureTitle, videoInfo, isPreviewFree },
       }),
     }),
