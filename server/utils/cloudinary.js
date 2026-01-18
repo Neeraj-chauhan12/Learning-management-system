@@ -1,23 +1,27 @@
-const  cloudinary   =require('cloudinary')
+const cloudinary=require('cloudinary')
 const dotenv=require('dotenv')
-dotenv.config();
+dotenv.config({});
 
 
 cloudinary.config({
-    cloud_name:process.env.CLOUD_NAME,
     api_key:process.env.API_KEY,
-    api_secret:process.env.API_SECRET
+    api_secret:process.env.API_SECRET,
+    cloud_name:process.env.CLOUD_NAME,
+  
+    
 })
 
 exports.uploadMedia=async(file)=>{
+    console.log("uploading file to cloudinary:",file)
     try {
         const uploadResponse=await cloudinary.uploader.upload(file,{
-            resource_type:"auto"
+            resource_type:"auto",
+        
         })
-        return uploadResponse
+        return uploadResponse;
     } catch (error) {
         console.log("Cloudinary upload error:",error)
-        throw error
+    
     }
 }
 
