@@ -3,13 +3,17 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import { AiOutlineClose } from "react-icons/ai";
 import { MdCloudUpload } from "react-icons/md";
-import { useCourseGetQuery, useEditCoursesMutation } from "../../features/api/courseApi";
+import { useCourseGetQuery, useEditCoursesMutation, useGetCourseByIdQuery, useTogglePublishCourseMutation } from "../../features/api/courseApi";
 
 const EditCourse = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { data } = useCourseGetQuery();
-  const [EditCourses]=useEditCoursesMutation();
+  const [EditCourses] = useEditCoursesMutation();
+
+  const { data: courseData } = useGetCourseByIdQuery(id);
+  console.log("course data:", courseData);
+
 
   const existing = useMemo(() => {
     const list = data?.courses || [];
@@ -28,7 +32,7 @@ const EditCourse = () => {
   const [preview, setPreview] = useState(null);
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
-  console.log("course id:",id)
+  console.log("course id:", id)
 
   useEffect(() => {
     if (existing && Object.keys(existing).length > 0) {
@@ -90,10 +94,14 @@ const EditCourse = () => {
       fd.append("category", formData.category);
       fd.append("courseLevel", formData.courseLevel);
       if (file) fd.append("thumbnail", file);
-      
-      await EditCourses({courseId:id,formData}).unwrap();
-      
-      
+
+      await EditCourses({ courseId: id, formData }).unwrap();
+
+
+
+
+
+
 
       // Example: await updateCourse({id, body: fd}).unwrap()
       toast.success("Course updated successfully");
@@ -106,7 +114,22 @@ const EditCourse = () => {
     }
   };
 
-  const isPublish=true;
+
+  const publishStatusHandler = async (action) => {
+    try {
+      const res = await useTogglePublishCourseMutation({ courseId: id, query: action }).unwrap();
+      if (res.data) {
+        console.log("Publish status updated:", res.data);
+        toast.success(res.data.message);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(error?.data?.message || "Failed to update publish status");
+
+    }
+  }
+
+  // const isPublish=true;
 
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
@@ -128,19 +151,19 @@ const EditCourse = () => {
             </div>
 
             <div className="flex justify-between items-center">
-               <div className="w-[30vw]">
-                    <h2 className="card-title">Basic Course Information</h2>
-                    <p>
-                     Make changes to your courses here. Click save when you're done
-                    </p>
-                 </div>
+              <div className="w-[30vw]">
+                <h2 className="card-title">Basic Course Information</h2>
+                <p>
+                  Make changes to your courses here. Click save when you're done
+                </p>
+              </div>
 
               <div className="flex gap-2">
-                <button className="btn text-sm btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl">
+                <button onClick={() => publishStatusHandler(courseData?.course?.isPublished ? "false" : "true")} className="btn text-sm btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl">
                   {
-                    !isPublish?<p>Publish</p>:<p>Pending</p>
+                    courseData?.course?.isPublished ? <p>UnPublished</p> : <p>Published</p>
                   }
-                  
+
                 </button>
                 <button className="btn  text-sm btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl">
                   Remove Course
@@ -149,12 +172,12 @@ const EditCourse = () => {
 
             </div>
 
-          
-            
 
-             
-             
-           
+
+
+
+
+
 
             <div>
               <label className="block text-sm font-medium text-gray-700">
@@ -206,14 +229,14 @@ const EditCourse = () => {
                   className="mt-1 py-2 px-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                 >
                   <option value="development">Development</option>
-                    <option value="Dsa">Dsa</option>
-                    <option value="Javascript">Javascript</option>
-                    <option value="Mongodb">Mongodb</option>
-                    <option value="full-stack">Full-stack</option>
-                    <option value="Java">Java</option>
-                    <option value="React js">React js</option>
-                    <option value="C & C++">C & C++</option>
-                    <option value="Next js">Next js</option>
+                  <option value="Dsa">Dsa</option>
+                  <option value="Javascript">Javascript</option>
+                  <option value="Mongodb">Mongodb</option>
+                  <option value="full-stack">Full-stack</option>
+                  <option value="Java">Java</option>
+                  <option value="React js">React js</option>
+                  <option value="C & C++">C & C++</option>
+                  <option value="Next js">Next js</option>
                 </select>
               </div>
 
@@ -235,7 +258,7 @@ const EditCourse = () => {
 
             </div>
 
-            
+
 
             <div>
               <label className="block text-sm font-medium text-gray-700">
@@ -285,9 +308,8 @@ const EditCourse = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className={`px-4 py-2 rounded text-white ${
-                  loading ? "bg-gray-400" : "bg-indigo-600 hover:bg-indigo-700"
-                }`}
+                className={`px-4 py-2 rounded text-white ${loading ? "bg-gray-400" : "bg-indigo-600 hover:bg-indigo-700"
+                  }`}
               >
                 {loading ? "Updating..." : "Update Course"}
               </button>

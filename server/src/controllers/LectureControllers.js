@@ -51,7 +51,7 @@ exports.getCourseLecture = async (req, res) => {
 exports.editLecture = async (req, res) => {
   try {
     const { lectureTitle, videoInfo, isPreviewFree } = req.body;
-    console.log("body", req.body);
+    
     const { courseId, lectureId } = req.params;
     const lecture = await LectureModel.findById(lectureId);
 

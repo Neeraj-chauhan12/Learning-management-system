@@ -97,7 +97,49 @@ exports.updateCourse=async(req,res)=>{
 
 }
 
-exports.deleteCourse=async(req,res)=>{
-    
+
+exports.getCourseById=async(req,res)=>{
+    try {
+        const courseId=req.params.courseId; 
+        console.log("courseId",courseId)    
+        const course=await CourseModel.findById(courseId)
+        
+        if(!course){
+            return res.status(404).json({message:"Course not found"})
+         }
+        return res.status(200).json({message:"Course fetched successfully",course})
+
+    } catch (error) {
+         console.log("error",error)
+        return res.status(500).json({message:"Failed to fetch course"})     
+    }
+}
+
+
+
+exports.togglePublishCourse=async(req,res)=>{
+    try {
+        
+        const courseId=req.params;
+        const {publish}=req.query;
+
+        const course=await courseModel.findById(courseId)
+        if(!course){
+            return res.status(404).json({message:"Course not found"})
+         }
+
+        const courseStatus = course.isPublished?"Published":"Unpublished";
+        await course.save();
+
+        return res.status(200).json({ message: `Course is ${courseStatus}`, course });
+
+    } catch (error) {
+
+         console.log("error",error)
+        return res.status(500).json({message:"Failed to published course"})    
+        
+        
+        
+    }
 }
 
