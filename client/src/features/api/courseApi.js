@@ -90,7 +90,7 @@ export const courseApi = createApi({
 
     togglePublishCourse: builder.mutation({
       query: ({ courseId, query }) => ({
-        url: `/${courseId}?publish=${query}`,
+        url: `${courseId}?publish=${query}`,
         method: "PATCH",
       }),
     }),
