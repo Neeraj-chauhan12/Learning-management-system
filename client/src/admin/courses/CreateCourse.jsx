@@ -87,7 +87,7 @@ const CreateCourse = () => {
           {/* Form Header Background */}
           <div className="h-2 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500"></div>
 
-          <form onSubmit={handleSubmit} className="p-8 md:p-12">
+          <form onSubmit={handleSubmit} className="p-6 md:p-12">
             {/* Course Title */}
             <div className="mb-8">
               <label className="block text-sm font-semibold text-gray-800 mb-3">

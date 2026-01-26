@@ -81,7 +81,7 @@ const CreateLectures = () => {
 
       {/* lecture data */}
 
-      <div className="mt-10 px-44">
+      <div className="mt-6 px-4 md:px-10">
         {isLoading ? (
           <p>Loading lectures</p>
         ) : isError ? (

@@ -6,7 +6,6 @@ exports.uploadVedio = async (req, res) => {
      try {
         console.log("file", req.file);
         const result = await uploadVedio(req.file.path);
-        console.log("result", result);
         res.status(200).json({
           success: true,
           message: "File uploaded successfully",

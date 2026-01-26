@@ -11,8 +11,10 @@ const EditCourse = () => {
   const { data } = useCourseGetQuery();
   const [EditCourses] = useEditCoursesMutation();
 
-  const { data: courseData } = useGetCourseByIdQuery(id);
-  console.log("course data:", courseData);
+  const { data: courseData,refetch } = useGetCourseByIdQuery(id);
+  console.log("course data:", courseData?.course?.isPublished);
+
+  const [togglePublishCourse] = useTogglePublishCourseMutation();
 
 
   const existing = useMemo(() => {
@@ -117,10 +119,11 @@ const EditCourse = () => {
 
   const publishStatusHandler = async (action) => {
     try {
-      const res = await useTogglePublishCourseMutation({ courseId: id, query: action }).unwrap();
-      if (res.data) {
-        console.log("Publish status updated:", res.data);
-        toast.success(res.data.message);
+      const res = await togglePublishCourse({ courseId: id, query: action })
+      if (res?.data) {
+        console.log("Publish status updated:", res?.data);
+        refetch();
+        toast.success(res?.data?.message);
       }
     } catch (error) {
       console.error(error);
@@ -141,35 +144,29 @@ const EditCourse = () => {
 
         <div className="bg-white rounded-lg shadow p-6">
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="flex justify-between items-center">
-              <h1 className="text-2xl font-bold">
-                Add detail information regarding course
-              </h1>
-              <Link to={`/create-lecture/${id}`} className="btn text-sm btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl">
-                Go to lecture page
-              </Link>
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+              <h1 className="text-2xl font-bold">Add detail information regarding course</h1>
+              <div className="flex items-center gap-2">
+                <Link to={`/create-lecture/${id}`} className="btn text-sm">
+                  Go to lecture page
+                </Link>
+              </div>
             </div>
 
-            <div className="flex justify-between items-center">
-              <div className="w-[30vw]">
+            <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+              <div className="w-full md:w-1/3">
                 <h2 className="card-title">Basic Course Information</h2>
-                <p>
-                  Make changes to your courses here. Click save when you're done
-                </p>
+                <p className="text-sm text-gray-500">Make changes to your courses here. Click save when you're done</p>
               </div>
 
-              <div className="flex gap-2">
-                <button onClick={() => publishStatusHandler(courseData?.course?.isPublished ? "false" : "true")} className="btn text-sm btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl">
-                  {
-                    courseData?.course?.isPublished ? <p>UnPublished</p> : <p>Published</p>
-                  }
-
+              <div className="flex flex-col sm:flex-row gap-2">
+                <button onClick={() => publishStatusHandler(courseData?.course?.isPublished ? "false" : "true")} className="btn text-sm">
+                  {courseData?.course?.isPublished ? "Unpublish" : "Publish"}
                 </button>
-                <button className="btn  text-sm btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl">
+                <button className="btn text-sm">
                   Remove Course
                 </button>
               </div>
-
             </div>
 
 

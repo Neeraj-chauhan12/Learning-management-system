@@ -34,9 +34,9 @@ const EditLecture = () => {
   useEffect(() => {
     if (lecture) {
       setTitle(lecture.lectureTitle);
-      setIsFree(lecture.isPreviewFree);
+      setIsFree(lecture?.isPreviewFree);
       setUploadVideo(lecture.videoInfo);
-      setBtnDisable(false);
+      // setBtnDisable(false);
     }
   }, [lecture]);
 
@@ -120,7 +120,7 @@ const EditLecture = () => {
         <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
           <div className="h-2 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500"></div>
 
-          <form className="p-8 md:p-12 space-y-6">
+          <form className="p-6 md:p-12 space-y-6">
             {/* Title */}
             <div>
               <label className="block text-sm font-semibold text-gray-800 mb-3">
@@ -159,7 +159,7 @@ const EditLecture = () => {
                   </label>
                 ) : (
                   <div className="relative">
-                    <video controls className="w-full h-48 bg-black rounded-lg">
+                    <video controls className="w-full h-48 md:h-64 bg-black rounded-lg">
                       <source src={videoPreview} />
                       Your browser does not support the video tag.
                     </video>

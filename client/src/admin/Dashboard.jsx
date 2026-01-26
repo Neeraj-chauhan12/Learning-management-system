@@ -8,14 +8,14 @@ const Dashboard = () => {
   return (
     <>
     <Navbar />
-    <div className='flex'>
-        <div>
-            <Slidebar />
-        </div>
-        <div>
-            {/* <TotalData /> */}
-            <CourseDetail />
-        </div>
+    <div className='flex flex-col md:flex-row'>
+      <div className='w-full md:w-1/5'>
+        <Slidebar />
+      </div>
+      <div className='flex-1'>
+        {/* <TotalData /> */}
+        <CourseDetail />
+      </div>
     </div>
       
     </>

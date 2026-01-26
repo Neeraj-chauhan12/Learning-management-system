@@ -120,10 +120,10 @@ exports.getCourseById = async (req, res) => {
 exports.togglePublishCourse = async (req, res) => {
     try {
 
-        const courseId = req.params;
+        const courseId = req.params.courseId;
         const { publish } = req.query;
 
-        const course = await courseModel.findById(courseId)
+        const course = await CourseModel.findById(courseId)
         if (!course) {
             return res.status(404).json({ message: "Course not found" })
         }
