@@ -64,9 +64,10 @@ exports.editLecture = async (req, res) => {
 
     if (videoInfo) lecture.videoUrl = videoInfo.videoUrl;
     if (videoInfo) lecture.publicId = videoInfo.publicId;
-    if (isPreviewFree) lecture.isPreviewFree = isPreviewFree;
+    if (typeof isPreviewFree === "boolean") lecture.isPreviewFree = isPreviewFree;
 
     await lecture.save();
+    console.log("lecture", lecture);
 
     const course = await CourseModel.findById(courseId);
 
