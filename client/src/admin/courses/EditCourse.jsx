@@ -11,7 +11,7 @@ const EditCourse = () => {
   const { data } = useCourseGetQuery();
   const [EditCourses] = useEditCoursesMutation();
 
-  const { data: courseData,refetch } = useGetCourseByIdQuery(id);
+  const { data: courseData, refetch: refetchCourse } = useGetCourseByIdQuery(id);
   console.log("course data:", courseData?.course?.isPublished);
 
   const [togglePublishCourse] = useTogglePublishCourseMutation();
@@ -87,27 +87,22 @@ const EditCourse = () => {
 
     setLoading(true);
     try {
-      // TODO: call API update endpoint. Using mock for now.
-      // Build FormData if file exists
+      // Build FormData
       const fd = new FormData();
       fd.append("courseTitle", formData.courseTitle);
       fd.append("description", formData.description);
       fd.append("coursePrice", formData.coursePrice);
       fd.append("category", formData.category);
       fd.append("courseLevel", formData.courseLevel);
-      if (file) fd.append("thumbnail", file);
+      if (file) {
+        fd.append("thumbnail", file);
+      }
 
-      await EditCourses({ courseId: id, formData }).unwrap();
+      await EditCourses({ courseId: id, formData: fd }).unwrap();
 
-
-
-
-
-
-
-      // Example: await updateCourse({id, body: fd}).unwrap()
       toast.success("Course updated successfully");
-      navigate("/dashboard");
+      refetchCourse();
+      navigate("/dashboard?view=courses");
     } catch (err) {
       console.error(err);
       toast.error(err?.data?.message || "Failed to update course");
@@ -122,7 +117,7 @@ const EditCourse = () => {
       const res = await togglePublishCourse({ courseId: id, query: action })
       if (res?.data) {
         console.log("Publish status updated:", res?.data);
-        refetch();
+        refetchCourse();
         toast.success(res?.data?.message);
       }
     } catch (error) {

@@ -50,7 +50,7 @@ const Navbar = () => {
           alt=""
         />
         <div className="flex md:justify-center justify-start items-center">
-          <h1 className="md:text-2xl text-sm">Chauhan KnowledgeHub</h1>
+          <Link to="/" className="md:text-2xl text-sm">Chauhan KnowledgeHub</Link>
         </div>
       </div>
 

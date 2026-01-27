@@ -8,6 +8,9 @@ export const courseApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: COURSE_API,
     credentials: "include",
+    prepareHeaders: (headers, { getState }) => {
+      return headers;
+    },
   }),
 
   endpoints: (builder) => ({
@@ -27,11 +30,20 @@ export const courseApi = createApi({
       }),
       providesTags: ["Refetch-course"],
     }),
+
+    publishCourse:builder.query({
+      query:()=>({
+        url:"publish-courses",
+        method:"GET",
+      })
+    }),
+
     EditCourses: builder.mutation({
       query: ({ courseId, formData }) => ({
         url: `${courseId}`,
         method: "PUT",
         body: formData,
+        // headers: formData instanceof FormData ? {} : { "Content-Type": "application/json" },
       }),
       invalidatesTags: ["Refetch-course"],
     }),
@@ -112,4 +124,5 @@ export const {
   useGetLectureByIdQuery,
   useTogglePublishCourseMutation,
   useGetCourseByIdQuery,
+  usePublishCourseQuery,
 } = courseApi;

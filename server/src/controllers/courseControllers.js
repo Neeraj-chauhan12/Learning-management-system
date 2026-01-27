@@ -55,7 +55,24 @@ exports.getCourseByAdmin = async (req, res) => {
 
     } catch (error) {
         console.log("error", error)
-        return res.status(500).json({ message: "Failed to create course" })
+        return res.status(500).json({ message: "Failed to get course" })
+
+    }
+}
+
+exports.getPublishCourses = async (req, res) => {
+    try {
+
+        const courses = await CourseModel.find({ isPublished: true }).populate({ path:"creator", select:"username photoURL" })
+        if (!courses) {
+            return res.status(400).json({ message: "Course is not found" })
+        }
+        return res.status(200).json({ message: "Course fetched successfully", courses })
+    } catch (error) {
+
+        console.log("error", error)
+        return res.status(500).json({ message: "Failed to get course" })
+
 
     }
 }
@@ -66,6 +83,7 @@ exports.updateCourse = async (req, res) => {
         const courseId = req.params.courseId;
         const { courseTitle, category, description, coursePrice, courseLevel, subTitle } = req.body;
         const thumbnail = req.file;
+        console.log("thumbnail", thumbnail)
 
         let course = await CourseModel.findById(courseId)
         if (!course) {

@@ -3,6 +3,7 @@ import Course from "./Course";
 import Navbar from "../components/Navbar";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
+import { usePublishCourseQuery } from "../features/api/courseApi";
 
 const Courses = () => {
   const isLoading = false;
@@ -15,6 +16,9 @@ const Courses = () => {
       console.log("home page")
      }
    },[location.pathname])
+
+   const {data:publishCourses,isLoading:isPublishCoursesLoading}=usePublishCourseQuery();
+   console.log("publishCourses", publishCourses);
  
   
   return (
@@ -29,7 +33,7 @@ const Courses = () => {
        
         <div className="grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3">
               {isLoading ? (
-        Array.from({ length: 8 }).map((_, index) => (
+        publishCourses?.courses?.map((_, index) => (
             
             <div key={index} className="flex  w-52 flex-col gap-4">
             <div className="flex items-center gap-4">
@@ -44,8 +48,8 @@ const Courses = () => {
              ))
       ) : (
 
-        courses.map((_,id)=>(
-             <Course key={id} />
+        publishCourses?.courses?.map((course,id) => (
+             <Course key={id} course={course} />
 
         ))
        
