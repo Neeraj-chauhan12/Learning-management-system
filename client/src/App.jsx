@@ -13,6 +13,7 @@ import EditCourse from './admin/courses/EditCourse'
 import CreateLectures from './admin/lectures/CreateLectures'
 import EditLecture from './admin/lectures/EditLecture'
 import TotalData from './admin/TotalData'
+import CourseData from './pages/CourseData'
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
       {/* <Route path='/admin-dashboard' element={<TotalData/>} /> */}
       <Route path='/create' element={<CreateCourse />}/>
       <Route path='/edit/:id' element={<EditCourse />}/>
+      <Route path='/course-detail/:courseId' element={<CourseData />}/>
       <Route path='/course/:courseId/lecture/create' element={<CreateLectures />}/>
       <Route path='/course/:courseId/lecture/:lectureId/edit' element={<EditLecture />}/>
 
