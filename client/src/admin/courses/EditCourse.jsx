@@ -160,7 +160,7 @@ const EditCourse = () => {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-2">
-                <button onClick={() => publishStatusHandler(courseData?.course?.isPublished ? "false" : "true")} className="btn text-sm">
+                <button disabled={courseData?.course?.lectures?.length === 0} onClick={() => publishStatusHandler(courseData?.course?.isPublished ? "false" : "true")} className="btn text-sm">
                   {courseData?.course?.isPublished ? "Unpublish" : "Publish"}
                 </button>
                 <button className="btn text-sm">
