@@ -1,20 +1,20 @@
-const jwt=require('jsonwebtoken');
-exports.AuthMiddleware=async(req,res,next)=>{
-   const token=req.cookies.token;
-   if(!token){
-       return res.status(401).json({message:"unauthorized access"})
-   }
+const jwt = require('jsonwebtoken');
+exports.AuthMiddleware = async (req, res, next) => {
+  const token = req.cookies.token;
+  if (!token) {
+    return res.status(401).json({ message: "unauthorized access" })
+  }
 
-   try {
+  try {
 
-    const decoded=jwt.verify(token,process.env.JWT_SECRET);
-    req.user=decoded;
-    
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
+
     next();
-    
-   } catch (error) {
-     return res.status(401).json({message:"invalid token"})
-    
-   }
+
+  } catch (error) {
+    return res.status(401).json({ message: "invalid token" })
+
+  }
 
 }
