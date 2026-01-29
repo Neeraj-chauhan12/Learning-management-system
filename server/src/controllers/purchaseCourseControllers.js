@@ -28,8 +28,51 @@ exports.CreateCheckOutSession = async (req, res) => {
             // paymentId:"PAYMENT12345" // This should be replaced with actual payment gateway payment id
         });
 
+        const session=await stripe.checkout.sessions.create({
+            payment_method_types: ['card'],
+            line_items:[
+                {
+                    price_data:{
+                        currency:"inr",
+                        product_data:{
+                            name:course.courseTitle,
+                            images:[course.courseThumbnail],
+                        },
+                        unit_amount: course.coursePrice*100,
+                    },
+                    quantity:1,
+                }
+            ],
+
+            mode:"payment",
+            success_url:`${process.env.FRONTEND_URL}/course-progress/${courseId}`,
+            cancel_url:`${process.env.FRONTEND_URL}/course-details/${courseId}`,
+            metadata:{
+                courseId:courseId,
+                userId:userId,
+            },
+
+            shipping_address_collection:{
+                allowed_countries:["IN"],
+            },
+        })
+
+        if(!session.url){
+            return res.status(500).json({
+                success:false,
+                message:"Unable to create checkout session"
+            })
+        }
+
+        newPurchaseCourse.paymentId=session.id;//newPurchaseCourse.paymentIntentId
         await newPurchaseCourse.save();
 
+
+        return res.status(200).json({
+            success: true,
+            message: "Checkout session created successfully",
+            url:session.url,
+        })
 
     } catch (error) {
         console.log(error);
