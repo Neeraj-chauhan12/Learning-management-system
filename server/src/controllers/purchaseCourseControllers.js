@@ -78,8 +78,10 @@ exports.CreateCheckOutSession = async (req, res) => {
         console.log(error);
         res.status(500).json({
             success: false,
-            message: "Unable to create checkout session"
+            message: "Unable to create checkout session";
         })
 
     }
 }
+
+
