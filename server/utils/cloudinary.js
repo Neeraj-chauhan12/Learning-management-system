@@ -1,5 +1,5 @@
 const cloudinary = require("cloudinary").v2;
-const dotenv = require("dotenv");
+const dotenv = require("dotenv")
 dotenv.config({});
 
 cloudinary.config({
@@ -16,7 +16,7 @@ exports.uploadMedia = async (file) => {
     });
     return uploadResponse;
   } catch (error) {
-    console.log("Cloudinary upload error:", error);
+    console.log("Cloudinary upload error:", error)
   }
 };
 
@@ -27,7 +27,7 @@ exports.uploadVedio = async (file) => {
     });
     return result;
   } catch (error) {
-    console.log("Cloudinary upload error:", error);
+    console.log("Cloudinary upload error:", error)
   }
 };
 
