@@ -26,7 +26,7 @@ const purchaseCourseSchema = new mongoose.Schema({
 
     paymentId: {
         type: String,
-        require: true
+        require: true,
     }
 
 }, { tumestamps: true })
