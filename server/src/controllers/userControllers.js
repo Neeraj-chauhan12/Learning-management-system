@@ -8,7 +8,7 @@ exports.Register=async(req,res)=>{
     try {
 
         if(!username || !email || !password){
-            return res.status(400).json({message:"all field are required"})
+            return res.status(400).json({message:"all field are required"});
         }
 
         const existUser=await User.findOne({email});
@@ -54,8 +54,8 @@ exports.Login=async(req,res)=>{
 
 
     } catch (error) {
-        console.log("error in registration server",error)
-        return res.status(500).json({message:"error in registration server"})
+        console.log("error in login server",error)
+        return res.status(500).json({message:"error in login server"})
         
         
     }
