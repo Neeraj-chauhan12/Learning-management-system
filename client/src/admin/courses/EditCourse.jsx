@@ -12,7 +12,8 @@ const EditCourse = () => {
   const [EditCourses] = useEditCoursesMutation();
 
   const { data: courseData, refetch: refetchCourse } = useGetCourseByIdQuery(id);
-  console.log("course data:", courseData?.course?.isPublished);
+  console.log("course data:", courseData);
+  console.log("course id from params:", id);
 
   const [togglePublishCourse] = useTogglePublishCourseMutation();
 
@@ -142,8 +143,8 @@ const EditCourse = () => {
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
               <h1 className="text-2xl font-bold">Add detail information regarding course</h1>
               <div className="flex items-center gap-2">
-                <Link to={`/create-lecture/${id}`} className="btn text-sm">
-                  Go to lecture page
+                <Link to={`/course-detail/${id}`} className="btn text-sm">
+                  View Course & details course
                 </Link>
               </div>
             </div>
