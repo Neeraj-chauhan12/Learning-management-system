@@ -10,195 +10,181 @@ import toast from "react-hot-toast";
 
 const Navbar = () => {
   const navigate = useNavigate();
-
-  const { user }= useSelector((store) => store.auth);
-  console.log("userr", user);
-
+  const { user } = useSelector((store) => store.auth);
   const [showSidebar, setShowSidebar] = useState(false);
+  const [logoutUser] = useLogoutUserMutation();
 
-  const [LogoutUser,{data}] = useLogoutUserMutation();
+  const closeSidebar = () => setShowSidebar(false);
 
   const handleLogout = async () => {
     try {
-       await LogoutUser();
-    closeSidebar();
-    navigate("/login");
-    toast.success(data?.message || "Logout successfully!")
-
-      
-    } catch (error) {
-      toast.error("logout errorr")
-      
+      await logoutUser();
+      closeSidebar();
+      navigate("/login");
+      toast.success("Logged out successfully!");
+    } catch {
+      toast.error("Logout failed");
     }
-   
-    
   };
 
-  const handleSlideBar = () => {
-    setShowSidebar(true);
-  };
+  const navLinks = [
+    { label: "Home", to: "/" },
+    { label: "Profile", to: "/profile" },
+    { label: "My Learning", to: "/my-learning" },
+  ];
 
-  const closeSidebar = () => {
-    setShowSidebar(false);
-  };
   return (
-    <nav className="w-full bg-gray-900 fixed top-0 left-0 right-0  px-8 flex items-center z-10 justify-between shadow-md">
-      <div className="text-2xl font-bold text-white flex gap-3 tracking-wide">
-        <img
-          className="md:h-16 md:w-16 h-7 w-7 rounded-full object-contain "
-          src={pic}
-          alt=""
-        />
-        <div className="flex md:justify-center justify-start items-center">
-          <Link to="/" className="md:text-2xl text-sm">Chauhan KnowledgeHub</Link>
+    <nav className="fixed inset-x-0 top-0 z-30 border-b border-white/10 bg-slate-950/95 px-6 py-4 shadow-lg shadow-slate-950/20 backdrop-blur-xl">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
+        <Link to="/" className="flex items-center gap-3 text-white">
+          <img src={pic} alt="Logo" className="h-11 w-11 rounded-2xl object-cover" />
+          <div>
+            <p className="text-sm uppercase tracking-[0.25em] text-slate-300">Knowledge Hub</p>
+            <h1 className="text-lg font-semibold text-white">Chauhan Learning</h1>
+          </div>
+        </Link>
+
+        <div className="hidden items-center gap-4 md:flex">
+          {user ? (
+            <>
+              {navLinks.map((item) => (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  className="rounded-full border border-white/10 bg-white/5 px-5 py-2 text-sm font-semibold text-white transition hover:bg-white/10"
+                >
+                  {item.label}
+                </Link>
+              ))}
+              {user?.role === "instructor" && (
+                <Link
+                  to="/dashboard"
+                  className="rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:opacity-95"
+                >
+                  Dashboard
+                </Link>
+              )}
+              <button
+                onClick={handleLogout}
+                className="rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:opacity-95"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="rounded-full border border-white/10 bg-white/5 px-5 py-2 text-sm font-semibold text-white transition hover:bg-white/10"
+              >
+                Login
+              </Link>
+              <Link
+                to="/signup"
+                className="rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:opacity-95"
+              >
+                Signup
+              </Link>
+            </>
+          )}
         </div>
+
+        <button
+          className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-slate-800 text-white transition hover:bg-slate-700 md:hidden"
+          onClick={() => setShowSidebar(true)}
+          aria-label="Open mobile menu"
+          aria-expanded={showSidebar}
+        >
+          <IoReorderThreeOutline className="text-2xl" />
+        </button>
       </div>
 
-      <div>
-        {/* for desktop */}
-        {user ? (
-          <div className="md:gap-9  md:flex hidden ">
-            <div className="dropdown dropdown-end">
-              <div tabIndex={0} role="button" className="btn w-8 rounded-full ">
-                <div className="avatar">
-                  <div className="w-10 rounded-full">
-                    <img
-                      className="w-full rounded-full"
-                      src={
-                        user?.photoURL ||
-                        "https://img.daisyui.com/images/profile/demo/batperson@192.webp"
-                      }
-                    />
-                  </div>
-                </div>
-              </div>
-              <div
-                tabIndex="-1"
-                className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
+      <div
+        className={`fixed inset-y-0 right-0 z-40 w-[80%] max-w-sm transform bg-slate-950 shadow-2xl shadow-slate-950/30 transition-transform duration-300 ease-out md:hidden ${
+          showSidebar ? "translate-x-0" : "translate-x-full"
+        }`}
+        role="dialog"
+        aria-modal="true"
+      >
+        <div className="flex h-full flex-col justify-between px-6 py-6">
+          <div>
+            <div className="flex items-center justify-between">
+             
+              <button
+                onClick={closeSidebar}
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-slate-800 text-white transition hover:bg-slate-700"
+                aria-label="Close mobile menu"
               >
-                <Link className="text-sm   font-extralight " to={"/profile"}><button className="btn w-full rounded-2xl btn-outline btn-success">My Account</button></Link>
-                <Link className="text-sm mt-2 font-extralight " to={"/my-learning"}><button className="btn w-full rounded-2xl btn-outline btn-success">My Learning</button></Link>
-                <Link className="text-sm mt-2  font-extralight " onClick={handleLogout}><button className="btn w-full btn-outline rounded-2xl btn-error">Logout</button></Link>
-                {user?.role === "instructor" ? (
-                  <Link to={'/dashboard'} className="text-sm mt-2 font-extralight"><button className="btn btn-outline w-full rounded-2xl btn-primary">Dashboard</button></Link>
-                ) : (
-                  ""
-                )}
-              </div>
-            </div>
-            <div className="">
-              <button className="text-4xl  text-black bg-gray-300 rounded-full">
-                <CiDark />
+                <RxCross2 className="text-xl" />
               </button>
             </div>
-          </div>
-        ) : (
-          <div className="hidden md:block md:flex gap-4">
-            <Link
-              to="/login"
-              className="px-4 py-2 rounded bg-gray-800 text-white font-semibold hover:bg-gray-700 transition duration-200 border border-gray-700"
-            >
-              Login
-            </Link>
-            <Link
-              to="/signup"
-              className="px-4 py-2 rounded bg-gray-800 text-white font-semibold hover:bg-gray-700 transition duration-200 border border-gray-700"
-            >
-              Signup
-            </Link>
-          </div>
-        )}
-      </div>
 
-      {/* mobile */}
-      <button
-        onClick={handleSlideBar}
-        className="md:hidden text-3xl text-white"
-      >
-        <IoReorderThreeOutline />
-      </button>
+            <div className="mt-8 space-y-3">
+              {navLinks.map((item) => (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  onClick={closeSidebar}
+                  className="block rounded-3xl border border-white/10 bg-slate-900/90 px-5 py-4 text-base font-semibold text-white transition hover:border-cyan-400 hover:bg-slate-900"
+                >
+                  {item.label}
+                </Link>
+              ))}
 
-      {/* Mobile Sidebar */}
-      {showSidebar && role === "instructor" && (
-        <div className="fixed inset-0 z-40 md:hidden">
-          {/* Overlay */}
-          <div
-            className="absolute inset-0 bg-black bg-opacity-50"
-            onClick={closeSidebar}
-          />
-
-          {/* Sidebar Panel */}
-          <div className="absolute left-0 top-0 h-full w-64 bg-gray-900 shadow-lg z-50 animate-in slide-in-from-left duration-300">
-            {/* Close Button */}
-            <button
-              onClick={closeSidebar}
-              className="absolute top-4 right-4 text-white text-2xl hover:text-gray-300 transition"
-            >
-              <RxCross2 />
-            </button>
-
-            {/* Sidebar Content */}
-            <div className="pt-16 px-6 space-y-4">
-              {user ? (
-                <>
-                  <Link
-                    to="/"
-                    className="block px-4 py-2 rounded bg-gray-800 text-white font-semibold hover:bg-gray-700 transition duration-200 border border-gray-700"
-                    onClick={closeSidebar}
-                  >
-                    Login
-                  </Link>
-                  <Link
-                    to="/signup"
-                    className="block px-4 py-2 rounded bg-gray-800 text-white font-semibold hover:bg-gray-700 transition duration-200 border border-gray-700"
-                    onClick={closeSidebar}
-                  >
-                    Signup
-                  </Link>
-                </>
-              ) : (
-                <>
-                  <Link
-                    to="/profile"
-                    className="block px-4 py-3 text-white hover:bg-gray-800 rounded transition duration-200"
-                    onClick={closeSidebar}
-                  >
-                    My Account
-                  </Link>
-                  <Link
-                    to="/my-learning"
-                    className="block px-4 py-3 text-white hover:bg-gray-800 rounded transition duration-200"
-                    onClick={closeSidebar}
-                  >
-                    My learning
-                  </Link>
-                  <Link
-                    to="#"
-                    className="block px-4 py-3 text-white hover:bg-gray-800 rounded transition duration-200"
-                    // onClick={closeSidebar}
-                    onClick={handleLogout}
-                  >
-                    Log out
-                  </Link>
-                  <Link
-                    to="#"
-                    className="block px-4 py-3 text-white hover:bg-gray-800 rounded transition duration-200"
-                    onClick={closeSidebar}
-                  >
-                    Dashboard
-                  </Link>
-
-                  <button className="w-full mt-4 text-2xl text-black bg-gray-300 rounded-full p-3 hover:bg-gray-400 transition">
-                    <CiDark />
-                  </button>
-                </>
+              {user?.role === "instructor" && (
+                <Link
+                  to="/dashboard"
+                  onClick={closeSidebar}
+                  className="block rounded-3xl bg-gradient-to-r from-indigo-500 to-cyan-500 px-5 py-4 text-base font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:opacity-95"
+                >
+                  Dashboard
+                </Link>
               )}
             </div>
           </div>
+
+          <div className="space-y-3">
+            {user ? (
+              <button
+                onClick={handleLogout}
+                className="w-full rounded-3xl mt-2 bg-gradient-to-r from-indigo-500 to-cyan-500 px-5 py-4 text-base font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:opacity-95"
+              >
+                Logout
+              </button>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  onClick={closeSidebar}
+                  className="block rounded-3xl border border-white/10 bg-slate-900/90 px-5 py-4 text-center text-base font-semibold text-white transition hover:border-cyan-400 hover:bg-slate-900"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/signup"
+                  onClick={closeSidebar}
+                  className="block rounded-3xl bg-gradient-to-r from-indigo-500 to-cyan-500 px-5 py-4 text-center text-base font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:opacity-95"
+                >
+                  Signup
+                </Link>
+              </>
+            )}
+
+           
+          </div>
         </div>
-      )}
+      </div>
+
+      <div
+        className={`fixed inset-0 z-30 bg-slate-950/70 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
+          showSidebar ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+        onClick={closeSidebar}
+        aria-hidden="true"
+      />
     </nav>
   );
 };
 
 export default Navbar;
+

@@ -16,20 +16,17 @@ const Login = () => {
     e.preventDefault();
 
     const userData = {
-      email: email,
-      password: password,
+      email,
+      password,
     };
 
     try {
-      
       const result = await login(userData).unwrap();
-      // server returns { message, user, token }
       toast.success(result?.message || "Login successful");
       navigate("/");
       setEmail("");
       setPassword("");
     } catch (err) {
-      // RTK Query errors can be in err.data.message or err.error
       const msg = err?.data?.message || err?.error || "Login failed";
       toast.error(msg);
     }
@@ -38,41 +35,42 @@ const Login = () => {
   return (
     <>
       <Navbar />
-      <div className="flex items-center px-5 justify-center min-h-screen bg-gradient-to-br from-green-100 to-blue-200">
-        <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-          <h2 className="text-2xl font-bold mb-6 text-center text-blue-700">
-            Login
-          </h2>
-          <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 px-4 py-14">
+        <div className="w-full max-w-md rounded-[32px] border border-white/10 bg-white/90 p-8 shadow-[0_35px_120px_rgba(15,23,42,0.2)] backdrop-blur-xl">
+          <div className="mb-8 text-center">
+            <p className="text-sm uppercase tracking-[0.28em] text-slate-500">Welcome Back</p>
+            <h1 className="mt-4 text-4xl font-semibold text-slate-950">Login to your account</h1>
+            <p className="mt-3 text-sm leading-6 text-slate-600">
+              Access all courses, continue your learning, and manage your profile.
+            </p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block mb-1 font-medium text-gray-700">
-                Email
-              </label>
+              <label className="mb-2 block text-sm font-medium text-slate-700">Email</label>
               <input
                 type="email"
                 name="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="w-full rounded-3xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-violet-400 focus:ring-4 focus:ring-violet-100"
                 required
               />
             </div>
             <div>
-              <label className="block mb-1 font-medium text-gray-700">
-                Password
-              </label>
+              <label className="mb-2 block text-sm font-medium text-slate-700">Password</label>
               <div className="relative">
                 <input
                   type={showPassword ? "text" : "password"}
                   name="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  className="w-full rounded-3xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-violet-400 focus:ring-4 focus:ring-violet-100"
                   required
                 />
                 <button
                   type="button"
-                  className="absolute right-2 top-2 text-xs text-blue-600"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-sm font-semibold text-violet-600 hover:text-violet-700"
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? "Hide" : "Show"}
@@ -81,14 +79,15 @@ const Login = () => {
             </div>
             <button
               type="submit"
-              className="w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition duration-200"
+              className="w-full rounded-3xl bg-gradient-to-r from-violet-600 to-indigo-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-violet-500/20 transition hover:scale-[1.01]"
             >
               Login
             </button>
           </form>
-          <div className="mt-4 text-center">
-            <span className="text-gray-600">Don't have an account? </span>
-            <Link to="/signup" className="text-blue-600 hover:underline">
+
+          <div className="mt-6 text-center text-sm text-slate-600">
+            <span>Don&apos;t have an account? </span>
+            <Link to="/signup" className="font-semibold text-violet-600 hover:text-violet-700">
               Sign Up
             </Link>
           </div>

@@ -10,29 +10,25 @@ const Signup = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const [register, { data, error, isLoading, isSuccess }] =
-    useRegisterMutation();
-
+  const [register] = useRegisterMutation();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const userData = {
-      username: username,
-      email: email,
-      password: password,
+      username,
+      email,
+      password,
     };
 
     try {
       const result = await register(userData).unwrap();
-      // server returns { message, user, token }
       toast.success(result?.message || "Signup successful");
       navigate("/");
       setEmail("");
       setUsername("");
       setPassword("");
     } catch (err) {
-      // RTK Query errors can be in err.data.message or err.error
       const msg = err?.data?.message || err?.error || "Signup failed";
       toast.error(msg);
     }
@@ -41,54 +37,53 @@ const Signup = () => {
   return (
     <>
       <Navbar />
-      <div className="flex items-center px-5 justify-center min-h-screen bg-gradient-to-br from-blue-100 to-purple-200">
-        <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-          <h2 className="text-2xl font-bold mb-6 text-center text-purple-700">
-            Sign Up
-          </h2>
-          <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-950 via-violet-950 to-slate-800 px-4 py-14">
+        <div className="w-full max-w-md rounded-[32px] border border-white/10 bg-white/95 p-8 shadow-[0_35px_120px_rgba(15,23,42,0.2)] backdrop-blur-xl">
+          <div className="mb-8 text-center">
+            <p className="text-sm uppercase tracking-[0.28em] text-slate-500">Create your account</p>
+            <h1 className="mt-4 text-4xl font-semibold text-slate-950">Start learning today</h1>
+            <p className="mt-3 text-sm leading-6 text-slate-600">
+              Join our community and unlock new skills with courses built for growth.
+            </p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block mb-1 font-medium text-gray-700">
-                Name
-              </label>
+              <label className="mb-2 block text-sm font-medium text-slate-700">Name</label>
               <input
                 type="text"
                 name="name"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
+                className="w-full rounded-3xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-fuchsia-400 focus:ring-4 focus:ring-fuchsia-100"
                 required
               />
             </div>
             <div>
-              <label className="block mb-1 font-medium text-gray-700">
-                Email
-              </label>
+              <label className="mb-2 block text-sm font-medium text-slate-700">Email</label>
               <input
                 type="email"
                 name="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
+                className="w-full rounded-3xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-fuchsia-400 focus:ring-4 focus:ring-fuchsia-100"
                 required
               />
             </div>
             <div>
-              <label className="block mb-1 font-medium text-gray-700">
-                Password
-              </label>
+              <label className="mb-2 block text-sm font-medium text-slate-700">Password</label>
               <div className="relative">
                 <input
                   type={showPassword ? "text" : "password"}
                   name="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
+                  className="w-full rounded-3xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-fuchsia-400 focus:ring-4 focus:ring-fuchsia-100"
                   required
                 />
                 <button
                   type="button"
-                  className="absolute right-2 top-2 text-xs text-purple-600"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-sm font-semibold text-fuchsia-600 hover:text-fuchsia-700"
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? "Hide" : "Show"}
@@ -97,14 +92,15 @@ const Signup = () => {
             </div>
             <button
               type="submit"
-              className="w-full py-2 px-4 bg-purple-600 text-white font-semibold rounded hover:bg-purple-700 transition duration-200"
+              className="w-full rounded-3xl bg-gradient-to-r from-fuchsia-600 to-violet-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-fuchsia-500/20 transition hover:scale-[1.01]"
             >
               Sign Up
             </button>
           </form>
-          <div className="mt-4 text-center">
-            <span className="text-gray-600">Already have an account? </span>
-            <Link to="/login" className="text-purple-600 hover:underline">
+
+          <div className="mt-6 text-center text-sm text-slate-600">
+            <span>Already have an account? </span>
+            <Link to="/login" className="font-semibold text-fuchsia-600 hover:text-fuchsia-700">
               Login
             </Link>
           </div>

@@ -1,72 +1,52 @@
 import React, { useEffect } from "react";
 import Course from "./Course";
-import Navbar from "../components/Navbar";
-import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { usePublishCourseQuery } from "../features/api/courseApi";
 
 const Courses = () => {
-  const isLoading = false;
-  const courses=[5,6,4,5,6,5,4,6]
+  const location = useLocation();
+  const { data: publishCourses, isLoading: isPublishCoursesLoading } = usePublishCourseQuery();
 
-  const location=useLocation();
-  //const {user,isAuthenticated}=useSelector(state=>state.auth)
-   useEffect(()=>{
-     if(location.pathname==="/"){
-      console.log("home page")
-     }
-   },[location.pathname])
+  useEffect(() => {
+    if (location.pathname === "/") {
+      console.log("home page");
+    }
+  }, [location.pathname]);
 
-   const {data:publishCourses,isLoading:isPublishCoursesLoading}=usePublishCourseQuery();
-   console.log("publishCourses", publishCourses);
- 
-  
   return (
-    <>
-  <Navbar />
-    <div className="max-w-7xl  bg-gray-50 mx-auto pt-14 p-6">
-       <div className="flex justify-center items-center">
-    <h1 className="text-3xl font-bold my-5" >Our Courses</h1>
-       </div>
-      
-      
-       
-        <div className="grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3">
-              {isLoading ? (
-        publishCourses?.courses?.map((_, index) => (
-            
-            <div key={index} className="flex  w-52 flex-col gap-4">
-            <div className="flex items-center gap-4">
-              <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
-              <div className="flex flex-col gap-4">
-                <div className="skeleton h-4 w-20"></div>
-                <div className="skeleton h-4 w-28"></div>
-              </div>
-            </div>
-            <div className="skeleton h-32 w-full"></div>
-          </div>
-             ))
-      ) : (
-
-        publishCourses?.courses?.map((course,id) => (
-             <Course key={id} course={course} />
-
-        ))
-       
-        
-      )}
-
+    <section className="bg-slate-50 py-16">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="mb-10 text-center">
+          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-indigo-600">
+            Popular courses
+          </p>
+          <h2 className="mt-4 text-4xl font-bold text-slate-950">Browse our most in-demand learning paths</h2>
+          <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-slate-600">
+            Choose from expert-led programs designed to help you grow faster in your career.
+          </p>
         </div>
-    
-    
-        
 
-
-     
-        
-    </div>
-    </>
-  );
-};
+        <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
+          {isPublishCoursesLoading ? (
+            Array.from({ length: 6 }).map((_, index) => (
+              <div key={index} className="animate-pulse rounded-[32px] bg-white p-6 shadow-lg shadow-slate-900/5">
+                <div className="mb-6 h-48 rounded-3xl bg-slate-200" />
+                <div className="h-4 w-3/4 rounded bg-slate-200 mb-4" />
+                <div className="h-3 w-full rounded bg-slate-200 mb-2" />
+                <div className="h-3 w-5/6 rounded bg-slate-200" />
+              </div>
+            ))
+          ) : publishCourses?.courses?.length > 0 ? (
+            publishCourses.courses.map((course) => <Course key={course?._id} course={course} />)
+          ) : (
+            <div className="col-span-full rounded-[32px] bg-white p-10 text-center shadow-lg shadow-slate-900/5">
+              <p className="text-lg font-medium text-slate-700">No courses found yet.</p>
+              <p className="mt-2 text-sm text-slate-500">Please check back later for new learning experiences.</p>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  )}
 
 export default Courses;
