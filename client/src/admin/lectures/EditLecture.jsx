@@ -1,4 +1,4 @@
-import React, { useEffect, useState,} from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { MdCloudUpload } from "react-icons/md";
@@ -28,7 +28,6 @@ const EditLecture = () => {
   const [removeLecture] = useRemoveLectureMutation();
 
   const { data: lectureData } = useGetLectureByIdQuery(lectureId);
-  console.log("lectureData", lectureData);
   const lecture = lectureData?.lecture;
 
   useEffect(() => {
@@ -36,7 +35,6 @@ const EditLecture = () => {
       setTitle(lecture.lectureTitle);
       setIsFree(lecture?.isPreviewFree);
       setUploadVideo(lecture.videoInfo);
-      // setBtnDisable(false);
     }
   }, [lecture]);
 
@@ -65,7 +63,6 @@ const EditLecture = () => {
 
   const handleVideoFile = async (e) => {
     const file = e.target.files[0];
-
     const formData = new FormData();
     formData.append("file", file);
     setMediaProgess(true);
@@ -75,19 +72,17 @@ const EditLecture = () => {
           setUploadProgess(Math.round((loaded * 100) / total));
         },
       });
-      console.log("res", res);
       if (res.data.success) {
-        console.log(res);
         setUploadVideo({
           videoUrl: res.data.data.url,
           publicId: res.data.data.public_id,
         });
         setVideoPreview(res.data.data.url);
-        toast.success(res?.data?.message || "video uploaded successfully");
+        toast.success(res?.data?.message || "Video uploaded successfully");
         setBtnDisable(false);
       }
     } catch (error) {
-      toast.error("video upload failed");
+      toast.error("Video upload failed");
     } finally {
       setMediaProgess(false);
     }
@@ -108,48 +103,47 @@ const EditLecture = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen bg-slate-50 py-8 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-4xl">
+        {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-white">Edit Lecture</h1>
-          <p className="text-gray-300 text-sm">
-            Course ID: {courseId} | Lecture ID: {lectureId}
+          <h1 className="text-3xl font-bold text-slate-950">Edit Lecture</h1>
+          <p className="mt-1 text-sm text-slate-600">
+            Course ID: <span className="font-mono">{courseId}</span> | Lecture ID: <span className="font-mono">{lectureId}</span>
           </p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
-          <div className="h-2 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500"></div>
+        {/* Form Card */}
+        <div className="overflow-hidden rounded-2xl bg-white shadow-lg shadow-slate-900/5">
+          <div className="h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-500" />
 
-          <form className="p-6 md:p-12 space-y-6">
+          <form className="p-6 md:p-12 space-y-8">
             {/* Title */}
             <div>
-              <label className="block text-sm font-semibold text-gray-800 mb-3">
+              <label className="block text-sm font-semibold text-slate-900 mb-3">
                 Lecture Title *
               </label>
               <input
                 type="text"
                 name="title"
                 value={title}
-                onChange={(e) => {
-                  setTitle(e.target.value);
-                }}
+                onChange={(e) => setTitle(e.target.value)}
                 placeholder="Enter lecture title"
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition"
+                className="w-full rounded-lg border border-slate-200 px-4 py-3 text-slate-900 placeholder:text-slate-500 transition focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-100"
               />
             </div>
 
             {/* Video Upload */}
             <div>
-              <label className="block text-sm font-semibold text-gray-800 mb-3">
+              <label className="block text-sm font-semibold text-slate-900 mb-3">
                 Lecture Video
               </label>
               <div>
                 {!videoPreview ? (
-                  <label className="flex items-center justify-center px-4 py-8 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-purple-400 transition">
-                    <MdCloudUpload className="text-purple-500 mr-3 text-2xl" />
-                    <span className="text-sm text-gray-600">
-                      Click to upload or drag and drop
-                    </span>
+                  <label className="flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-slate-300 px-4 py-12 cursor-pointer transition hover:border-indigo-500 hover:bg-indigo-50">
+                    <MdCloudUpload className="text-4xl text-indigo-500" />
+                    <span className="text-sm font-medium text-slate-600">Click to upload or drag and drop</span>
+                    <span className="text-xs text-slate-500">MP4, WebM, etc. (Max 500MB)</span>
                     <input
                       type="file"
                       accept="video/*"
@@ -159,10 +153,11 @@ const EditLecture = () => {
                   </label>
                 ) : (
                   <div className="relative">
-                    <video controls className="w-full h-48 md:h-64 bg-black rounded-lg">
-                      <source src={videoPreview} />
-                      Your browser does not support the video tag.
-                    </video>
+                    <video
+                      controls
+                      className="h-64 w-full rounded-lg bg-black object-cover"
+                      src={videoPreview}
+                    />
                     <button
                       type="button"
                       onClick={() => {
@@ -170,77 +165,71 @@ const EditLecture = () => {
                         setUploadVideo(null);
                         setBtnDisable(true);
                       }}
-                      className="absolute top-2 right-2 bg-red-600 text-white rounded-full p-2 hover:bg-red-700"
+                      className="absolute right-2 top-2 rounded-full bg-red-600 p-2 text-white transition hover:bg-red-700"
                     >
-                      <AiOutlineClose />
+                      <AiOutlineClose className="text-lg" />
                     </button>
                   </div>
                 )}
               </div>
             </div>
 
-            <div>
-              <label className="block text-sm font-semibold text-gray-800 mb-3">
-                Is This Lecture Free?
-              </label>
-              <div className="flex items-center gap-3 mt-3">
+            {/* Upload Progress */}
+            {mediaProgress && (
+              <div className="space-y-2">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="font-medium text-slate-700">Uploading...</span>
+                  <span className="text-indigo-600 font-semibold">{uploadProgress}%</span>
+                </div>
+                <div className="h-2 w-full overflow-hidden rounded-full bg-slate-200">
+                  <div
+                    className="h-full bg-gradient-to-r from-indigo-500 to-cyan-500 transition-all duration-300"
+                    style={{ width: `${uploadProgress}%` }}
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* Free Preview */}
+            <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
+              <label className="flex items-center gap-3 cursor-pointer">
                 <input
                   type="checkbox"
                   name="isFree"
                   checked={isFree}
-                  onChange={(e) => {
-                    setIsFree(e.target.checked);
-                  }}
-                  className="w-5 h-5 rounded"
+                  onChange={(e) => setIsFree(e.target.checked)}
+                  className="h-4 w-4 rounded border-slate-300 text-indigo-600 transition focus:ring-indigo-500"
                 />
-                <span className="text-sm text-gray-600">
-                  {isFree ? "Yes, Free" : "No, Paid"}
-                </span>
-              </div>
+                <div>
+                  <p className="font-medium text-slate-900">Free Preview</p>
+                  <p className="text-xs text-slate-600">Allow non-enrolled users to preview this lecture</p>
+                </div>
+              </label>
             </div>
 
-            {/* progress */}
-            <div>
-              <progress
-                className="progress progress-success w-full"
-                value={uploadProgress}
-                max="100"
-              ></progress>
-              <h1>{uploadProgress}% uploaded</h1>
-            </div>
-
-            <div className="flex gap-3 pt-6">
+            {/* Action Buttons */}
+            <div className="flex flex-col gap-3 sm:flex-row sm:justify-end pt-6 border-t border-slate-200">
               <button
-                onClick={(e) => handleEditLectureData(e)}
-                disabled={updateLoading}
-                className={`flex-1 py-3 px-6 rounded-lg font-semibold text-white transition ${
-                  updateLoading
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
-                }`}
+                type="button"
+                onClick={() => navigate(-1)}
+                className="order-3 rounded-lg border border-slate-300 bg-white px-6 py-3 font-medium text-slate-700 transition hover:bg-slate-50 sm:order-1"
               >
-                {updateLoading ? "Updating..." : "Update Lecture"}
+                Cancel
               </button>
-
               <button
                 type="button"
                 onClick={handleRemoveCourse}
                 disabled={removeLoading}
-                className={`py-3 px-6 rounded-lg font-semibold text-white transition ${
-                  removeLoading
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-red-600 hover:bg-red-700"
-                }`}
+                className="order-2 rounded-lg bg-red-600 px-6 py-3 font-medium text-white shadow-lg shadow-red-600/20 transition disabled:opacity-50 disabled:cursor-not-allowed hover:bg-red-700 sm:order-2"
               >
                 {removeLoading ? "Removing..." : "Remove Lecture"}
               </button>
-
               <button
-                type="button"
-                onClick={() => navigate(-1)}
-                className="py-3 px-6 rounded-lg font-semibold text-gray-700 border-2 border-gray-300 hover:bg-gray-50 transition"
+                onClick={handleEditLectureData}
+                disabled={updateLoading}
+                className="order-1 rounded-lg bg-gradient-to-r from-indigo-500 to-cyan-500 px-6 py-3 font-semibold text-white shadow-lg shadow-cyan-500/20 transition disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-95 sm:order-3"
               >
-                Cancel
+                {updateLoading ? "Updating..." : "Update Lecture"}
               </button>
             </div>
           </form>
