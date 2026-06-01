@@ -31,18 +31,18 @@ export const courseApi = createApi({
       providesTags: ["Refetch-course"],
     }),
 
-    publishCourse:builder.query({
-      query:()=>({
-        url:"publish-courses",
-        method:"GET",
-      })
+    publishCourse: builder.query({
+      query: () => ({
+        url: "publish-courses",
+        method: "GET",
+      }),
     }),
 
-    GetAllCourses:builder.query({
-      query:()=>({
-        url:"all",
-        method:"GET",
-      })
+    GetAllCourses: builder.query({
+      query: () => ({
+        url: "all",
+        method: "GET",
+      }),
     }),
 
     EditCourses: builder.mutation({
@@ -55,57 +55,12 @@ export const courseApi = createApi({
       invalidatesTags: ["Refetch-course"],
     }),
 
-    CreateLecture: builder.mutation({
-      query: ({ lectureTitle, courseId }) => ({
-        url: `${courseId}/lecture`,
-        method: "POST",
-        body: { lectureTitle },
-      }),
-    }),
-
-    getLecture: builder.query({
+    getCourseById: builder.query({
       query: (courseId) => ({
-        url: `${courseId}/lecture`,
+        url: `course/${courseId}`,
         method: "GET",
       }),
     }),
-
-    editLecture: builder.mutation({
-      query: ({
-        lectureTitle,
-        videoInfo,
-        isPreviewFree,
-        courseId,
-        lectureId,
-      }) => ({
-        url: `${courseId}/lecture/${lectureId}`,
-        method:"PUT",
-        body: { lectureTitle, videoInfo, isPreviewFree },
-      }),
-    }),
-
-
-    removeLecture:builder.mutation({
-        query:(lectureId)=>({
-            url:`lecture/${lectureId}`,
-            method:"DELETE"
-        })
-    }),
-
-    getLectureById:builder.query({
-      query:(lectureId)=>({
-        url:`lecture/${lectureId}`,
-        method:"GET",
-      })
-    }),
-
-    getCourseById:builder.query({
-      query:(courseId)=>({
-        url:`course/${courseId}`,
-        method:"GET",
-      })
-    }),
-
 
     togglePublishCourse: builder.mutation({
       query: ({ courseId, query }) => ({
@@ -113,22 +68,13 @@ export const courseApi = createApi({
         method: "PATCH",
       }),
     }),
-
   }),
 });
 
-   
-   
-
 export const {
   useCourseCreateMutation,
-  useEditLectureMutation,
-  useGetLectureQuery,
-  useCreateLectureMutation,
   useEditCoursesMutation,
   useCourseGetQuery,
-  useRemoveLectureMutation,
-  useGetLectureByIdQuery,
   useTogglePublishCourseMutation,
   useGetCourseByIdQuery,
   usePublishCourseQuery,

@@ -6,11 +6,7 @@ import { useLocation } from "react-router-dom";
 import HeroSection from "../students/StudentHome";
 import Courses from "../students/AllCourses";
 import { useLoadUserQuery } from "../features/api/authApi";
-
-import { IoMdAdd } from "react-icons/io";
-import { FaChartBar, FaUsers, FaBook, FaStar } from "react-icons/fa";
-import { MdEdit, MdVisibility } from "react-icons/md";
-import AdminHome from "../admin/AdminHome";
+import AdminHome from "../admin/AdminHome"
 import StudentHome from "../students/StudentHome";
 
 const Home = () => {

@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import {
-  useCreateLectureMutation,
-  useGetLectureQuery,
-} from "../../features/api/courseApi";
+
 import Lecture from "./Lecture";
 import { IoMdAdd } from "react-icons/io";
+import { useCreateLectureMutation, useGetLectureQuery } from "../../features/api/lectureApi";
 
 const CreateLectures = () => {
   const { courseId } = useParams();

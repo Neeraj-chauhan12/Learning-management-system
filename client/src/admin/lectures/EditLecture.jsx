@@ -4,11 +4,8 @@ import toast from "react-hot-toast";
 import { MdCloudUpload } from "react-icons/md";
 import { AiOutlineClose } from "react-icons/ai";
 import axios from "axios";
-import {
-  useEditLectureMutation,
-  useGetLectureByIdQuery,
-  useRemoveLectureMutation,
-} from "../../features/api/courseApi";
+import { useEditLectureMutation, useGetLectureByIdQuery, useRemoveLectureMutation } from "../../features/api/lectureApi";
+
 
 const EditLecture = () => {
   const { lectureId, courseId } = useParams();
@@ -27,7 +24,7 @@ const EditLecture = () => {
   const [editLecture] = useEditLectureMutation();
   const [removeLecture] = useRemoveLectureMutation();
 
-  const { data: lectureData } = useGetLectureByIdQuery(lectureId);
+  const { data: lectureData ,refetch} = useGetLectureByIdQuery(lectureId);
   const lecture = lectureData?.lecture;
 
   useEffect(() => {
@@ -36,6 +33,7 @@ const EditLecture = () => {
       setIsFree(lecture?.isPreviewFree);
       setUploadVideo(lecture.videoInfo);
     }
+    refetch();
   }, [lecture]);
 
   const handleEditLectureData = async (e) => {
