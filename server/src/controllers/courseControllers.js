@@ -163,3 +163,18 @@ exports.togglePublishCourse = async (req, res) => {
     }
 }
 
+exports.getAllCourses = async (req, res) => {
+    try{
+        const courses = await CourseModel.find();
+        if (!courses) {
+            return res.status(404).json({ message: "Courses not found" })
+        }
+        return res.status(200).json({ message: "Courses fetched successfully", courses })
+
+    }catch(error){
+        console.log("error", error)
+        return res.status(500).json({ message: "Failed to fetch courses" })
+
+    }
+}
+

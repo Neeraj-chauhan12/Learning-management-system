@@ -9,6 +9,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("student");
 
   const [register] = useRegisterMutation();
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ const Signup = () => {
       username,
       email,
       password,
+      role,
     };
 
     try {
@@ -28,6 +30,7 @@ const Signup = () => {
       setEmail("");
       setUsername("");
       setPassword("");
+      setRole("student");
     } catch (err) {
       const msg = err?.data?.message || err?.error || "Signup failed";
       toast.error(msg);
@@ -88,6 +91,33 @@ const Signup = () => {
                 >
                   {showPassword ? "Hide" : "Show"}
                 </button>
+              </div>
+            </div>
+            <div>
+              <label className="mb-2 block text-sm font-medium text-slate-700">I am a</label>
+              <div className="flex gap-4">
+                <label className="flex items-center">
+                  <input
+                    type="radio"
+                    name="role"
+                    value="student"
+                    checked={role === "student"}
+                    onChange={(e) => setRole(e.target.value)}
+                    className="h-4 w-4 cursor-pointer text-fuchsia-600"
+                  />
+                  <span className="ml-2 text-sm font-medium text-slate-700 cursor-pointer">Student</span>
+                </label>
+                <label className="flex items-center">
+                  <input
+                    type="radio"
+                    name="role"
+                    value="instructor"
+                    checked={role === "instructor"}
+                    onChange={(e) => setRole(e.target.value)}
+                    className="h-4 w-4 cursor-pointer text-fuchsia-600"
+                  />
+                  <span className="ml-2 text-sm font-medium text-slate-700 cursor-pointer">Instructor</span>
+                </label>
               </div>
             </div>
             <button

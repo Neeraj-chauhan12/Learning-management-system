@@ -4,10 +4,10 @@ const jwt=require('jsonwebtoken');
 const { deleteMediaFromCloudinary, uploadMedia } = require('../../utils/cloudinary');
 exports.Register=async(req,res)=>{
 
-    const {username,email,password}=req.body;
+    const {username,email,password,role}=req.body;
     try {
 
-        if(!username || !email || !password){
+        if(!username || !email || !password || !role){
             return res.status(400).json({message:"all field are required"});
         }
 
@@ -20,7 +20,8 @@ exports.Register=async(req,res)=>{
       const user= await User.create({
         username,
         email,
-        password:hashPassword
+        password:hashPassword,
+        role
       })
 
       res.status(201).json({message:"user created succusssfully",user})
