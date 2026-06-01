@@ -165,7 +165,7 @@ exports.togglePublishCourse = async (req, res) => {
 
 exports.getAllCourses = async (req, res) => {
     try{
-        const courses = await CourseModel.find();
+        const courses = await CourseModel.find()
         if (!courses) {
             return res.status(404).json({ message: "Courses not found" })
         }
