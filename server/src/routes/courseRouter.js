@@ -8,6 +8,7 @@ const router=express.Router()
 
 router.post('/',AuthMiddleware,Create)
 router.get('/publish-courses',AuthMiddleware,getPublishCourses)
+router.get('/get',AuthMiddleware,getCourseByAdmin)
 router.get('/:courseId',AuthMiddleware,getCourseByAdmin)
 router.put('/:courseId',AuthMiddleware,upload.single("thumbnail"),updateCourse)
 router.post('/:courseId/lecture',AuthMiddleware,CreateLecture)

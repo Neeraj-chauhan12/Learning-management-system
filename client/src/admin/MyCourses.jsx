@@ -1,10 +1,12 @@
 import React from 'react'
 import Navbar from '../components/Navbar';
 import Course from './Course';
+import { useCourseGetQuery } from '../features/api/courseApi';
+import Loading from '../students/Loading';
 
 const MyCourses = () => {
-  const courses = [1, 6, 5, 4, 8];
-  const isLoading = false;
+  const { data: courses, isLoading } = useCourseGetQuery();
+  console.log("my courses", courses);
   return (
     <>
       <Navbar />
@@ -25,7 +27,7 @@ const MyCourses = () => {
                 <Loading key={i} />
               ))}
             </div>
-          ) : courses.length === 0 ? (
+          ) : courses?.courses?.length === 0 ? (
             <div className="rounded-2xl bg-white p-12 text-center shadow-lg shadow-slate-900/5">
               <p className="text-lg font-medium text-slate-600 mb-4">You are not enrolled in any courses yet</p>
               <Link
@@ -37,8 +39,8 @@ const MyCourses = () => {
             </div>
           ) : (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {courses.map(() => (
-                <Course  />
+              {courses?.courses?.map((data, id) => (
+                <Course key={id}  data={data} />
               ))}
             </div>
           )}

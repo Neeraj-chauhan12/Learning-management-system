@@ -1,7 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useLoadUserQuery } from "../features/api/authApi";
 
-const Course = ({ course }) => {
+const Course = ({ data: course }) => {
+  const { data } = useLoadUserQuery();
+  console.log("course data", course);
+
   return (
     <article className="overflow-hidden rounded-[32px] border border-slate-200 bg-white shadow-[0_20px_80px_rgba(15,23,42,0.08)] transition hover:-translate-y-1 hover:shadow-2xl">
       <div className="overflow-hidden rounded-t-[32px]">
@@ -26,11 +30,11 @@ const Course = ({ course }) => {
         <div className="mt-6 flex items-center gap-3">
           <img
             className="h-11 w-11 rounded-full object-cover"
-            src={course?.creator?.photoURL || "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80"}
-            alt={course?.creator?.username || "Instructor"}
+            src={data?.user?.photoURL || "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80"}
+            alt={data?.user?.username || "Instructor"}
           />
           <div>
-            <p className="text-sm font-semibold text-slate-900">{course?.creator?.username || "Instructor"}</p>
+            <p className="text-sm font-semibold text-slate-900">{data?.user?.username || "Instructor"}</p>
             <p className="text-xs text-slate-500">{course?.creator?.role || "Instructor"}</p>
           </div>
         </div>
