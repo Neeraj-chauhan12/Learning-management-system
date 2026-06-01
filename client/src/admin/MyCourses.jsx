@@ -1,7 +1,7 @@
 import React from 'react'
 import Navbar from '../components/Navbar';
 import { Link } from 'react-router-dom';
-import Course from './Course';
+import Course from '../components/Course';
 import { useCourseGetQuery } from '../features/api/courseApi';
 import Loading from '../students/Loading';
 

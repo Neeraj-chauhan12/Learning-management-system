@@ -2,6 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const StudentHome = () => {
+
+  
+  
+
   return (
     <section className="relative overflow-hidden bg-gradient-to-r from-sky-700 via-indigo-700 to-fuchsia-600 px-6 pt-28 pb-20 text-white">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(255,255,255,0.2),_transparent_30%)] opacity-90" />
