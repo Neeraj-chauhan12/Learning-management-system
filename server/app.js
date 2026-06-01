@@ -6,6 +6,7 @@ const cors = require('cors');
 const userRoute=require('./src/routes/userRoutes');
 const courseRoute=require('./src/routes/courseRouter')
 const videoUploadRoute=require('./src/routes/vedioUploadRouter')
+const rateLimiter=require('./src/RateLimiting/RateLimiting');
 const cookieParser=require('cookie-parser');
 dotenv.config()
 
@@ -20,6 +21,10 @@ app.use(cors({
 
 app.use(express.json());
 app.use(cookieParser());
+
+
+// Apply rate limiting middleware to all routes
+app.use(rateLimiter);
 
 
 
