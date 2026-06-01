@@ -10,13 +10,7 @@ const {
   getAllCourses,
 } = require("../controllers/courseControllers");
 const upload = require("../../utils/multer");
-const {
-  CreateLecture,
-  getCourseLecture,
-  editLecture,
-  removeLecture,
-  getLectureById,
-} = require("../controllers/LectureControllers");
+
 const router = express.Router();
 
 router.post("/", AuthMiddleware, Create);
@@ -31,6 +25,6 @@ router.put(
 );
 router.get("/all", AuthMiddleware, getAllCourses);
 router.patch("/:courseId", AuthMiddleware, togglePublishCourse);
-router.get("/course/:courseId", AuthMiddleware, getCourseById);
+router.get("/course/:courseId", AuthMiddleware, getCourseById)
 
 module.exports = router;
