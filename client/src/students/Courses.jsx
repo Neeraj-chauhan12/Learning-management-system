@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Course from "./Course";
+import Course from "../admin/Course";
 import { useLocation } from "react-router-dom";
 import { usePublishCourseQuery } from "../features/api/courseApi";
 

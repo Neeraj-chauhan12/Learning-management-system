@@ -1,13 +1,10 @@
-import React from "react";
-import Course from "../admin/Course";
-import Navbar from "../components/Navbar";
-import Loading from "./Loading";
-import { Link } from "react-router-dom";
+import React from 'react'
+import Navbar from '../components/Navbar';
+import Course from './Course';
 
-const MyLearning = () => {
+const MyCourses = () => {
   const courses = [1, 6, 5, 4, 8];
-  const isLoading = false; // Changed to false for demo, should be based on actual loading state
-
+  const isLoading = false;
   return (
     <>
       <Navbar />
@@ -15,7 +12,7 @@ const MyLearning = () => {
         {/* Header */}
         <div className="bg-gradient-to-r from-indigo-600 via-cyan-500 to-purple-600 pt-28 pb-12 px-4">
           <div className="mx-auto max-w-7xl">
-            <h1 className="text-4xl font-bold text-white mb-2">My Learning</h1>
+            <h1 className="text-4xl font-bold text-white mb-2">My Courses</h1>
             <p className="text-lg text-white/90">Continue learning from where you left off</p>
           </div>
         </div>
@@ -40,15 +37,15 @@ const MyLearning = () => {
             </div>
           ) : (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {courses.map((_, id) => (
-                <Course key={id} />
+              {courses.map(() => (
+                <Course  />
               ))}
             </div>
           )}
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default MyLearning;
+export default MyCourses

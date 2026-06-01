@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
-import Course from "../students/Course";
+import Course from "../admin/Course";
 import { useLocation } from "react-router-dom";
 import HeroSection from "../students/HeroSection";
 import Courses from "../students/Courses";

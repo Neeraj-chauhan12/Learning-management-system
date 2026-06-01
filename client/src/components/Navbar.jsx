@@ -30,7 +30,6 @@ const Navbar = () => {
   const navLinks = [
     { label: "Home", to: "/" },
     { label: "Profile", to: "/profile" },
-    { label: "My Learning", to: "/my-learning" },
   ];
 
   return (
@@ -57,12 +56,23 @@ const Navbar = () => {
                 </Link>
               ))}
               {user?.role === "instructor" && (
+                <div className="flex items-center gap-4">
                 <Link
                   to="/dashboard"
                   className="rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:opacity-95"
                 >
                   Dashboard
                 </Link>
+
+                 <Link
+                  to="/my-courses"
+                  className="rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:opacity-95"
+                >
+                  My Courses
+                </Link>
+                </div>
+
+
               )}
               <button
                 onClick={handleLogout}
@@ -132,6 +142,7 @@ const Navbar = () => {
               ))}
 
               {user?.role === "instructor" && (
+                <div className="flex flex-col gap-3">
                 <Link
                   to="/dashboard"
                   onClick={closeSidebar}
@@ -139,6 +150,17 @@ const Navbar = () => {
                 >
                   Dashboard
                 </Link>
+
+                  <Link
+                  to="/my-courses"
+                  onClick={closeSidebar}
+                  className="block rounded-3xl bg-gradient-to-r from-indigo-500 to-cyan-500 px-5 py-4 text-base font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:opacity-95"
+                >
+                  My Courses
+                </Link>
+
+
+                </div>
               )}
             </div>
           </div>

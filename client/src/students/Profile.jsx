@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
-import Course from "./Course";
+import Course from "../admin/Course";
 import Loading from "./Loading";
 import { useLoadUserQuery } from "../features/api/authApi";
 import UpdateProfile from "./UpdateProfile";
