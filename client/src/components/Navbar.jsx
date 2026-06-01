@@ -30,6 +30,7 @@ const Navbar = () => {
   const navLinks = [
     { label: "Home", to: "/" },
     { label: "Profile", to: "/profile" },
+    ...(user?.role !== "instructor" ? [{ label: "My Learning", to: "/my-learning" }] : []),
   ];
 
   return (

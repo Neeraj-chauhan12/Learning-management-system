@@ -96,8 +96,8 @@ const Profile = () => {
             </div>
           ) : (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {userCourses?.map((course) => (
-                <Course course={course} key={course?._id} />
+              {userCourses?.map((data,id) => (
+                <Course data={data} key={id} />
               ))}
             </div>
           )}
