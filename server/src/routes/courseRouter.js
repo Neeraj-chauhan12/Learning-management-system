@@ -23,7 +23,7 @@ router.put(
   upload.single("thumbnail"),
   updateCourse,
 );
-router.get("/all", AuthMiddleware, getAllCourses);
+router.get("/all", getAllCourses);
 router.patch("/:courseId", AuthMiddleware, togglePublishCourse);
 router.get("/course/:courseId", AuthMiddleware, getCourseById)
 

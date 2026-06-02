@@ -44,9 +44,10 @@ const Course = ({ data: course }) => {
             ₹{course?.coursePrice ?? "Free"}
           </span>
           <Link
-            to={`/course-detail/${course?._id}`}
+            to={!data?.user ?"/login":`/course-detail/${course?._id}` }
             className="inline-flex rounded-2xl bg-gradient-to-r from-indigo-600 to-cyan-500 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:opacity-95"
           >
+            
             View Details
           </Link>
         </div>

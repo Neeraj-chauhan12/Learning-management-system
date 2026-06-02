@@ -4,17 +4,18 @@ import { FaLock, FaCheck } from "react-icons/fa6";
 import { FaRegPlayCircle } from "react-icons/fa";
 import { MdAccessTime, MdGroup, MdUpdate } from "react-icons/md";
 import PurchaseButton from '../components/PurchaseButton';
+import { useGetLectureQuery } from '../features/api/lectureApi';
+import { useParams } from 'react-router-dom';
 
 const CourseData = () => {
     const isPurchased = true; // Example variable to determine purchase status
+    const courseId=useParams().courseId;
+    console.log("courseId", courseId)
 
-    const courseContent = [
-        { id: 1, title: "Introduction to Topic", locked: false },
-        { id: 2, title: "Core Concepts Explained", locked: false },
-        { id: 3, title: "Advanced Techniques", locked: false },
-        { id: 4, title: "Practical Project Walkthrough", locked: true },
-        { id: 5, title: "Final Assessment & Certification", locked: true }
-    ];
+   const {data, isLoading}=useGetLectureQuery(courseId)
+   console.log("lectures", data)
+
+   
 
     return (
         <div className="min-h-screen bg-slate-50">
@@ -92,13 +93,13 @@ const CourseData = () => {
                         <div className='rounded-2xl bg-white p-6 shadow-lg shadow-slate-900/5 border border-slate-200'>
                             <h3 className='text-2xl font-bold text-slate-950 mb-6'>Course Content</h3>
                             <div className='space-y-3'>
-                                {courseContent.map((item, idx) => (
+                                {data?.lectures?.map((item, idx) => (
                                     <div
                                         key={item.id}
                                         className='flex items-center gap-4 rounded-lg border border-slate-200 bg-slate-50 p-4 transition hover:bg-slate-100'
                                     >
                                         <div className='flex-shrink-0'>
-                                            {item.locked ? (
+                                            {item?.locked ? (
                                                 <FaLock className='text-xl text-slate-400' />
                                             ) : (
                                                 <div className='flex h-8 w-8 items-center justify-center rounded-full bg-green-100'>
@@ -107,8 +108,8 @@ const CourseData = () => {
                                             )}
                                         </div>
                                         <div className='flex-1'>
-                                            <p className={`font-medium ${item.locked ? 'text-slate-500' : 'text-slate-950'}`}>
-                                                Lesson {idx + 1}: {item.title}
+                                            <p className={`font-medium ${item?.locked ? 'text-slate-500' : 'text-slate-950'}`}>
+                                                Lesson {idx + 1}: {item?.lectureTitle}
                                             </p>
                                         </div>
                                         <span className='text-xs font-semibold text-slate-600'>15 min</span>
