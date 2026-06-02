@@ -120,7 +120,7 @@ exports.getCourseById = async (req, res) => {
     try {
         const courseId = req.params.courseId;
         console.log("courseId", courseId)
-        const course = await CourseModel.findById(courseId)
+        const course = await CourseModel.findById(courseId).populate({ path:"creator", select:"username photoURL" }).populate("lectures")
 
         if (!course) {
             return res.status(404).json({ message: "Course not found" })

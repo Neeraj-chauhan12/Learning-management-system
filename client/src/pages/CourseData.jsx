@@ -6,14 +6,18 @@ import { MdAccessTime, MdGroup, MdUpdate } from "react-icons/md";
 import PurchaseButton from '../components/PurchaseButton';
 import { useGetLectureQuery } from '../features/api/lectureApi';
 import { useParams } from 'react-router-dom';
+import { useGetCourseByIdQuery } from '../features/api/courseApi';
 
 const CourseData = () => {
-    const isPurchased = true; // Example variable to determine purchase status
+    const isPurchased = false; // Example variable to determine purchase status
     const courseId=useParams().courseId;
     console.log("courseId", courseId)
 
-   const {data, isLoading}=useGetLectureQuery(courseId)
+   const {data, isLoading: _isLoading} = useGetLectureQuery(courseId)
    console.log("lectures", data)
+
+   const {data: courseData, isLoading: _isCourseLoading} = useGetCourseByIdQuery(courseId)
+    console.log("courseData in", courseData)
 
    
 
@@ -35,7 +39,7 @@ const CourseData = () => {
                             <FaRegPlayCircle className='text-xl' />
                             <div>
                                 <p className='text-xs text-white/75'>Lessons</p>
-                                <p className='font-semibold'>24 Videos</p>
+                                <p className='font-semibold'>{data?.lectures?.length || 0} Videos</p>
                             </div>
                         </div>
                         <div className='flex items-center gap-2'>
@@ -73,7 +77,7 @@ const CourseData = () => {
                             <div className='flex items-center gap-4'>
                                 <img src="https://img.daisyui.com/images/profile/demo/batperson@192.webp" alt="Instructor" className='h-16 w-16 rounded-full object-cover' />
                                 <div>
-                                    <h3 className='text-lg font-semibold text-slate-950'>Neeraj Kumar</h3>
+                                    <h3 className='text-lg font-semibold text-slate-950'>{courseData?.course?.creator?.username}</h3>
                                     <p className='text-sm text-slate-600'>Expert Instructor • 8+ Years Experience</p>
                                 </div>
                             </div>
@@ -140,7 +144,7 @@ const CourseData = () => {
                                 <div className='space-y-2'>
                                     <p className='text-sm font-medium text-slate-600'>Course Price</p>
                                     <div className='flex items-baseline gap-2'>
-                                        <span className='text-4xl font-bold text-slate-950'>₹4,999</span>
+                                        <span className='text-4xl font-bold text-slate-950'>₹{courseData?.course?.coursePrice}</span>
                                         <span className='text-lg text-slate-500 line-through'>₹9,999</span>
                                     </div>
                                     <p className='text-sm text-green-600 font-semibold'>50% Off</p>
@@ -169,11 +173,15 @@ const CourseData = () => {
                                 {/* Purchase Button */}
                                 <div className='border-t border-slate-200 pt-6'>
                                     {isPurchased ? (
-                                        <button className='w-full rounded-xl bg-gradient-to-r from-green-500 to-emerald-500 py-3 font-semibold text-white shadow-lg shadow-green-500/20 transition hover:opacity-95'>
+                                        <button className='w-full rounded-xl bg-blue-600 py-3 font-semibold text-white shadow-lg shadow-blue-500/20 transition hover:bg-blue-700'>
                                             Continue Learning
                                         </button>
                                     ) : (
-                                        <PurchaseButton />
+                                        <PurchaseButton
+                                          courseId={courseId}
+                                          courseTitle={courseData?.course?.courseName || courseData?.course?.title || 'Advanced Web Development Mastery'}
+                                          coursePrice={courseData?.course?.coursePrice || 999}
+                                        />
                                     )}
                                 </div>
 
