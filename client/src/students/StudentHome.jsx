@@ -7,8 +7,8 @@ const StudentHome = () => {
   
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-r from-sky-700 via-indigo-700 to-fuchsia-600 px-6 pt-28 pb-20 text-white">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(255,255,255,0.2),_transparent_30%)] opacity-90" />
+    <section className="relative overflow-hidden bg-slate-950 px-6 pt-28 pb-20 text-white">
+      <div className="absolute inset-0 bg-white/10 opacity-90" />
       <div className="relative mx-auto flex max-w-6xl flex-col items-center justify-center gap-8 text-center">
         <div className="max-w-3xl">
           <span className="inline-flex rounded-full bg-white/15 px-4 py-1 text-xs font-semibold uppercase tracking-[0.4em] text-white/90">
@@ -53,3 +53,4 @@ const StudentHome = () => {
 };
 
 export default StudentHome;
+

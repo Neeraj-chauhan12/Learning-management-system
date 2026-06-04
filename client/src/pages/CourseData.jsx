@@ -26,7 +26,7 @@ const CourseData = () => {
             <Navbar />
 
             {/* Hero Section */}
-            <div className='bg-gradient-to-r from-indigo-600 via-purple-600 to-cyan-600 text-white pt-28 pb-12 px-4'>
+            <div className='bg-slate-950 text-white pt-28 pb-12 px-4'>
                 <div className='mx-auto max-w-7xl'>
                     <div className='mb-6'>
                         <span className='inline-block rounded-full bg-white/20 px-4 py-1 text-sm font-semibold backdrop-blur'>Premium Course</span>
@@ -129,13 +129,13 @@ const CourseData = () => {
                     <div className='sticky top-32 h-fit'>
                         <div className='overflow-hidden rounded-2xl bg-white shadow-2xl shadow-slate-900/10'>
                             {/* Card Image */}
-                            <div className='relative overflow-hidden bg-gradient-to-br from-indigo-500 to-cyan-500 h-48'>
+                            <div className='relative overflow-hidden bg-slate-800 h-48'>
                                 <img
                                     src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
                                     alt="Course thumbnail"
                                     className='h-full w-full object-cover opacity-90'
                                 />
-                                <div className='absolute inset-0 bg-gradient-to-t from-slate-950 to-transparent' />
+                                <div className='absolute inset-0 bg-slate-950/70' />
                             </div>
 
                             {/* Card Body */}
@@ -199,3 +199,4 @@ const CourseData = () => {
 }
 
 export default CourseData
+

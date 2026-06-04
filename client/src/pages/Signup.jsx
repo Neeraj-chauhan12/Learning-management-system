@@ -40,7 +40,7 @@ const Signup = () => {
   return (
     <>
       <Navbar />
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-950 via-violet-950 to-slate-800 px-4 py-14">
+      <div className="flex min-h-screen items-center justify-center bg-slate-950 px-4 py-14">
         <div className="w-full max-w-md rounded-[32px] border border-white/10 bg-white/95 p-8 shadow-[0_35px_120px_rgba(15,23,42,0.2)] backdrop-blur-xl">
           <div className="mb-8 text-center">
             <p className="text-sm uppercase tracking-[0.28em] text-slate-500">Create your account</p>
@@ -122,7 +122,7 @@ const Signup = () => {
             </div>
             <button
               type="submit"
-              className="w-full rounded-3xl bg-gradient-to-r from-fuchsia-600 to-violet-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-fuchsia-500/20 transition hover:scale-[1.01]"
+              className="w-full rounded-3xl bg-fuchsia-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-fuchsia-500/20 transition hover:scale-[1.01]"
             >
               Sign Up
             </button>
@@ -141,3 +141,4 @@ const Signup = () => {
 };
 
 export default Signup;
+

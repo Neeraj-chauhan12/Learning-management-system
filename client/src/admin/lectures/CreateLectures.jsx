@@ -52,7 +52,7 @@ const CreateLectures = () => {
         </div>
 
         <div className="overflow-hidden rounded-2xl bg-white shadow-lg shadow-slate-900/5">
-          <div className="border-b border-slate-200 bg-gradient-to-r from-indigo-50 to-cyan-50 p-6">
+          <div className="border-b border-slate-200 bg-slate-100 p-6">
             <h2 className="text-xl font-semibold text-slate-950">Add New Lecture</h2>
             <p className="mt-1 text-sm text-slate-600">Course ID: {courseId}</p>
           </div>
@@ -83,7 +83,7 @@ const CreateLectures = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-indigo-500 to-cyan-500 px-6 py-3 font-semibold text-white shadow-lg shadow-cyan-500/20 transition disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-95"
+                className="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-6 py-3 font-semibold text-white shadow-lg shadow-indigo-500/20 transition disabled:opacity-50 disabled:cursor-not-allowed hover:bg-indigo-700"
               >
                 <IoMdAdd /> {loading ? "Creating..." : "Create Lecture"}
               </button>
@@ -128,3 +128,4 @@ const CreateLectures = () => {
 };
 
 export default CreateLectures;
+

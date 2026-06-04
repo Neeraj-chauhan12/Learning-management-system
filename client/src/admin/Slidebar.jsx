@@ -20,7 +20,7 @@ const Slidebar = ({ setView, currentView }) => {
               onClick={() => setView(item.id)}
               className={`w-full flex items-center gap-4 px-4 py-3 rounded-lg text-base font-medium transition-all ${
                 isActive
-                  ? 'bg-gradient-to-r from-indigo-500 to-cyan-500 text-white shadow-lg shadow-cyan-500/20'
+                  ? 'bg-indigo-600 text-white shadow-lg shadow-cyan-500/20'
                   : 'text-slate-300 hover:bg-slate-800 hover:text-white'
               }`}
             >
@@ -35,3 +35,4 @@ const Slidebar = ({ setView, currentView }) => {
 }
 
 export default Slidebar
+

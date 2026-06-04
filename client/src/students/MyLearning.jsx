@@ -13,7 +13,7 @@ const MyLearning = () => {
       <Navbar />
       <div className="min-h-screen bg-slate-50">
         {/* Header */}
-        <div className="bg-gradient-to-r from-indigo-600 via-cyan-500 to-purple-600 pt-28 pb-12 px-4">
+        <div className="bg-slate-950 pt-28 pb-12 px-4">
           <div className="mx-auto max-w-7xl">
             <h1 className="text-4xl font-bold text-white mb-2">My Learning</h1>
             <p className="text-lg text-white/90">Continue learning from where you left off</p>
@@ -33,7 +33,7 @@ const MyLearning = () => {
               <p className="text-lg font-medium text-slate-600 mb-4">You are not enrolled in any courses yet</p>
               <Link
                 to="/"
-                className="inline-block rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 px-6 py-3 font-semibold text-white transition hover:opacity-95"
+                className="inline-block rounded-full bg-indigo-600 px-6 py-3 font-semibold text-white transition hover:opacity-95"
               >
                 Explore Courses
               </Link>
@@ -52,3 +52,4 @@ const MyLearning = () => {
 };
 
 export default MyLearning;
+

@@ -64,3 +64,4 @@ export const {
   useGetLectureByIdQuery,
   useGetLectureQuery,
 } = lectureApi;
+

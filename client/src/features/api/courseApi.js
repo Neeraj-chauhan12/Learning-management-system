@@ -80,3 +80,4 @@ export const {
   usePublishCourseQuery,
   useGetAllCoursesQuery,
 } = courseApi;
+

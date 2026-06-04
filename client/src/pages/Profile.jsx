@@ -33,7 +33,7 @@ const Profile = () => {
       <Navbar />
       <div className="min-h-screen bg-slate-50">
         {/* Profile Header */}
-        <div className="bg-gradient-to-r from-indigo-600 via-cyan-500 to-purple-600 pt-28 pb-12 px-4">
+        <div className="bg-slate-950 pt-28 pb-12 px-4">
           <div className="mx-auto max-w-7xl">
             <div className="flex flex-col sm:flex-row items-center gap-8">
               <div className="relative">
@@ -75,7 +75,7 @@ const Profile = () => {
             {isInstructor && (
               <Link
                 to="/create"
-                className="rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 px-6 py-3 font-semibold text-white shadow-lg transition hover:opacity-95"
+                className="rounded-full bg-indigo-600 px-6 py-3 font-semibold text-white shadow-lg transition hover:opacity-95"
               >
                 + Create Course
               </Link>
@@ -89,7 +89,7 @@ const Profile = () => {
               </p>
               <Link
                 to={isInstructor ? "/create" : "/"}
-                className="mt-4 inline-block rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 px-6 py-3 font-semibold text-white transition hover:opacity-95"
+                className="mt-4 inline-block rounded-full bg-indigo-600 px-6 py-3 font-semibold text-white transition hover:opacity-95"
               >
                 {isInstructor ? "Create Your First Course" : "Explore Courses"}
               </Link>
@@ -111,3 +111,4 @@ const Profile = () => {
 };
 
 export default Profile;
+

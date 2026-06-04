@@ -24,7 +24,7 @@ const AdminHome = () => {
   return (
     <div className="min-h-screen bg-slate-50">
       {/* Header Section */}
-      <div className="bg-gradient-to-r from-indigo-600 via-cyan-500 to-purple-600 pt-28 pb-16 px-4">
+      <div className="bg-slate-950 pt-28 pb-16 px-4">
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
             <div className="text-white">
@@ -120,7 +120,7 @@ const AdminHome = () => {
           <div className="grid gap-4 sm:grid-cols-3">
             <Link
               to="/create"
-              className="rounded-xl bg-gradient-to-r from-indigo-500 to-cyan-500 p-6 text-white transition hover:opacity-95 group"
+              className="rounded-xl bg-indigo-600 p-6 text-white transition hover:opacity-95 group"
             >
               <IoMdAdd className="text-3xl mb-3 group-hover:scale-110 transition" />
               <p className="font-semibold">Create New Course</p>
@@ -189,7 +189,7 @@ const AdminHome = () => {
                 key={course._id}
                 className="group rounded-2xl bg-white overflow-hidden shadow-lg hover:shadow-xl transition"
               >
-                <div className="relative overflow-hidden bg-gradient-to-br from-indigo-500 to-cyan-500 h-40">
+                <div className="relative overflow-hidden bg-slate-800 h-40">
                   <img
                     src={
                       course.courseThumbnail ||
@@ -198,7 +198,7 @@ const AdminHome = () => {
                     alt={course.courseTitle}
                     className="h-full w-full object-cover group-hover:scale-110 transition duration-300"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 to-transparent opacity-60" />
+                  <div className="absolute inset-0 bg-slate-950/70 opacity-60" />
                   <div className="absolute top-3 right-3">
                     <span
                       className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
@@ -245,7 +245,7 @@ const AdminHome = () => {
             </p>
             <Link
               to="/create"
-              className="mt-6 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 px-6 py-3 font-semibold text-white transition hover:opacity-95"
+              className="mt-6 inline-flex items-center gap-2 rounded-full bg-indigo-600 px-6 py-3 font-semibold text-white transition hover:opacity-95"
             >
               <IoMdAdd /> Create Course
             </Link>
@@ -257,3 +257,4 @@ const AdminHome = () => {
 };
 
 export default AdminHome;
+

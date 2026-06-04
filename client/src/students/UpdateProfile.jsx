@@ -54,7 +54,7 @@ const UpdateProfile = ({ setModel, refetch }) => {
         aria-modal="true"
       >
         {/* Header Background */}
-        <div className="h-1 bg-gradient-to-r from-indigo-500 to-cyan-500" />
+        <div className="h-1 bg-indigo-600" />
         
         <div className="p-6">
           {/* Header */}
@@ -131,7 +131,7 @@ const UpdateProfile = ({ setModel, refetch }) => {
             <button
               type="submit"
               disabled={updateUserIsLoading}
-              className="rounded-lg bg-gradient-to-r from-indigo-500 to-cyan-500 px-6 py-3 font-semibold text-white shadow-lg shadow-cyan-500/20 transition disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-95"
+              className="rounded-lg bg-indigo-600 px-6 py-3 font-semibold text-white shadow-lg shadow-cyan-500/20 transition disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-95"
             >
               {updateUserIsLoading ? "Saving..." : "Save Changes"}
             </button>
@@ -143,3 +143,4 @@ const UpdateProfile = ({ setModel, refetch }) => {
 };
 
 export default UpdateProfile;
+

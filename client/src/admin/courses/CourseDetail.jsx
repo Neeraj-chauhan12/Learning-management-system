@@ -17,7 +17,7 @@ const CourseDetail = () => {
           <p className="text-slate-600 mt-1">Manage and organize your courses</p>
         </div>
         <Link to="/create">
-          <button className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 px-6 py-3 font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:opacity-95">
+          <button className="inline-flex items-center gap-2 rounded-full bg-indigo-600 px-6 py-3 font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:opacity-95">
             <IoMdAdd className="text-xl" />
             Create Course
           </button>
@@ -140,4 +140,5 @@ const CourseDetail = () => {
 
 export default CourseDetail;
         
+
 

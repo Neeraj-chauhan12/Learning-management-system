@@ -64,3 +64,4 @@ const AllCourses = () => {
 };
 
 export default AllCourses;
+

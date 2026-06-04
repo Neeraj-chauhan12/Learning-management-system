@@ -45,7 +45,7 @@ const Course = ({ data: course }) => {
           </span>
           <Link
             to={!data?.user ?"/login":`/course-detail/${course?._id}` }
-            className="inline-flex rounded-2xl bg-gradient-to-r from-indigo-600 to-cyan-500 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:opacity-95"
+className="inline-flex rounded-2xl bg-indigo-600 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-indigo-500/20 transition hover:bg-indigo-700"
           >
             
             View Details
@@ -57,3 +57,4 @@ const Course = ({ data: course }) => {
 };
 
 export default Course;
+

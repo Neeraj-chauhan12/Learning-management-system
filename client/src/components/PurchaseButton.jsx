@@ -25,3 +25,4 @@ const PurchaseButton = ({ courseId, courseTitle, coursePrice }) => {
 }
 
 export default PurchaseButton
+

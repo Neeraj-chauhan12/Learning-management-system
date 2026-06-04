@@ -60,14 +60,14 @@ const Navbar = () => {
                 <div className="flex items-center gap-4">
                 <Link
                   to="/dashboard"
-                  className="rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:opacity-95"
+                  className="rounded-full bg-indigo-600 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:opacity-95"
                 >
                   Dashboard
                 </Link>
 
                  <Link
                   to="/my-courses"
-                  className="rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:opacity-95"
+                  className="rounded-full bg-indigo-600 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:opacity-95"
                 >
                   My Courses
                 </Link>
@@ -77,7 +77,7 @@ const Navbar = () => {
               )}
               <button
                 onClick={handleLogout}
-                className="rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:opacity-95"
+                className="rounded-full bg-indigo-600 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:opacity-95"
               >
                 Logout
               </button>
@@ -92,7 +92,7 @@ const Navbar = () => {
               </Link>
               <Link
                 to="/signup"
-                className="rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:opacity-95"
+                className="rounded-full bg-indigo-600 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:opacity-95"
               >
                 Signup
               </Link>
@@ -147,7 +147,7 @@ const Navbar = () => {
                 <Link
                   to="/dashboard"
                   onClick={closeSidebar}
-                  className="block rounded-3xl bg-gradient-to-r from-indigo-500 to-cyan-500 px-5 py-4 text-base font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:opacity-95"
+                  className="block rounded-3xl bg-indigo-600 px-5 py-4 text-base font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:opacity-95"
                 >
                   Dashboard
                 </Link>
@@ -155,7 +155,7 @@ const Navbar = () => {
                   <Link
                   to="/my-courses"
                   onClick={closeSidebar}
-                  className="block rounded-3xl bg-gradient-to-r from-indigo-500 to-cyan-500 px-5 py-4 text-base font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:opacity-95"
+                  className="block rounded-3xl bg-indigo-600 px-5 py-4 text-base font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:opacity-95"
                 >
                   My Courses
                 </Link>
@@ -170,7 +170,7 @@ const Navbar = () => {
             {user ? (
               <button
                 onClick={handleLogout}
-                className="w-full rounded-3xl mt-2 bg-gradient-to-r from-indigo-500 to-cyan-500 px-5 py-4 text-base font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:opacity-95"
+                className="w-full rounded-3xl mt-2 bg-indigo-600 px-5 py-4 text-base font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:opacity-95"
               >
                 Logout
               </button>
@@ -186,7 +186,7 @@ const Navbar = () => {
                 <Link
                   to="/signup"
                   onClick={closeSidebar}
-                  className="block rounded-3xl bg-gradient-to-r from-indigo-500 to-cyan-500 px-5 py-4 text-center text-base font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:opacity-95"
+                  className="block rounded-3xl bg-indigo-600 px-5 py-4 text-center text-base font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:opacity-95"
                 >
                   Signup
                 </Link>
@@ -210,4 +210,5 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
 

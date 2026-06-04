@@ -70,7 +70,7 @@ const CreateCourse = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-slate-950 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -85,7 +85,7 @@ const CreateCourse = () => {
         {/* Form Card */}
         <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
           {/* Form Header Background */}
-          <div className="h-2 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500"></div>
+          <div className="h-2 bg-slate-900"></div>
 
           <form onSubmit={handleSubmit} className="p-6 md:p-12">
             {/* Course Title */}
@@ -190,7 +190,7 @@ const CreateCourse = () => {
                 className={`flex-1 py-3 px-6 rounded-lg font-semibold text-white transition transform ${
                   loading
                     ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 hover:scale-105"
+                    : "bg-purple-600 hover:bg-purple-700 hover:scale-105"
                 }`}
               >
                 {loading ? "Creating Course..." : "Create Course"}
@@ -221,3 +221,4 @@ const CreateCourse = () => {
 };
 
 export default CreateCourse;
+

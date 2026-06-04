@@ -113,7 +113,7 @@ const EditLecture = () => {
 
         {/* Form Card */}
         <div className="overflow-hidden rounded-2xl bg-white shadow-lg shadow-slate-900/5">
-          <div className="h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-500" />
+          <div className="h-1 bg-slate-900" />
 
           <form className="p-6 md:p-12 space-y-8">
             {/* Title */}
@@ -181,7 +181,7 @@ const EditLecture = () => {
                 </div>
                 <div className="h-2 w-full overflow-hidden rounded-full bg-slate-200">
                   <div
-                    className="h-full bg-gradient-to-r from-indigo-500 to-cyan-500 transition-all duration-300"
+                    className="h-full bg-indigo-600 transition-all duration-300"
                     style={{ width: `${uploadProgress}%` }}
                   />
                 </div>
@@ -225,7 +225,7 @@ const EditLecture = () => {
               <button
                 onClick={handleEditLectureData}
                 disabled={updateLoading}
-                className="order-1 rounded-lg bg-gradient-to-r from-indigo-500 to-cyan-500 px-6 py-3 font-semibold text-white shadow-lg shadow-cyan-500/20 transition disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-95 sm:order-3"
+                className="order-1 rounded-lg bg-indigo-600 px-6 py-3 font-semibold text-white shadow-lg shadow-indigo-500/20 transition disabled:opacity-50 disabled:cursor-not-allowed hover:bg-indigo-700 sm:order-3"
               >
                 {updateLoading ? "Updating..." : "Update Lecture"}
               </button>
@@ -238,3 +238,4 @@ const EditLecture = () => {
 };
 
 export default EditLecture;
+
