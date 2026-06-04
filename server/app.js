@@ -13,6 +13,7 @@ dotenv.config()
 const userRoute=require('./src/routes/userRoutes');
 const courseRoute=require('./src/routes/courseRouter')
 const lectureRoute=require('./src/routes/lectureRouter')
+const paymentRoute=require('./src/routes/paymentRouter')
 
 
 // cors configuration
@@ -38,6 +39,7 @@ const PORT=process.env.PORT || 5000
 app.use('/api/users', userRoute);
 app.use('/api/course',courseRoute);
 app.use('/api/lecture',lectureRoute);
+app.use('/api/payment',paymentRoute);
 app.use('/api/video-upload',videoUploadRoute)
 
 // connect to mongodb   

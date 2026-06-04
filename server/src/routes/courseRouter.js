@@ -10,6 +10,7 @@ const {
   getAllCourses,
 } = require("../controllers/courseControllers");
 const upload = require("../../utils/multer");
+const { createOrder, verifyPayment } = require("../controllers/paymentControllers");
 
 const router = express.Router();
 
@@ -26,5 +27,9 @@ router.put(
 router.get("/all", getAllCourses);
 router.patch("/:courseId", AuthMiddleware, togglePublishCourse);
 router.get("/course/:courseId", AuthMiddleware, getCourseById)
+
+
+
+
 
 module.exports = router;

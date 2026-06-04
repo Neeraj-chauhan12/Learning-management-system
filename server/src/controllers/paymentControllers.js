@@ -1,12 +1,13 @@
-const Razorpay = require("rozarpay");
+const Razorpay = require("razorpay");
 const crypto = require("crypto");
-const Course = require("../models/Course");
-const User = require("../models/User");
+const Course = require("../models/CourseModel")
+const User = require("../models/UserModel");
 
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
   key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
+console.log("Razorpay instance created:", razorpay);
 
 exports.createOrder = async (req, res) => {
   const { courseId } = req.body;
