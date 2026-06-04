@@ -16,13 +16,18 @@ const PurchaseButton = ({ courseId, courseTitle, coursePrice }) => {
   // }
 
   const buyCourse = async()=>{
+
+    console.log("Buying course with ID:", courseId);
+    console.log("rozarpay",window.Razorpay);
     
    const res = await axios.post(
       "http://localhost:3000/api/payment/create-order",
-      {courseId}
+      {courseId},
+      {withCredentials:true}
    );
 
    const order = res.data.order;
+   console.log("response from server", res.data);
 
    const options = {
       key: import.meta.env.VITE_RAZORPAY_KEY,
@@ -37,6 +42,8 @@ const PurchaseButton = ({ courseId, courseTitle, coursePrice }) => {
            {
              ...response,
              courseId
+           },{
+            withCredentials:true
            }
          );
 

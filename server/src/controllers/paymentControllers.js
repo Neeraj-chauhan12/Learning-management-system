@@ -7,20 +7,29 @@ const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
   key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
-console.log("Razorpay instance created:", razorpay);
 
 exports.createOrder = async (req, res) => {
   const { courseId } = req.body;
-  const course = await Course.findById(courseId);
+
+  try{
+     const course = await Course.findById(courseId);
   if (!course) {
     return res.status(404).json({ error: "Course not found" });
   }
   const order = await razorpay.orders.create({
-    amount: course.price * 100,
+    amount: course.coursePrice * 100,
     currency: "INR",
     receipt: courseId,
   });
   res.status(200).json({ success: true, order });
+
+  }
+  catch(error){
+    console.error("Error creating order:", error);
+    return res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+ 
+  
 };
 
 exports.verifyPayment = async (req, res) => {
@@ -36,6 +45,7 @@ exports.verifyPayment = async (req, res) => {
     .update(razorpay_order_id + "|" + razorpay_payment_id)
     .digest("hex");
 
+    console.log("user id from token", req.user._id);
   const user = await User.findById(req.user._id);
   if (!user) {
     return res.status(404).json({ error: "User not found" });
