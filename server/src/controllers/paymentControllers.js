@@ -40,13 +40,15 @@ exports.verifyPayment = async (req, res) => {
     courseId,
   } = req.body;
   
+  const userId = req.user.id;
+
   const generatedSignature = crypto
     .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
     .update(razorpay_order_id + "|" + razorpay_payment_id)
     .digest("hex");
 
-    console.log("user id from token", req.user._id);
-  const user = await User.findById(req.user._id);
+    console.log("user id from token", userId);
+  const user = await User.findById(userId);
   if (!user) {
     return res.status(404).json({ error: "User not found" });
   }
@@ -61,7 +63,7 @@ exports.verifyPayment = async (req, res) => {
   if (generatedSignature === razorpay_signature) {
     res
       .status(200)
-      .json({ success: true, message: "Payment verified successfully" });
+      .json({ success: true, message: "Payment verified successfully",user });
   } else {
     res
       .status(400)

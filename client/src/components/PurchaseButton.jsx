@@ -18,7 +18,7 @@ const PurchaseButton = ({ courseId, courseTitle, coursePrice }) => {
   const buyCourse = async()=>{
 
     console.log("Buying course with ID:", courseId);
-    console.log("rozarpay",window.Razorpay);
+    console.log("rozarpay", window.Razorpay);
     
    const res = await axios.post(
       "http://localhost:3000/api/payment/create-order",
@@ -48,6 +48,7 @@ const PurchaseButton = ({ courseId, courseTitle, coursePrice }) => {
          );
 
          toast.success("Course Purchased");
+         navigate("/my-learning");
       }
    }
 
