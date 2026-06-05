@@ -53,8 +53,13 @@ exports.verifyPayment = async (req, res) => {
     return res.status(404).json({ error: "User not found" });
   }
 
+  if (!user.enrollCourse.includes(courseId)) {
   user.enrollCourse.push(courseId);
   await user.save();
+}else{
+  return res.status(400).json({ error: "User already enrolled in this course" });
+}
+
 
   await Course.findByIdAndUpdate(courseId, {
     $addToSet: { enrolledStudents: user._id },

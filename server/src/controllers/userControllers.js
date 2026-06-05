@@ -77,7 +77,7 @@ exports.logout=async(req,res)=>{
 exports.getProfile=async(req,res)=>{
     const userId=req.user.id;
     try {
-        const user=await User.findById(userId).select("-password")
+        const user=await User.findById(userId).select("-password").populate("enrollCourse");
         res.status(201).json({message:"user profile",user})
         
     } catch (error) {

@@ -3,14 +3,18 @@ import Course from "../components/Course";
 import Navbar from "../components/Navbar";
 import Loading from "./Loading";
 import { Link } from "react-router-dom";
+import { useLoadUserQuery } from "../features/api/authApi";
 
 const MyLearning = () => {
-  const courses = [1, 6, 5, 4, 8];
-  const isLoading = false; // Changed to false for demo, should be based on actual loading state
-
+ const {data}=useLoadUserQuery();
+ console.log("user data in my learning page",data);
+ const courses=data?.user?.enrollCourse || [];
+console.log("enrolled courses", courses);
+ const isLoading=false;
   return (
     <>
-      <Navbar />
+      <Navbar /> 
+
       <div className="min-h-screen bg-slate-50">
         {/* Header */}
         <div className="bg-slate-950 pt-28 pb-12 px-4">
@@ -40,8 +44,8 @@ const MyLearning = () => {
             </div>
           ) : (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {courses.map((_, id) => (
-                <Course key={id} />
+              {courses.map((course, index) => (
+                <Course key={index} data={course} />
               ))}
             </div>
           )}

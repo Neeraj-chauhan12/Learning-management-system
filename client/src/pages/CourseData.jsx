@@ -179,8 +179,6 @@ const CourseData = () => {
                                     ) : (
                                         <PurchaseButton
                                           courseId={courseId}
-                                          courseTitle={courseData?.course?.courseName || courseData?.course?.title || 'Advanced Web Development Mastery'}
-                                          coursePrice={courseData?.course?.coursePrice || 999}
                                         />
                                     )}
                                 </div>
