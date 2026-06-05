@@ -7,9 +7,7 @@ const PurchaseButton = ({ courseId }) => {
   const navigate = useNavigate();
 
   const buyCourse = async () => {
-    console.log("Buying course with ID:", courseId);
-    console.log("rozarpay", window.Razorpay);
-
+   
     const res = await axios.post(
       "http://localhost:3000/api/payment/create-order",
       { courseId },

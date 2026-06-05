@@ -7,11 +7,16 @@ import PurchaseButton from '../components/PurchaseButton';
 import { useGetLectureQuery } from '../features/api/lectureApi';
 import { useParams } from 'react-router-dom';
 import { useGetCourseByIdQuery } from '../features/api/courseApi';
+import { useLoadUserQuery } from '../features/api/authApi';
 
 const CourseData = () => {
-    const isPurchased = false; // Example variable to determine purchase status
+    
+     // Example variable to determine purchase status
     const courseId=useParams().courseId;
-    console.log("courseId", courseId)
+    const {data:profile}=useLoadUserQuery();
+    console.log("profile", profile)
+    const isPurchased = profile?.user?.enrollCourse?.some((course) => course._id === courseId);
+    console.log("isPurchased", isPurchased)
 
    const {data, isLoading: _isLoading} = useGetLectureQuery(courseId)
    console.log("lectures", data)
