@@ -16,18 +16,25 @@ import TotalData from './admin/TotalData'
 import CourseData from './pages/CourseData'
 import Payment from './pages/Payment'
 import MyCourses from './admin/MyCourses'
+import CoursePlayer from './students/CoursePlayer'
 
 const App = () => {
   return (
     <BrowserRouter>
     <Routes>
+    
+     {/* auth routes */}
+      <Route path='/login' element={<Login />} />
+      <Route path='/signup' element={<Signup />} />
+       
+       {/* user routes */}
       <Route path='/' element={<Home />} />
       <Route path='/profile' element={<Profile />} />
       <Route path='/my-learning' element={<MyLearning />} />
-      <Route path='/login' element={<Login />} />
-      <Route path='/signup' element={<Signup />} />
+      <Route path='/course/:courseId/learn' element={<CoursePlayer />} />
+      
+      {/* admin routes */}
       <Route path='/dashboard' element={<Dashboard />} />
-      {/* <Route path='/admin-dashboard' element={<TotalData/>} /> */}
       <Route path='/create' element={<CreateCourse />}/>
       <Route path='my-courses' element={<MyCourses />}/>
       <Route path='/edit/:id' element={<EditCourse />}/>

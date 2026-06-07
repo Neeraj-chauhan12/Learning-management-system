@@ -5,18 +5,20 @@ import { FaRegPlayCircle } from "react-icons/fa";
 import { MdAccessTime, MdGroup, MdUpdate } from "react-icons/md";
 import PurchaseButton from '../components/PurchaseButton';
 import { useGetLectureQuery } from '../features/api/lectureApi';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useGetCourseByIdQuery } from '../features/api/courseApi';
 import { useLoadUserQuery } from '../features/api/authApi';
+import toast from 'react-hot-toast';
 
 const CourseData = () => {
     
      // Example variable to determine purchase status
+     const navigation = useNavigate();
     const courseId=useParams().courseId;
     const {data:profile}=useLoadUserQuery();
-    console.log("profile", profile)
+    console.log("profile in courseData", profile)
     const isPurchased = profile?.user?.enrollCourse?.some((course) => course._id === courseId);
-    console.log("isPurchased", isPurchased)
+    
 
    const {data, isLoading: _isLoading} = useGetLectureQuery(courseId)
    console.log("lectures", data)
@@ -24,7 +26,15 @@ const CourseData = () => {
    const {data: courseData, isLoading: _isCourseLoading} = useGetCourseByIdQuery(courseId)
     console.log("courseData in", courseData)
 
-   
+   const handleLectureClick = (lecture) => {
+    if (lecture?.locked) {
+      toast.error('This lecture is locked. Please purchase the course to access it.');
+    } else {
+      console.log('Lecture clicked:', lecture);
+      navigation(`/course/${courseId}/learn`)
+      
+    }
+  }
 
     return (
         <div className="min-h-screen bg-slate-50">
@@ -58,14 +68,14 @@ const CourseData = () => {
                             <MdGroup className='text-xl' />
                             <div>
                                 <p className='text-xs text-white/75'>Students</p>
-                                <p className='font-semibold'>120 Enrolled</p>
+                                <p className='font-semibold'>{courseData?.course?.enrolledStudents?.length || 0}</p>
                             </div>
                         </div>
                         <div className='flex items-center gap-2'>
                             <MdUpdate className='text-xl' />
                             <div>
                                 <p className='text-xs text-white/75'>Updated</p>
-                                <p className='font-semibold'>May 2024</p>
+                                <p className='font-semibold'>{courseData?.course?.updatedAt?.slice(0, 10) || 'N/A'}</p>
                             </div>
                         </div>
                     </div>
@@ -116,7 +126,7 @@ const CourseData = () => {
                                                 </div>
                                             )}
                                         </div>
-                                        <div className='flex-1'>
+                                        <div onClick={() => handleLectureClick(item)} className='flex-1'>
                                             <p className={`font-medium ${item?.locked ? 'text-slate-500' : 'text-slate-950'}`}>
                                                 Lesson {idx + 1}: {item?.lectureTitle}
                                             </p>
