@@ -187,15 +187,19 @@ const CourseData = () => {
 
                                 {/* Purchase Button */}
                                 <div className='border-t border-slate-200 pt-6'>
-                                    {isPurchased ? (
-                                        <button className='w-full rounded-xl bg-blue-600 py-3 font-semibold text-white shadow-lg shadow-blue-500/20 transition hover:bg-blue-700'>
+                                    
+                                    {profile?.user?.role === "instructor" ? (
+                                        <button onClick={() => navigation(`/edit/${courseId}`)} className='w-full rounded-xl bg-gray-600 py-3 font-semibold text-white shadow-lg shadow-gray-500/20'>
+                                            Edit Course
+                                        </button>
+                                    ) : isPurchased ? (
+                                        <button onClick={() => navigation(`/my-learning`)} className='w-full rounded-xl bg-blue-600 py-3 font-semibold text-white shadow-lg shadow-blue-500/20 transition hover:bg-blue-700'>
                                             Continue Learning
                                         </button>
                                     ) : (
-                                        <PurchaseButton
-                                          courseId={courseId}
-                                        />
+                                        <PurchaseButton courseId={courseId} />
                                     )}
+                                
                                 </div>
 
                                 {/* Info Text */}
