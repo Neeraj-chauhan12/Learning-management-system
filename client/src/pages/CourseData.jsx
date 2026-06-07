@@ -31,7 +31,7 @@ const CourseData = () => {
       toast.error('This lecture is locked. Please purchase the course to access it.');
     } else {
       console.log('Lecture clicked:', lecture);
-      navigation(`/course/${courseId}/learn`)
+      navigation(`/course/${courseId}/learn/${lecture._id}`)
       
     }
   }

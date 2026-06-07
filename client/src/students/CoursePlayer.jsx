@@ -1,23 +1,33 @@
 import React, { useEffect, useRef } from 'react'
 import { useParams, useLocation, useNavigate } from 'react-router-dom'
+import { useGetLectureByIdQuery, useGetLectureQuery } from '../features/api/lectureApi'
+import { useGetCourseByIdQuery } from '../features/api/courseApi'
 
 function useQuery(location) {
   return new URLSearchParams(location.search)
 }
 
 const CoursePlayer = () => {
-  const { videoId } = useParams()
+
+     const { lectureId } = useParams()
+     const {courseId} = useParams()
+    const {data: lectureData, isLoading}=useGetLectureByIdQuery(lectureId)
+    const {data: lectures} = useGetLectureQuery(courseId)
+    const {data: courseData} = useGetCourseByIdQuery(courseId)
+    console.log("lectureData in CoursePlayer", lectureData)
+    console.log("lectures in CoursePlayer", lectures)
+    console.log("courseData in CoursePlayer", courseData)
+
+
+
+ 
+    
   const location = useLocation()
   const navigate = useNavigate()
   const query = useQuery(location)
   const start = parseInt(query.get('start') || '0', 10)
   const iframeRef = useRef(null)
 
-  useEffect(() => {
-    if (!videoId) return
-  }, [videoId, start])
-
-  const isYouTubeId = videoId && !videoId.startsWith('http') && !videoId.includes('/')
 
   return (
     <div style={{ padding: 16 }}>
@@ -26,13 +36,13 @@ const CoursePlayer = () => {
       </div>
       <h2>Course Player</h2>
 
-      {videoId ? (
-        isYouTubeId ? (
+      {lectureData?.lecture ? (
+        lectureData?.lecture?.videoUrl ? (
           <div style={{ position: 'relative', paddingTop: '56.25%' }}>
             <iframe
               ref={iframeRef}
               title="Course video"
-              src={`https://www.youtube.com/embed/${videoId}?start=${start}&autoplay=1`}
+              src={start ? `${lectureData?.lecture?.videoUrl}?start=${start}` : lectureData?.lecture?.videoUrl}
               style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
               frameBorder="0"
               allow="autoplay; encrypted-media; fullscreen"
@@ -44,7 +54,7 @@ const CoursePlayer = () => {
             controls
             autoPlay
             style={{ width: '100%', maxWidth: 960 }}
-            src={start ? `${videoId}#t=${start}` : videoId}
+            src={start ? `${lectureData?.lecture?.videoUrl}#t=${start}` : lectureData?.lecture?.videoUrl }
           />
         )
       ) : (
