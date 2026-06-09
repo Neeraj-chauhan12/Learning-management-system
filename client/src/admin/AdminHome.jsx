@@ -10,10 +10,9 @@ import {
 import { useLoadUserQuery } from "../features/api/authApi";
 
 const AdminHome = () => {
-  const { data, isLoading, refetch } = useLoadUserQuery();
+  const { data} = useLoadUserQuery();
   const { data: instructorCourses, isLoading: coursesLoading } =useCourseGetQuery();
   const { data: allCourses } = useGetAllCoursesQuery();
-  const isInstructor = data?.user?.role === "instructor";
   const courses = instructorCourses?.courses || [];
   const publishedCourses = courses.filter((c) => c.isPublished);
   const unpublishedCourses = courses.filter((c) => !c.isPublished);
