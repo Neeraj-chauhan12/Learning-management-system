@@ -7,9 +7,11 @@ const TotalData = () => {
   const { data: instructorCourses, isLoading: coursesLoading } =
     useCourseGetQuery();
   console.log("Instructor Courses:", instructorCourses?.courses);
+
   const count = instructorCourses?.courses
     .map((course) => course.enrolledStudents.length)
     .reduce((acc, curr) => acc + curr, 0);
+
   const totalRevenue = instructorCourses?.courses
     .map((course) => course.coursePrice * course.enrolledStudents.length)
     .reduce((acc, curr) => acc + curr, 0);
@@ -32,6 +34,24 @@ const TotalData = () => {
       iconColor: "text-white",
     },
   ];
+
+  if (coursesLoading) {
+    return (
+      <div className="w-full px-4 md:px-8 pt-24 pb-12">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-slate-950 mb-2">
+            Dashboard Overview
+          </h1>
+          <p className="text-slate-600">
+            Monitor your course performance and earnings
+          </p>
+        </div>
+        <div className="flex items-center justify-center h-48">
+          <p className="text-lg text-slate-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full px-4 md:px-8 pt-24 pb-12">

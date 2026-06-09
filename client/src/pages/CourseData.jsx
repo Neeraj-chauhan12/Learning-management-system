@@ -26,13 +26,22 @@ const CourseData = () => {
    const {data: courseData, isLoading: _isCourseLoading} = useGetCourseByIdQuery(courseId)
     console.log("courseData in", courseData)
 
-   const handleLectureClick = (lecture) => {
-    if (lecture?.locked) {
-      toast.error('This lecture is locked. Please purchase the course to access it.');
-    } else {
-      console.log('Lecture clicked:', lecture);
-      navigation(`/course/${courseId}/learn/${lecture._id}`)
+//    const handleLectureClick = (lecture) => {
+//     if (lecture?.locked) {
+//       toast.error('This lecture is locked. Please purchase the course to access it.');
+//     } else {
+//       console.log('Lecture clicked:', lecture);
+//       navigation(`/course/${courseId}/learn/${lecture._id}`)
       
+//     }
+//   }
+  const handleLectureClickIntructor = (lecture) => {
+    console.log('Lecture clicked:', lecture);
+    if(profile?.user?.role === "instructor"){
+    navigation(`/course/${courseId}/lecture/create`)
+    }else{
+    navigation(`/course/${courseId}/learn/${lecture._id}`)
+    
     }
   }
 
@@ -114,6 +123,9 @@ const CourseData = () => {
                             <div className='space-y-3'>
                                 {data?.lectures?.map((item, idx) => (
                                     <div
+                                     
+
+                                        onclick={() => handleLectureClickIntructor(item)}
                                         key={item.id}
                                         className='flex items-center gap-4 rounded-lg border border-slate-200 bg-slate-50 p-4 transition hover:bg-slate-100'
                                     >
@@ -126,7 +138,7 @@ const CourseData = () => {
                                                 </div>
                                             )}
                                         </div>
-                                        <div onClick={() => handleLectureClick(item)} className='flex-1'>
+                                        <div onClick={() => handleLectureClickIntructor(item)} className='flex-1'>
                                             <p className={`font-medium ${item?.locked ? 'text-slate-500' : 'text-slate-950'}`}>
                                                 Lesson {idx + 1}: {item?.lectureTitle}
                                             </p>
