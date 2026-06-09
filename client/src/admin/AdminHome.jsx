@@ -3,16 +3,13 @@ import { Link } from "react-router-dom";
 import { IoMdAdd } from "react-icons/io";
 import { FaChartBar, FaUsers, FaBook, FaStar } from "react-icons/fa";
 import { MdEdit, MdVisibility } from "react-icons/md";
-import {
-  useCourseGetQuery,
-  useGetAllCoursesQuery,
-} from "../features/api/courseApi";
+import { useCourseGetQuery } from "../features/api/courseApi";
 import { useLoadUserQuery } from "../features/api/authApi";
 
 const AdminHome = () => {
-  const { data} = useLoadUserQuery();
-  const { data: instructorCourses, isLoading: coursesLoading } =useCourseGetQuery();
-  const { data: allCourses } = useGetAllCoursesQuery();
+  const { data } = useLoadUserQuery();
+  const { data: instructorCourses, isLoading: coursesLoading } =
+    useCourseGetQuery();
   const courses = instructorCourses?.courses || [];
   const publishedCourses = courses.filter((c) => c.isPublished);
   const unpublishedCourses = courses.filter((c) => !c.isPublished);
@@ -256,4 +253,3 @@ const AdminHome = () => {
 };
 
 export default AdminHome;
-

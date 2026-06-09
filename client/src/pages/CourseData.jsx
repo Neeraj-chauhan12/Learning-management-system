@@ -8,7 +8,6 @@ import { useGetLectureQuery } from '../features/api/lectureApi';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useGetCourseByIdQuery } from '../features/api/courseApi';
 import { useLoadUserQuery } from '../features/api/authApi';
-import toast from 'react-hot-toast';
 
 const CourseData = () => {
     
@@ -26,17 +25,9 @@ const CourseData = () => {
    const {data: courseData, isLoading: _isCourseLoading} = useGetCourseByIdQuery(courseId)
     console.log("courseData in", courseData)
 
-//    const handleLectureClick = (lecture) => {
-//     if (lecture?.locked) {
-//       toast.error('This lecture is locked. Please purchase the course to access it.');
-//     } else {
-//       console.log('Lecture clicked:', lecture);
-//       navigation(`/course/${courseId}/learn/${lecture._id}`)
-      
-//     }
-//   }
+
   const handleLectureClickIntructor = (lecture) => {
-    console.log('Lecture clicked:', lecture);
+
     if(profile?.user?.role === "instructor"){
     navigation(`/course/${courseId}/lecture/create`)
     }else{
