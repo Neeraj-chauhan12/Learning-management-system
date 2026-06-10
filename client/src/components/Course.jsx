@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { useLoadUserQuery } from "../features/api/authApi";
 
 const Course = ({ data: course }) => {
-  const { data } = useLoadUserQuery();
+  const { data: user } = useLoadUserQuery();
+  console.log("user data in course component", user);
   console.log("course data", course);
 
   return (
@@ -30,11 +31,11 @@ const Course = ({ data: course }) => {
         <div className="mt-6 flex items-center gap-3">
           <img
             className="h-11 w-11 rounded-full object-cover"
-            src={course?.creator?.photoURL || "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80"}
-            alt={course?.creator?.username || "Instructor"}
+            src={ user?.user?.photoURL || "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80"}
+            alt={user?.user?.username || "Instructor"}
           />
           <div>
-            <p className="text-sm font-semibold text-slate-900">{course?.creator?.username || "Instructor"}</p>
+            <p className="text-sm font-semibold text-slate-900">{user?.user?.username || "Instructor"}</p>
            
           </div>
         </div>
@@ -44,7 +45,7 @@ const Course = ({ data: course }) => {
             ₹{course?.coursePrice ?? "Free"}
           </span>
           <Link
-            to={!data?.user ?"/login":`/course-detail/${course?._id}` }
+            to={!user?.user ?"/login":`/course-detail/${course?._id}` }
 className="inline-flex rounded-2xl bg-indigo-600 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-indigo-500/20 transition hover:bg-indigo-700"
           >
             

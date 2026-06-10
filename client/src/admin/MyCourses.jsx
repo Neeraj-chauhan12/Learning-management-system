@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Course from '../components/Course';
 import { useCourseGetQuery } from '../features/api/courseApi';
 import Loading from '../students/Loading';
+import { useLoadUserQuery } from '../features/api/authApi';
 
 const MyCourses = () => {
   const { data: courses, isLoading } = useCourseGetQuery();

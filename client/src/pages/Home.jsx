@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 import Course from "../components/Course";
 import { useLocation } from "react-router-dom";
 import HeroSection from "../students/StudentHome";
-import Courses from "../students/AllCourses";
 import { useLoadUserQuery } from "../features/api/authApi";
 import AdminHome from "../admin/AdminHome"
 import StudentHome from "../students/StudentHome";
+import AllCourses from "../students/AllCourses";
 
 const Home = () => {
   const location = useLocation();
@@ -40,7 +40,7 @@ const Home = () => {
     <>
       <Navbar />
       <StudentHome />
-      <Courses />
+      <AllCourses />
     </>
   );
 };
