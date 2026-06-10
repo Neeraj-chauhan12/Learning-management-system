@@ -46,7 +46,7 @@ exports.getCourseByAdmin = async (req, res) => {
     try {
         const userId = req.user.id;
 
-        const courses = await CourseModel.find({ creator: userId })
+        const courses = await CourseModel.find({ creator: userId }).populate({ path:"creator", select:"username photoURL" })
         if (!courses) {
             return res.status(400).json({ message: "Course is not found" })
         }

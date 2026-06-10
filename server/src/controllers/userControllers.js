@@ -77,7 +77,10 @@ exports.logout=async(req,res)=>{
 exports.getProfile=async(req,res)=>{
     const userId=req.user.id;
     try {
-        const user=await User.findById(userId).select("-password").populate("enrollCourse");
+        const user=await User.findById(userId).select("-password").populate({path:"enrollCourse", populate: { path: "creator", select: "username photoURL" }})
+        if(!user){
+            return res.status(404).json({message:"user not found"})
+        }
         res.status(201).json({message:"user profile",user})
         
     } catch (error) {

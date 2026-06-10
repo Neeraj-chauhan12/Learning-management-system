@@ -31,12 +31,12 @@ const Course = ({ data: course }) => {
         <div className="mt-6 flex items-center gap-3">
           <img
             className="h-11 w-11 rounded-full object-cover"
-            src={ user?.user?.photoURL || "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80"}
-            alt={user?.user?.username || "Instructor"}
+            src={course?.creator?.photoURL || "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80"}
+            alt={course?.creator?.username || "Instructor"}
           />
           <div>
-            <p className="text-sm font-semibold text-slate-900">{user?.user?.username || "Instructor"}</p>
-           
+            <p className="text-sm font-semibold text-slate-900">{course?.creator?.username || "Instructor"}</p>
+            
           </div>
         </div>
 

@@ -2,10 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const StudentHome = () => {
-
-  
-  
-
   return (
     <section className="relative overflow-hidden bg-slate-950 px-6 pt-28 pb-20 text-white">
       <div className="absolute inset-0 bg-white/10 opacity-90" />
@@ -18,7 +14,8 @@ const StudentHome = () => {
             Find the best courses for your next career leap.
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-100/90">
-            Discover, learn, and upskill with curated programs taught by expert instructors.
+            Discover, learn, and upskill with curated programs taught by expert
+            instructors.
           </p>
         </div>
 
@@ -53,4 +50,3 @@ const StudentHome = () => {
 };
 
 export default StudentHome;
-

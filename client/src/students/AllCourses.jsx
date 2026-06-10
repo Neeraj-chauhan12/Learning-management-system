@@ -7,6 +7,7 @@ const AllCourses = () => {
   const location = useLocation();
 
   const { data, isLoading } = useGetAllCoursesQuery();
+  console.log("all courses", data);
   
   useEffect(() => {
     if (location.pathname === "/") {
