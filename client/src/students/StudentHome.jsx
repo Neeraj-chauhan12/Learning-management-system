@@ -38,7 +38,7 @@ const StudentHome = () => {
             Explore Courses
           </Link>
           <Link
-            to="/signup"
+            to="/my-learning"
             className="rounded-full border border-white/35 px-8 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
           >
             Start Learning
