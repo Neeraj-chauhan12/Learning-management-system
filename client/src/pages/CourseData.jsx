@@ -102,9 +102,7 @@ const CourseData = () => {
                         <div className='space-y-4'>
                             <h2 className='text-2xl font-bold text-slate-950'>About This Course</h2>
                             <p className='text-slate-700 leading-relaxed'>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita ratione eos
-                                cupiditate maiores dolorem, nobis animi ut numquam eius natus suscipit,
-                                fuga culpa porro quos voluptatibus odio soluta quasi eaque sunt optio. Ullam, illo distinctio?
+                               {courseData?.course?.description || "This comprehensive course covers everything you need to become a proficient web developer, from front-end frameworks to back-end technologies and deployment strategies. With expert instruction and practical projects, you'll gain the skills and confidence to build real-world applications and advance your career in web development."}
                             </p>
                         </div>
 
