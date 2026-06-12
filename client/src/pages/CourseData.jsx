@@ -93,7 +93,7 @@ const CourseData = () => {
                                 <img src="https://img.daisyui.com/images/profile/demo/batperson@192.webp" alt="Instructor" className='h-16 w-16 rounded-full object-cover' />
                                 <div>
                                     <h3 className='text-lg font-semibold text-slate-950'>{courseData?.course?.creator?.username}</h3>
-                                    <p className='text-sm text-slate-600'>Expert Instructor • 8+ Years Experience</p>
+                                    <p className='text-sm text-slate-600'>Expert Instructor • 3+ Years Experience</p>
                                 </div>
                             </div>
                         </div>
@@ -147,7 +147,7 @@ const CourseData = () => {
                             {/* Card Image */}
                             <div className='relative overflow-hidden bg-slate-800 h-48'>
                                 <img
-                                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+                                    src={courseData?.course?.courseThumbnail || "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"}
                                     alt="Course thumbnail"
                                     className='h-full w-full object-cover opacity-90'
                                 />
