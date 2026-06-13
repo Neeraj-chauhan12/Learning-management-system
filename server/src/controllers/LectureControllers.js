@@ -43,7 +43,6 @@ exports.getCourseLecture = async (req, res) => {
       .status(200)
       .json({ message: "course get successfully", lectures: course.lectures });
   } catch (error) {
-    console.log("error", error);
     return res.status(500).json({ message: "Failed to get lecture" });
   }
 };

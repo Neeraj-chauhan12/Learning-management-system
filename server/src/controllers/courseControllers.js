@@ -119,7 +119,6 @@ exports.updateCourse = async (req, res) => {
 exports.getCourseById = async (req, res) => {
     try {
         const courseId = req.params.courseId;
-        console.log("courseId", courseId)
         const course = await CourseModel.findById(courseId).populate({ path:"creator", select:"username photoURL" }).populate("lectures")
 
         if (!course) {
@@ -128,7 +127,7 @@ exports.getCourseById = async (req, res) => {
         return res.status(200).json({ message: "Course fetched successfully", course })
 
     } catch (error) {
-        console.log("error", error)
+        
         return res.status(500).json({ message: "Failed to fetch course" })
     }
 }
