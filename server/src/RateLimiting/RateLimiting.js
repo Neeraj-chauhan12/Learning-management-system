@@ -6,7 +6,7 @@ const responseMessage = {
 
 const rateLimiter = limiter({
   windowMs: 1 * 60 * 1000, //1 minute
-  max: 100, //limit each IP to 100 concurrent requests per windowMs
+  max: 200, //limit each IP to 100 concurrent requests per windowMs
 
   handler: (req, res) => {
     return res.status(429).json({
