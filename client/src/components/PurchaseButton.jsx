@@ -9,13 +9,14 @@ const PurchaseButton = ({ courseId }) => {
   const buyCourse = async () => {
    
     const res = await axios.post(
-      "http://localhost:3000/api/payment/create-order",
+     // "http://localhost:3000/api/payment/create-order",
+      "https://lms1-c8v4.onrender.com/api/payment/create-order",
       { courseId },
       { withCredentials: true },
     );
 
     const order = res.data.order;
-    console.log("response from server", res.data);
+    
 
     const options = {
       key: import.meta.env.VITE_RAZORPAY_KEY,
@@ -26,7 +27,8 @@ const PurchaseButton = ({ courseId }) => {
       handler: async (response) => {
         try {
           const res = await axios.post(
-            "http://localhost:3000/api/payment/verify",
+           // "http://localhost:3000/api/payment/verify",
+            "https://lms1-c8v4.onrender.com/api/payment/verify"
             {
               ...response,
               courseId,

@@ -4,8 +4,7 @@ import { useLoadUserQuery } from "../features/api/authApi";
 
 const Course = ({ data: course }) => {
   const { data: user } = useLoadUserQuery();
-  console.log("user data in course component", user);
-  console.log("course data", course);
+
 
   return (
     <article className="overflow-hidden rounded-[32px] border border-slate-200 bg-white shadow-[0_20px_80px_rgba(15,23,42,0.08)] transition hover:-translate-y-1 hover:shadow-2xl">

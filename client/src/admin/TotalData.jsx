@@ -6,7 +6,7 @@ import { useCourseGetQuery } from "../features/api/courseApi";
 const TotalData = () => {
   const { data: instructorCourses, isLoading: coursesLoading } =
     useCourseGetQuery();
-  console.log("Instructor Courses:", instructorCourses?.courses);
+  
 
   const count = instructorCourses?.courses
     .map((course) => course.enrolledStudents.length)

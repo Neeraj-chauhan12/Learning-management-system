@@ -23,7 +23,8 @@ app.use(cookieParser());
 
 // cors configuration
 app.use(cors({
-    origin:"http://localhost:5173" ,
+    //origin:"http://localhost:5173" ,
+    origin:"https://lms1-c8v4.onrender.com",
     credentials: true,
    
 }));
