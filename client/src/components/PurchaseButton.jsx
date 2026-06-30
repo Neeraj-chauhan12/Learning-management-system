@@ -28,7 +28,7 @@ const PurchaseButton = ({ courseId }) => {
         try {
           const res = await axios.post(
            // "http://localhost:3000/api/payment/verify",
-            "https://lms1-c8v4.onrender.com/api/payment/verify"
+            "https://lms1-c8v4.onrender.com/api/payment/verify",
             {
               ...response,
               courseId,
