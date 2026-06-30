@@ -12,8 +12,7 @@ const EditCourse = () => {
   const [EditCourses] = useEditCoursesMutation();
 
   const { data: courseData, refetch: refetchCourse } = useGetCourseByIdQuery(id);
-  console.log("course data:", courseData);
-  console.log("course id from params:", id);
+  
 
   const [togglePublishCourse] = useTogglePublishCourseMutation();
 

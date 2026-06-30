@@ -7,9 +7,8 @@ import { useLoadUserQuery } from "../features/api/authApi";
 
 const MyLearning = () => {
  const {data}=useLoadUserQuery();
- console.log("user data in my learning page",data);
+ 
  const courses=data?.user?.enrollCourse || [];
-console.log("enrolled courses", courses);
  const isLoading=false;
   return (
     <>

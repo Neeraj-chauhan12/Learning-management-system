@@ -8,7 +8,7 @@ import { useLoadUserQuery } from '../features/api/authApi';
 
 const MyCourses = () => {
   const { data: courses, isLoading } = useCourseGetQuery();
-  console.log("my courses", courses);
+  
   return (
     <>
       <Navbar />

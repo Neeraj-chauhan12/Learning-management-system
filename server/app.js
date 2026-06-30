@@ -6,6 +6,7 @@ const cors = require('cors');
 const videoUploadRoute=require('./src/routes/vedioUploadRouter')
 const rateLimiter=require('./src/RateLimiting/RateLimiting');
 const cookieParser=require('cookie-parser');
+const path=require('path')
 dotenv.config()
 
 
@@ -23,6 +24,8 @@ app.use(cors({
    
 }));
 
+const __dirname=path.resolve();
+
 app.use(express.json());
 app.use(cookieParser());
 
@@ -30,6 +33,12 @@ app.use(cookieParser());
 // Apply rate limiting middleware to all routes
 app.use(rateLimiter);
 
+
+//deployment
+app.use(express.static(path.join(__dirname, '/client/dist')));
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '/client/dist', 'index.html'));
+});
 
 
 
