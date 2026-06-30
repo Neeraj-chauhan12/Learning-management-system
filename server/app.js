@@ -16,6 +16,10 @@ const courseRoute=require('./src/routes/courseRouter')
 const lectureRoute=require('./src/routes/lectureRouter')
 const paymentRoute=require('./src/routes/paymentRouter')
 
+const _dirname=path.resolve();
+
+app.use(express.json());
+app.use(cookieParser());
 
 // cors configuration
 app.use(cors({
@@ -24,10 +28,7 @@ app.use(cors({
    
 }));
 
-const __dirname=path.resolve();
 
-app.use(express.json());
-app.use(cookieParser());
 
 
 // Apply rate limiting middleware to all routes
@@ -35,9 +36,9 @@ app.use(rateLimiter);
 
 
 //deployment
-app.use(express.static(path.join(__dirname, '/client/dist')));
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '/client/dist', 'index.html'));
+app.use(express.static(path.join(_dirname, '/client/dist')));
+app.get((_, res) => {
+  res.sendFile(path.resolve(_dirname, '/client/dist', 'index.html'));
 });
 
 
